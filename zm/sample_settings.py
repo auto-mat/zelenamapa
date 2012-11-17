@@ -101,5 +101,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'mapa',
+    'easy_thumbnails',
     'compressor',
 )

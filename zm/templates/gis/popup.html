@@ -1,3 +1,4 @@
+{% load thumbnail %}
 <div class="lc">
 {% for vl in poi.vlastnosti.all %}
 {% if vl.status.show %}
@@ -14,7 +15,9 @@
 
 <div class="rc">
 {% if poi.foto_thumb %}
-    <a href="#detail={{ poi.id }}" title="Podrobné informace o místě" ><img src="{{ MEDIA_URL }}{{ poi.foto_thumb }}" title="{{ poi }}" class="foto_thumb"></a>
+  {% thumbnail poi.foto_thumb "250x250" as foto %}
+    <a href="#detail={{ poi.id }}" title="Podrobné informace o místě" >
+    <img src="{{ foto.url }}" title="{{ poi }}" width="{{ foto.width }}" height="{{ foto.height }}" class="foto_thumb"></a>
 {% endif %}
 {% if poi.desc %}
     <p>{{ poi.desc|safe }}</p>
