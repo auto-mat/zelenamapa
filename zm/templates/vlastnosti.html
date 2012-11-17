@@ -1,0 +1,29 @@
+<html>
+  <head>
+   <link rel="stylesheet" href="{{ MEDIA_URL }}css/zelenamapa.css" type="text/css" />
+   
+   <title>Vlastnosti</title>
+  </head>
+  <body>
+  <div class="page" style="text-align:center;">
+       <div class="content_left">
+
+       {{ static_filtry.content|safe }}
+
+       
+       
+       <dl class="desc_vlastnosti">
+       {% for v in vlastnosti %}
+       
+       <dt><img src="{{v.default_icon.url}}"></img> <b>{{v.nazev}}</b>
+       {% if not v.filtr  %}(Doplnkovy){% endif %}</dt>
+       <dd>{{v.desc}}<dd>
+       
+       {% endfor %}
+       </dl>
+       
+       </div>
+</div>
+
+  </body>
+</html>

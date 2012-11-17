@@ -1,0 +1,36 @@
+<div class="lc">
+{% for vl in poi.vlastnosti.all %}
+{% if vl.status.show %}
+    <img src="{{ vl.default_icon.url }}" title="{{ vl.nazev }}">
+{% endif %}    
+{% endfor %}
+</div>
+
+<div class="trc">
+   {% if poi.url %}<h4><a href="{{ poi.url|safe }}" title="{{ poi.url|safe }}"  target="_blank">{{ poi }}</a></h4>
+   {% else %}<h4>{{ poi }}</h4>
+   {% endif %}
+</div>
+
+<div class="rc">
+{% if poi.foto_thumb %}
+    <a href="#detail={{ poi.id }}" title="Podrobné informace o místě" ><img src="{{ MEDIA_URL }}{{ poi.foto_thumb }}" title="{{ poi }}" class="foto_thumb"></a>
+{% endif %}
+{% if poi.desc %}
+    <p>{{ poi.desc|safe }}</p>
+{% else %}
+    <p>{{ poi.znacka }}</p>
+{% endif %}
+{% if poi.address %}
+    <p>Adresa:<br>{{ poi.address|safe }}</p>
+{% endif %}
+{% if poi.url %}
+    <p><a target="_blank" href="{{ poi.url|safe }}" title="{{ poi.url|safe }}">{{ poi.url|truncatewords:4 }}</a></p>
+{% endif %}
+</div>
+<p class="addinfo">
+    <a href="#detail={{ poi.id }}" title="Podrobné informace o místě">detail místa</a>,
+    <a href="javascript:void(0);" onclick="ZoomToLonLat(this, {{ poi.geom.x }}, {{ poi.geom.y }}, 17);"
+      title="Najet v mapě na místo" >na střed</a>,
+    <a href="#doplnit={{ poi.id }}" title="Doplnit informace o místě, opravit chybu">doplň-oprav</a>
+</p>

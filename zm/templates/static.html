@@ -1,0 +1,16 @@
+<html>
+  <head>
+  <link rel="stylesheet" href="{{ MEDIA_URL }}css/zelenamapa.css" type="text/css" />
+  {{ static.head  }}
+  <title>{{ static.title }}</title>
+  </head>
+  <body class="static">
+  <div class="content_left">
+  {% if static.content %}
+    {{ static.content|safe }}
+  {% else %}	
+    {{ static.short|safe }}
+  {% endif %}
+  </div>
+  </body>
+</html>

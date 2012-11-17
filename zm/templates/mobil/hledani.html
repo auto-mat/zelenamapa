@@ -1,0 +1,60 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>Hledání - Zelená mapa</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+        <script type="text/javascript">
+        $(document).bind("mobileinit", function(){
+            $.mobile.defaultTransition = 'none';
+            $.mobile.defaultPageTransition = 'none';
+            $.mobile.defaultDialogTransition = 'none';
+            $.mobile.useFastClick = true;
+        });
+        </script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.geo.js"></script>
+</head> 
+<body> 
+
+<div data-role="page">
+
+	<div data-role="header">
+		<h1>Nejbližší místa dle vlastností</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+	<form action="/vypis/">
+
+        <script>
+        $.geo("locate",function(position){
+          // returns object of type Position
+          // see http://dev.w3.org/geo/api/spec-source.html#position_interface
+          $("#lat").val(position.coords.latitude);
+          $("#lon").val(position.coords.longitude);
+        },
+        function(error, message){
+          // returns error object of type PositionError
+          // see http://dev.w3.org/geo/api/spec-source.html#position_error_interface
+          // and human readable message in text
+          //$("#result").html(message);
+        });
+        </script>
+
+	<fieldset data-role="controlgroup">
+		<legend>Vyberte požadované vlastnosti:</legend>
+                {% for v in vlastnosti %}
+		<input type="checkbox" name="{{ v.slug }}" id="{{ v.slug }}" class="custom" />
+		<label for="{{ v.slug }}">{{ v }}</label>
+                {% endfor %}
+	</fieldset>
+	<input type="hidden" id="lon" name="lon" value="">
+	<input type="hidden" id="lat" name="lat" value="">
+	<input id="vlastnosti_submit" type="submit" value="Hledat">
+	</form>
+	</div><!-- /content -->
+</div><!-- /page -->
+
+</body>
+</html>

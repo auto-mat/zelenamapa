@@ -1,0 +1,239 @@
+body{font-size:12px;margin:0;margin-left:4px;margin-top:0px;padding:0;font-family:Arial,Helvetica, sans-serif;color:#001400; }
+div{padding:0;margin:0;}
+a{color:#008000;text-decoration:none;}
+a:hover{text-decoration:underline;}
+img{border:0;}
+h1, h2, h3, h4, h5{font-family:Tahoma, Geneva, sans-serif;color:#999;}
+h2{font-size:16px; font-style:italic;}
+h3{font-size:14px; color:black;}
+h4{font-size:12px; color:black; margin-top:2px;} // used inside of popup
+ol{margin:0 0 10px 0;padding:0;list-style:none;}
+li{margin:0 0 8px 0;padding:0;list-style:none;}
+td{font-size:10px;}
+dt{font-weight:bold;}
+
+.page{width:100%;height:100%; text-align:center;}
+.head{width:1100px;height:75px;}
+.logo{padding:8px 0 0 0;width:350px;float:left;}
+.description{color:#008000;width:300px;float:left;clear:none;}
+.top-menu{float:right;clear:none;margin:8px 0px 8px 0;}
+
+.left_top_ad{float:right;clear:none;margin:4px 10px 0 0; min-width:500px; max-width:500px; max-height:40px; min-height:40px; overflow:hidden; background-color:white; }
+.right_top_ad{float:right;clear:none;margin:4px 0 0 0; min-width:200px; max-width:200px; max-height:60px; min-height:60px; overflow:hidden;}
+.middle_ad { width:100%; height:135px; background-color:White;
+text-align:center; border:solid 1px lightgray; }
+
+
+.blog_logo { padding:8px 0 0 0; width:300px; }
+.center_wrapper { width:100%; text-align:center }		
+.blog_ad { background-color: whitesmoke; margin: 10px auto 5px auto; width:468px; height:60px; border:none; display: none; /*neni treba pro ZMJ*/}		
+
+.right { text-align: right; }
+.segment { /*height:135px;*/ margin-top:28px; }
+.raw h3 { margin-top:28px;  }
+.third h3 { margin-top:28px; margin-bottom:19px; }
+
+.top-menu a{margin:0 12px 0 0;color:#333;font-size:12px;}
+.core{float:left;clear:none;margin:0 9px 0 0; width: 889px;}
+.mapbox, .secondary, .bottom{width:889px;}
+.secondary{border-bottom:1px solid #ccc;float:left;}
+.content{width:1100px;margin:0 auto; text-align:left;}
+.content_left{max-width:520px;margin:0 auto; text-align:left; font-size: 13px;}
+.first, .second, .third{float:left;clear:none;width:280px;}
+.first p, .second p, .third p{text-align:justify;text-indent:0px;}
+.first, .second{margin:0 22px 0 0;}
+.gallery{width:572px;float:left;clear:none; margin-right:28px;}
+.add{width:280px;float:left;}
+.panel{width:202px;float:left;clear:none;}
+input#subscribe_submit{background:url();border:none;width:100%;text-align:right;color:#008000;}
+input#subscribe_submit:hover{color:#00d400;}
+.footer{ width:1100px; height:60px; float:left;}
+
+/* Input obecne */
+input{background:url();border:none;width:100%;text-align:left;color:#008000;font-size:10px;}
+input:hover{color:#00d400;}
+textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 1px grey;
+         font-family:Arial,Helvetica, sans-serif;font-size:10px;}
+
+/* Filtry (inlc.zvyraznovani) */
+.filtry{ width:153px;padding:0 3px 3px 11px;line-height:19px;font-size:9px;}
+.filtry a { padding: 4px;}
+#filtr_toggle {  line-height:22px; padding-left:27px;}
+#filtr_help   {  line-height:22px; }
+.filtry a.inactive{ color: black; cursor: default; }
+.filtry a.active{ background-color: #dfd; color:black; cursor: default; } 
+.filtry img{position:relative;top: 5px; margin-right:10px; }
+.filtry h4{ margin:7px 0 3px 2px;}
+
+/* Search  */
+
+.rounded { border: none; background: #FFF; width: 160px; height: 20px; background: url(/images/form_rounded.gif) no-repeat left 0px; }
+#search_input  { display:inline; line-height:14px; padding:2px; margin:0; width: 103px; font-size: 12px;}
+#search_submit { display:inline; line-height:18px; padding:0; margin:0; width: 52px;  }
+
+#search_results   { display:none;  width:202px;  background-color: white;  z-index: 9999;  border:none; }
+#search_results h3{ margin: 0 0 5px 15px; }
+#search_results h4{ margin: 0 0 0 15px; line-height:20px; }
+#sr_inner         {  max-height: 400px;   margin: 0 0 5px 0; }	  
+#sr_inner         { overflow-x: hidden; overflow-y: auto; max-height:570px; background-color:white; padding-left: 15px; line-height:19px; font-size:9px; }
+#sr_inner a { color: black; padding: 4px; }
+#sr_inner a:hover{ color:#008000; cursor: default; } 
+img.sr_img {  width:17px; height:18px; position:relative; top: 3px; margin-right:10px;  }
+.result_item      { cursor: pointer; }
+.result_item:hover { background-color:  #dfd; border: 1px; }
+.search_close     { float:right; cursor:hand;}
+.close { position:absolute; right: 1px; top: 1px; cursor:pointer; }
+
+/* Seznam filtru */
+.desc_vlastnosti  img{position:relative;top: 5px; margin-right:10px; }
+
+/* Forms */
+.errorlist li { background-color: red; }
+.fieldWrapper input{border:solid 1px grey;width:100%;margin:0 0 10px 0;}
+.fieldWrapper textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 1px grey;}
+#id_desc { resize:none; }
+
+/* LayerSwitcher (white and black text) */
+/*.layersDiv { background-color:#404040 !important;  } */
+.layersDiv { background-color:#fff !important; z-index:1007;  overflow:visible; }
+.dataLbl { display: none; }
+.olControlLayerSwitcher { color: black; font-family: Arial,Helvetica,sans-serif; font-size: 10px; font-weight:normal;}
+#OpenLayers_Control_MaximizeDiv_innerImage { 
+right: 0px;
+top: -5px;
+height:150px !important;
+overflow:visible;   }
+.dataLayersDiv { z-index:2007;  overflow:visible; }
+
+.dataLayersDiv input[type="checkbox"]{ display:none; }
+.dataLayersDiv input+span { line-height:19px; background: url(/images/checkbox_zm.png) 0 2px no-repeat; padding: 0 0 0 18px; }
+
+/* does not work: */
+.dataLayersDiv input:checked+span { color:green; background: url(/images/checkbox_zm-checked.png) 0 2px no-repeat; }
+.dataLayersDiv input:unchecked+span { color:black; background: url(/images/checkbox_zm.png) 0 2px no-repeat; }
+.dataLayersDiv input+span:hover{text-decoration:underline;}
+
+/* Very violent way how to push a 100% opacity and a grey line along the LayerSwitcher: ( works for FF and Chrome, IE7 has problems */
+.olControlLayerSwitcher div span { opacity:1 !important; border-left:solid 1px grey; border-left-width: 1px  !important;
+overflow:visible !important; }
+.olControlLayerSwitcher div span:first-child { background-color: grey !important;  }
+.olControlLayerSwitcher div+div span:first-child { background-color: white !important; }
+.olControlLayerSwitcher div+div span+span+span+span { background-color: grey !important; overflow:visible !important; }
+.layersDiv { opacity:1 !important; border-left:solid 1px grey; }
+.labelSpan { border-left:none !important;} 
+/* End of CSS violence */
+
+/* Popup */
+.lc { float:left; bottom:0px;  width: 22px;  }
+.trc { margin-left: 24px; padding-right:20px; width:160px;}
+.trc h4{ margin-bottom: 0;}
+/* .rc { margin-left: 24px; padding-right:2px; overflow-y: scroll; max-height:240px; } */
+.rc { margin-left: 24px; padding-right:2px; max-height:240px; overflow-y: auto; }
+.rc_noscroll { margin-left: 24px; padding-right:2px;  }
+.addinfo { text-align:right; margin-right:5px;}
+.olPopupCloseBox { float:right !important; right:17px  !important;}
+.foto_thumb { border:none; width:150px; margin-top:4px; }
+.foto_segment { border:none; width:100%; margin-bottom: 14px }
+		 
+/* END Popup */
+
+.hint {font-size:xx-small; vertical-align:top; cursor:pointer;} 
+
+
+/* Map borders */
+
+.mapbox { min-height:621px; } 
+
+/* #map { position:absolute; height:607px; width:889px; } */
+#map { position:absolute; height:621px; width:889px; overflow:visible; z-index:1; }
+
+#m_bottom{float:left;position:relative;z-index:1000;background:url(/images/m_bottom.png) no-repeat left top;width:889px;height:3px; }
+#m_top{position:relative;z-index:1000;background:url(/images/m_top.png) no-repeat left bottom;width:889px; height:3px;}
+#m_left{float:left;clear:none;position:relative;z-index:1000;background:url(/images/m_left.png) no-repeat left top;width:3px;height:616px; }
+#m_right{float:right;position:relative;z-index:1000;background:url(/images/m_right.png) no-repeat right top;width:3px;height:616px; }
+
+#mapover { position:absolute; height:621px; width:889px; overflow:hidden; z-index:999; }
+
+/* IE (even 7) workaround */
+/*
+* html #m_top { display:none; }
+* html #m_bottom { display:none; }
+* html #m_left { display:none; }
+* html #m_right { display:none; }
+* html #map { position: static; border:solid 1px grey; width:887px; height:605px; }
+* html .mapbox { margin-bottom:10px; }
+*/
+/* END Map borders */
+
+/* Detailni popis */
+.poi_znacka { float:left; margin-right:7px; margin-bottom:0px;}
+.poi_type { font-weight:bold; line-height: 25px; }
+.titulek { font-style:italic; }
+.misto_vlastnosti li  { margin: 2px 0 2px 0; }
+.misto_vlastnosti img{position:relative;top: 5px; margin-right:10px; }
+.foto_thumb_misto { border:solid 1px grey; width:300px; min-height:150px; margin:0 0 4px 5px; background-color:whitesmoke; float:right; }
+.foto_thumb_edit { border:solid 1px grey; width:200px; min-height:120px; margin:0 0 4px 4px; background-color:whitesmoke; float:none; }
+
+
+.vkladani_aktual { float:right; max-width:210px; background-color:white; border:solid 1px black; margin-left:5px; padding:5px; }
+
+/* Reklamy */
+
+.right_top_ad a img { max-height:60px; width:100% }
+.reklama1 { margin-left:10px; margin-bottom:10px; }
+.reklama2 { margin-top:28px; }
+.reklama2 object { margin:0px;}
+.scrollads a{display:block; width: 200px; height: 60px;}
+
+/* Round corners */
+
+.foto_thumb, .foto_segment, .foto_thumb_misto, .foto_thumb_edit, .vkladani_aktual { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
+#id_email, #id_desc, #id_url, #id_address  { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
+.middle_ad,        .left_top_ad,        .right_top_ad,        .reklama1,        .reklama2        , .blog_ad        { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; }
+.middle_ad a img,  .left_top_ad a img,  .right_top_ad a img,  .reklama1 a img,  .reklama2 a img  , .blog_ad a img  { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
+.middle_ad object, .left_top_ad object, .right_top_ad object, .reklama1 object, .reklama2 object , .blog_ad object { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
+
+
+/* Overlay left */
+
+#overlay_left {
+  display:none;
+  width:520px;
+  height: 4000px;
+/*  top:0 !important; */
+  z-index: 9999;
+  border:none;
+  padding-right:65px;
+  background: url(/images/overlay-shadow.png) repeat-y right;
+}
+.overlay_iframe {
+  background-color: white;
+  margin-top: 10px;
+  width:100%;
+  height:3920px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  border:none;
+}		
+#overlay_left .close { margin-right:45px; margin-top:10px; }
+
+/* Wordpress */
+.post h2 { font-size:12px; color:black; margin-top:2px; font-style:normal; margin-left:85px; } /* ekvivalent h4 */
+.post small { position:relative; top: -20px; left:0px; height:1px; margin:0px; float:left  }
+.catlist {margin: 4px 0 4px 0; }
+.catlist span {float: left; width: 75px;}
+
+.entry { min-height: 80px; margin-bottom:28px;}
+.titulka {
+	width:75px;
+	margin-right: 10px;
+	margin-bottom:10px;
+	float:left;
+	clear:none;
+	-moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; 
+	 }
+
+/* Static content */
+body.static { text-align:justify; margin:15px 4px 0 0; }
+
+.zmj-menu a{/*color: #008000!important;*/ font-weight: bold;}

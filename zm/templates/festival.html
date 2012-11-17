@@ -1,0 +1,41 @@
+<html>
+  <head>
+  <link rel="stylesheet" href="{{ MEDIA_URL }}css/zelenamapa.css" type="text/css" />
+  {{ static.head  }}
+  <title>{{ static.title }}</title>
+  </head>
+  <body class="static">
+  <div class="content_left">
+  
+  <h1>{{ static.title }}</h1>
+  {{ static.short|safe }}
+
+  {% if wordpresscat %}
+      {{ wordpresscat|safe }}
+  {% endif %} 
+  
+  {{ static.content|safe }}
+  
+  {% if pois %}
+
+  {% for poi in pois %}
+       <h3><a href="/#detail={{ poi.id }}" target="_top">{{ poi }}</a>
+       {% for vl in poi.vlastnosti.all %}
+       {% if vl.status.show %}
+       <img src="{{ vl.default_icon.url }}" title="{{ vl.nazev }}">
+       {% endif %}    
+       {% endfor %}
+       </h3>
+
+       {% if poi.desc %}
+       <p>{{ poi.desc|safe }}</p>
+       {% else %}
+       <p>{{ poi.znacka }}</p>
+       {% endif %}
+       
+  {% endfor %}
+  {% endif %}
+ 
+  </div>
+  </body>
+</html>

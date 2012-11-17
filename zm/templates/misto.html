@@ -1,0 +1,70 @@
+{% load static %}
+{% load url from future %}
+<html>
+  <head>
+   <link rel="stylesheet" href="{% static "css/zelenamapa.css" %}" type="text/css" />
+   
+   <title>{{ poi }}</title>
+  </head>
+  <body>
+  <div class="page" style="text-align:center;">
+       <div class="content" style="max-width:500px; text-align:left;">
+
+       <h2>{{ poi }}</h2>
+       {% if poi.foto_thumb %}
+            <a href="{{ MEDIA_URL }}{{ poi.foto_thumb }}"><img src="{{ MEDIA_URL }}{{ poi.foto_thumb }}" title="{{ poi }}" class="foto_thumb_misto"></a>
+       {% else %}	    
+            <div class="foto_thumb_misto"></div>
+       {% endif %}
+
+
+       <p class="poi_type"><img src="{{ poi.znacka.default_icon.url }}" title="{{ poi.znacka }}" class="poi_znacka"> {{ poi.znacka }}</p>
+
+
+       <ul class="misto_vlastnosti">
+       {% for vl in poi.vlastnosti.all %}
+            {% if vl.status.show %}
+            <li><img src="{{ vl.default_icon.url }}" title="{{ vl.nazev }}">{{  vl.nazev }}</li>
+	    {% endif %}    
+       {% endfor %}
+       </ul>    
+  
+       {% if poi.address %}
+       <p><span class="titulek">Adresa:</span><br>{{ poi.address|safe }}</p>
+       {% endif %}
+   
+       {% if poi.url %}
+       <p><span class="titulek">Webové stránky:</span><br><a href="{{ poi.url|safe }}" title="{{ poi.url|safe }}" target="_blank">{{ poi.url|safe }}</a></p>
+       {% endif %}
+   
+       {% if poi.desc %}
+       <p><span class="titulek">Popis:</span><br>{{ poi.desc|safe }}</p>
+       {% endif %}
+    
+       {% if poi.desc_extra %}
+       {{ poi.desc_extra|safe }}
+       {% endif %}
+
+       <p><a href="{% url 'mapa.views.addpoi_view' poi.id %}" title="Doplnit informace o objektu">upravit</a> |
+       <a href="{% url 'mapa.views.mapa_view' poi.id %}" target="_top" title="Ukázat v mapě">zobrazit v mapě</a></p>
+
+       <hr>
+       
+       <h4>HTML pro zobrazení odkazu na Zelenou mapu</h4>
+       
+       <p>Permalink na místo: <a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_top">http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}</a></p>
+       
+       <p>Chcete-li odkázat na toto konkrétní místo v Zelené mapě, použijte následující HTML kody:</p>
+       
+       <p><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_blank">{{ poi }} v Zelené mapě</a><br>
+       <textarea rows="3" name="html" cols="20" style="width:190px;"><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}">{{ poi }} v Zelené mapě</a></textarea>
+       </p>
+
+       <p><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_blank"><img src="{% static "img/ikonka_zm100x100.jpg" %}"></a><br>
+       <textarea rows="3" name="html" cols="20" style="width:190px;"><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}"><img src="{% static "img/ikonka_zm100x100.jpg" %}" style="width:100px; height:100px;"></a></textarea>
+       </p>
+     </div>
+</div>
+
+  </body>
+</html>

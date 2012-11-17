@@ -1,0 +1,4 @@
+point	title	description	icon
+{% for p in points %}
+{{p.geom.y}},{{p.geom.x}}	{{p.nazev}}	{{p.popis}}	{%if p.vrstva.ikona %} {{p.vrstva.ikona.url}} {% endif %}
+{% endfor %}

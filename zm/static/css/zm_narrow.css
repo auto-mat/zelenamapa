@@ -1,0 +1,32 @@
+/* Narrow application: 1000px instead of 1100, map -60px, right column -50px */
+.head{width:1000px}
+.logo{width:300px;}
+.description{width:300px}
+.top-menu{margin-right:0px;}
+.left_top_ad{ min-width:500px; max-width:500px; }
+.right_top_ad{max-width:160px; min-width:160px;}
+.core{width:829px;}
+.mapbox, .secondary, .bottom{width:829px;}
+#map {width:829px; }
+#m_bottom {background:url(/static/img/m_bottom_small.png) no-repeat right top;width:829px;}
+#m_top {background:url(/static/img/m_top_small.png) no-repeat right top;width:829px;}
+
+#mapover { width:829px; }
+#mapoverimg { margin-left:-25px;  }
+
+
+.content{width:1000px;}
+.content_left{max-width:520px} /* unchanged */
+.first, .second, .third{width:250px;}
+.gallery{width:560px;}
+.add{width:250px;}
+.panel{width:152px; max-width:152px;}
+/* .signs{width:153px;padding:0 0 0 49px;} */
+.footer{width:1000px;}
+
+/* .rounded {width: 140px;}
+#search_input { width: 83px; } */
+
+.filtry{width:153px;padding:0 3 3 15px;}
+#search_results { width:152px; }
+#overlay_left { width:520px; padding-right:45px; }

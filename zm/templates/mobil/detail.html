@@ -1,0 +1,57 @@
+<!DOCTYPE html> 
+<html> 
+	<head> 
+	<title>{{ poi }}</title> 
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+	<link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />
+	<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+        <script type="text/javascript">
+        $(document).bind("mobileinit", function(){
+            $.mobile.defaultTransition = 'none';
+        });
+        </script>
+	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
+        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.geo.js"></script>
+</head> 
+<body> 
+
+<div data-role="page">
+
+	<div data-role="header">
+		<h1>{{ poi }}</h1>
+	</div><!-- /header -->
+
+	<div data-role="content">
+
+<div class="lc">
+{% for vl in poi.vlastnosti.all %}
+{% if vl.status.show %}
+    <img src="{{ vl.default_icon.url }}" title="{{ vl.nazev }}">
+{% endif %}    
+{% endfor %}
+</div>
+
+{% if poi.desc %}
+    <p>{{ poi.desc|safe }}</p>
+{% else %}
+    <p>{{ poi.znacka }}</p>
+{% endif %}
+{% if poi.address %}
+    <p>Adresa:<br>{{ poi.address|safe }}</p>
+{% endif %}
+{% if poi.url %}
+    <p><a target="_blank" href="{{ poi.url|safe }}" title="{{ poi.url|safe }}">{{ poi.url|truncatewords:4 }}</a></p>
+{% endif %}
+</div>
+
+<a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-b" data-role="button" data-theme="b" data-inline="true" href="geo:{{ poi.geom.y }},{{ poi.geom.x }}?z=19">
+<span class="ui-btn-inner ui-btn-corner-all ui-corner-top ui-corner-bottom">
+<span class="ui-btn-text">Ukázat na mapě</span>
+</span>
+</a>
+	</div><!-- /content -->
+
+</div><!-- /page -->
+
+</body>
+</html>
