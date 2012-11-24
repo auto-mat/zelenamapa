@@ -5,7 +5,7 @@ from django.views.generic.simple import redirect_to
 from views import *
 
 urlpatterns = patterns("",
-    url(r"^$",
+    url(r"^(?P<pk>\d+)/$",
     map_view,
     name="zm.mapwidget.map", ),
 )

@@ -1,0 +1,87 @@
+{% load static cache compress staticpage geturl %}
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="/static/img/favicon.ico" />
+  <link rel="stylesheet" href="/static/css/openlayers.css" type="text/css" /> 
+  <link rel="stylesheet" href="/static/css/zelenamapa.css" type="text/css" />
+
+   <script type="text/javascript" src="/static/js/OpenLayers.js"></script>
+ 
+<script type="text/javascript" src="{% static "js/OpenStreetMap.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/MyFramedCloud.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/jquery.tools.min.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/jquery.ba-hashchange.min.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/mapa.js" %}"></script>
+ 
+
+    <title>Zelená mapa Prahy</title>
+     
+<script type="text/javascript">
+     var _gaq = _gaq || [];
+     _gaq.push(['_setAccount', 'UA-22281359-1']);
+     _gaq.push(['_setDomainName', '.zelenamapa.cz']);
+     _gaq.push(['_trackPageview']);
+   
+     (function() 
+      {
+     
+         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      }
+      )();
+</script>
+
+<script type="text/javascript">
+ 
+    var mapconfig = {};
+    mapconfig['vrstvy'] = [];
+        mapconfig['vrstvy'].push(["Město", "/kml/mesto/"]);
+        mapconfig['vrstvy'].push(["Podniky", "/kml/restaurace-kavarny/"]);
+        mapconfig['vrstvy'].push(["Obchody", "/kml/obchody/"]);
+        mapconfig['vrstvy'].push(["Kultura", "/kml/kultura/"]);
+        mapconfig['vrstvy'].push(["Komunity a NGO", "/kml/komunity-ngo/"]);
+        mapconfig['vrstvy'].push(["Doprava", "/kml/verejna-doprava/"]);
+    
+         mapconfig['zoom'] = 16;
+         mapconfig['lon'] = {{obj.geom.get_x}};
+         mapconfig['lat'] = {{obj.geom.get_y}};
+    
+        //mapconfig['center_feature'] = {{obj.pk}};
+    
+        //mapconfig['mobilni'] = true;
+    
+</script>
+     
+     
+  </head>
+  <body onload="init(mapconfig)">
+
+
+
+    <div class="page">
+        <div class="content">
+             
+
+                <div class="mapbox">
+                    <div id="map"></div>
+                    <div id="m_top"></div>
+                    <div id="m_left"></div>
+                    <div id="m_right"></div>
+                    <div id="m_bottom"></div>
+                </div>
+
+
+             
+        </div>
+
+         
+
+    </div>
+
+  </body>
+</html>

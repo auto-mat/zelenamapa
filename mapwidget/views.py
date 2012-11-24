@@ -7,6 +7,11 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
-def map_view(request, template="mapwidget/map.html"):
-    template_dict = {}
+from mapa.models import Poi
+
+def map_view(request, pk, template="mapwidget/map.html"):
+    obj = get_object_or_404(Poi, pk=pk)
+    template_dict = {
+        "obj": obj,
+    }
     return render_to_response(template, template_dict, context_instance=RequestContext(request))
