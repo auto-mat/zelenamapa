@@ -60,8 +60,7 @@ function init(mapconfig) {
         value: mapconfig.zoom
     });
     mainFilter.filters.push(zoomFilter);
-
-    if  (mapconfig.mapwidget.hide_controls ==  true )
+    if (( mapconfig.mapwidget !=  undefined ) && ( mapconfig.mapwidget.hide_controls !=  undefined ) && (mapconfig.mapwidget.hide_controls ==  true ))
             {
                 controls = [
                     // new OpenLayers.Control.ArgParser(),
@@ -89,6 +88,7 @@ function init(mapconfig) {
                 ]
 
             }
+
 
     var options = { 
         controls: controls,
