@@ -16,9 +16,9 @@ def map_view(request, pk, template="mapwidget/map.html"):
     }
     return render_to_response(template, template_dict, context_instance=RequestContext(request))
 
-def map_js_view(request, pk, template="mapwidget/map_js.html"):
+def mapconfig_js_view(request, pk, template="mapwidget/mapconfig.js"):
     obj = get_object_or_404(Poi, pk=pk)
     template_dict = {
         "obj": obj,
     }
-    return render_to_response(template, template_dict, context_instance=RequestContext(request))
+    return render_to_response(template, template_dict, context_instance=RequestContext(request), mimetype="text/javascript")

@@ -5,39 +5,23 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
    <script type="text/javascript" src="/static/js/OpenLayers.js"></script>
- 
-<script type="text/javascript" src="{% static "js/OpenStreetMap.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/OpenStreetMap.js" %}"></script>
    <script type="text/javascript" src="{% static "js/MyFramedCloud.js" %}"></script>
    <script type="text/javascript" src="{% static "js/jquery.tools.min.js" %}"></script>
    <script type="text/javascript" src="{% static "js/jquery.ba-hashchange.min.js" %}"></script>
    <script type="text/javascript" src="{% static "js/mapa.js" %}"></script>
+   <script type="text/javascript" src="/mapwidget/mapconfig{{obj.pk}}.js"></script>
+   
+   
+
 
 
     <title>Zelená mapa Prahy</title>
 <script type="text/javascript">
  
-    var mapconfig = {};
-    mapconfig['vrstvy'] = [];
-        mapconfig['vrstvy'].push(["Město", "/kml/mesto/"]);
-        mapconfig['vrstvy'].push(["Podniky", "/kml/restaurace-kavarny/"]);
-        mapconfig['vrstvy'].push(["Obchody", "/kml/obchody/"]);
-        mapconfig['vrstvy'].push(["Kultura", "/kml/kultura/"]);
-        mapconfig['vrstvy'].push(["Komunity a NGO", "/kml/komunity-ngo/"]);
-        mapconfig['vrstvy'].push(["Doprava", "/kml/verejna-doprava/"]);
-    
-         mapconfig['zoom'] = 16;
-         mapconfig['lon'] = {{obj.geom.get_x}};
-         mapconfig['lat'] = {{obj.geom.get_y}};
-         mapconfig['mapwidget'] = {}
-         mapconfig['mapwidget']["hide_controls"] = true;
-    
-        //mapconfig['center_feature'] = {{obj.pk}};
-    
-        //mapconfig['mobilni'] = true;
-    
 </script>     
   </head>
-  <body onload="init(mapconfig)">
+  <body onload="init(mapconfig)" style="margin:0;">
     <div class="container" >
     <div class="mapbox">
         <div id="map" style="width:300px;height:300px"></div>
