@@ -14,4 +14,8 @@ urlpatterns = patterns("",
     url(r"^mapconfig(?P<pk>\d+).js$",
         mapconfig_js_view,
         name="zm.mapwidget.map_js", ),
+    url(r"^mapconfig_div(?P<pk>\d+).js$",
+        mapconfig_js_view,
+        {"template": "mapwidget/mapconfig_div.js"},
+        name="zm.mapwidget.map_div_js", ),
 )
