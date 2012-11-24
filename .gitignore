@@ -1,5 +1,6 @@
 *.py[co]
-/media/
+media/
+env/
 run.sh
 zm/settings.py
 !.gitkeep
