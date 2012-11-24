@@ -11,7 +11,17 @@ var bounds = new OpenLayers.Bounds(14.22, 49.95, 14.8, 50.18);
 var EPSG4326 = new OpenLayers.Projection("EPSG:4326");
 var EPSG900913 = new OpenLayers.Projection("EPSG:900913"); 
 
-function init(mapconfig) {
+function getTileURL(bounds)
+{
+	var res = this.map.getResolution();
+	var x = Math.round((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
+	var y = Math.round((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
+	var z = this.map.getZoom();
+	return this.url + z + "/" + x + "/" + y + "." + this.type;
+}
+
+function init(mapconfig)
+{
     var args = OpenLayers.Util.getParameters(); 
     mainFilter = new OpenLayers.Filter.Logical({
         type: OpenLayers.Filter.Logical.AND
@@ -33,8 +43,8 @@ function init(mapconfig) {
             'externalGraphic': '${ikona}', 
             'graphicWidth': '${width}', 
             'graphicHeight': '${height}',
-            graphicXOffset: -13, 
-            graphicYOffset: -32, 
+            graphicXOffset: -8, 
+            graphicYOffset: -8, 
             'graphicOpacity': 1, 
             'graphicTitle': '${name}'
         }
@@ -44,8 +54,8 @@ function init(mapconfig) {
             'externalGraphic': '${ikona}', 
             'graphicWidth': '${width}', 
             'graphicHeight': '${height}', 
-            graphicXOffset: -13, 
-            graphicYOffset: -32, 
+            graphicXOffset: -8, 
+            graphicYOffset: -8, 
             'graphicOpacity': 1, 
             'graphicTitle': '${name}'
         }
@@ -60,8 +70,7 @@ function init(mapconfig) {
         value: mapconfig.zoom
     });
     mainFilter.filters.push(zoomFilter);
-
-    if  (mapconfig.mapwidget.hide_controls ==  true )
+    if (( mapconfig.mapwidget !=  undefined ) && ( mapconfig.mapwidget.hide_controls !=  undefined ) && (mapconfig.mapwidget.hide_controls ==  true ))
             {
                 controls = [
                     // new OpenLayers.Control.ArgParser(),
@@ -90,6 +99,7 @@ function init(mapconfig) {
 
             }
 
+
     var options = { 
         controls: controls,
         maxExtent: bounds.clone().transform(EPSG4326, EPSG900913), 
@@ -103,9 +113,16 @@ function init(mapconfig) {
 
     base_layer = new OpenLayers.Layer.OSM.Mapnik("OpenStreetMap", { 
         displayOutsideMaxExtent: false,
-        displayInLayerSwitcher: false
+        displayInLayerSwitcher: true
     });
-    map.addLayer(base_layer);
+    //map.addLayer(base_layer);
+	   
+	    var layerZM = new OpenLayers.Layer.OSM( 
+		  "Zelena mapa",
+	          "http://zelenamapa.cz/media/tiles_ZM/", 
+		  { type: 'png', numZoomLevels: 19, getURL: getTileURL } );
+	    //map.addLayer(layerZM);
+	    map.addLayers([layerZM,base_layer]);
 
     kmlvrstvy = mapconfig.vrstvy;
     for (i in kmlvrstvy) {
