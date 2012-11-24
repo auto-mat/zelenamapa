@@ -5,4 +5,4 @@
 <script type="text/javascript" src="http://{% http_host %}{% static "js/mapa.js" %}"></script>
 <script type="text/javascript" src="http://{% http_host %}/mapwidget/mapconfig{{obj.pk}}.js"></script>
 <script type="text/javascript">$(document).ready(function(){init(mapconfig);})</script>
-<div id="map"  style="width:300px;height:300px"></div>
+<div id="map" style="width:{{w}}px;height:{{h}}px"></div>

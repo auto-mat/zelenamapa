@@ -9,10 +9,12 @@ from django.contrib.auth.decorators import login_required
 
 from mapa.models import Poi
 
-def map_view(request, pk, template="mapwidget/map.html"):
+def map_view(request, pk, w, h, template="mapwidget/map.html"):
     obj = get_object_or_404(Poi, pk=pk)
     template_dict = {
         "obj": obj,
+        "w": w,
+        "h": h,
     }
     return render_to_response(template, template_dict, context_instance=RequestContext(request))
 
@@ -23,9 +25,11 @@ def mapconfig_js_view(request, pk, template="mapwidget/mapconfig.js"):
     }
     return render_to_response(template, template_dict, context_instance=RequestContext(request), mimetype="text/javascript")
 
-def map_div_view(request, pk, template="mapwidget/map_div.html"):
+def map_div_view(request, pk, w, h, template="mapwidget/map_div.html"):
     obj = get_object_or_404(Poi, pk=pk)
     template_dict = {
         "obj": obj,
+        "w": w,
+        "h": h,
     }
     return render_to_response(template, template_dict, context_instance=RequestContext(request), mimetype="text/plain")
