@@ -7,3 +7,6 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
+def map_view(request, template="mapwidget/map.html"):
+    template_dict = {}
+    return render_to_response(template, template_dict, context_instance=RequestContext(request))
