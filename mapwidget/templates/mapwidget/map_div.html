@@ -1,0 +1,8 @@
+{% load static mapwidget_tags %}<script type="text/javascript" src="http://{% http_host %}/static/js/OpenLayers.js"></script>
+<script type="text/javascript" src="http://{% http_host %}{% static "js/OpenStreetMap.js" %}"></script>
+<script type="text/javascript" src="http://{% http_host %}{% static "js/MyFramedCloud.js" %}"></script>
+<script type="text/javascript" src="http://{% http_host %}{% static "js/jquery.tools.min.js" %}"></script> <script type="text/javascript" src="http://{% http_host %}{% static "js/jquery.ba-hashchange.min.js" %}"></script>
+<script type="text/javascript" src="http://{% http_host %}{% static "js/mapa.js" %}"></script>
+<script type="text/javascript" src="http://{% http_host %}/mapwidget/mapconfig{{obj.pk}}.js"></script>
+<script type="text/javascript">$(document).ready(function(){init(mapconfig);})</script>
+<div id="map"  style="width:300px;height:300px"></div>

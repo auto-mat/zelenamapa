@@ -22,3 +22,10 @@ def mapconfig_js_view(request, pk, template="mapwidget/mapconfig.js"):
         "obj": obj,
     }
     return render_to_response(template, template_dict, context_instance=RequestContext(request), mimetype="text/javascript")
+
+def map_div_view(request, pk, template="mapwidget/map_div.html"):
+    obj = get_object_or_404(Poi, pk=pk)
+    template_dict = {
+        "obj": obj,
+    }
+    return render_to_response(template, template_dict, context_instance=RequestContext(request), mimetype="text/plain")

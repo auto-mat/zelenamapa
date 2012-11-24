@@ -1,11 +1,11 @@
-var mapconfig = {};
+{% load mapwidget_tags %}var mapconfig = {};
 mapconfig['vrstvy'] = [];
-mapconfig['vrstvy'].push(["Město", "/kml/mesto/"]);
-mapconfig['vrstvy'].push(["Podniky", "/kml/restaurace-kavarny/"]);
-mapconfig['vrstvy'].push(["Obchody", "/kml/obchody/"]);
-mapconfig['vrstvy'].push(["Kultura", "/kml/kultura/"]);
-mapconfig['vrstvy'].push(["Komunity a NGO", "/kml/komunity-ngo/"]);
-mapconfig['vrstvy'].push(["Doprava", "/kml/verejna-doprava/"]);
+mapconfig['vrstvy'].push(["Město", "http://{% http_host %}/kml/mesto/"]);
+mapconfig['vrstvy'].push(["Podniky", "http://{% http_host %}/kml/restaurace-kavarny/"]);
+mapconfig['vrstvy'].push(["Obchody", "http://{% http_host %}/kml/obchody/"]);
+mapconfig['vrstvy'].push(["Kultura", "http://{% http_host %}/kml/kultura/"]);
+mapconfig['vrstvy'].push(["Komunity a NGO", "http://{% http_host %}/kml/komunity-ngo/"]);
+mapconfig['vrstvy'].push(["Doprava", "http://{% http_host %}/kml/verejna-doprava/"]);
 
 mapconfig['zoom'] = 16;
 mapconfig['lon'] = {{obj.geom.get_x}};
