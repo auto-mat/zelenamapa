@@ -11,6 +11,15 @@
         var EPSG4326 = new OpenLayers.Projection("EPSG:4326");
         var EPSG900913 = new OpenLayers.Projection("EPSG:900913"); 
 
+       function getTileURL(bounds)
+       {
+         var res = this.map.getResolution();
+         var x = Math.round((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
+         var y = Math.round((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
+         var z = this.map.getZoom();
+         return this.url + z + "/" + x + "/" + y + "." + this.type;
+       }
+
         function init(mapconfig) {
            var args = OpenLayers.Util.getParameters(); 
 	   mainFilter = new OpenLayers.Filter.Logical({
@@ -29,11 +38,11 @@
             filter_rule = new OpenLayers.Rule({
                 filter: mainFilter,
                 symbolizer: {'externalGraphic': '${ikona}', 'graphicWidth': '${width}', 'graphicHeight': '${height}',
-                graphicXOffset: -13, graphicYOffset: -32, 'graphicOpacity': 1, 'graphicTitle': '${name}' }
+                graphicXOffset: -8, graphicYOffset: -8, 'graphicOpacity': 1, 'graphicTitle': '${name}' }
             });
             nofilter_rule = new OpenLayers.Rule({
                 symbolizer: {'externalGraphic': '${ikona}', 'graphicWidth': '${width}', 'graphicHeight': '${height}', 
-                graphicXOffset: -13, graphicYOffset: -32, 'graphicOpacity': 1, 'graphicTitle': '${name}' }
+                graphicXOffset: -8, graphicYOffset: -8, 'graphicOpacity': 1, 'graphicTitle': '${name}' }
             });
             // Filtr, ktery na nejnizsich zoomlevelech skryje nektere znacky.
             // Hodnotu kriteria je nutne aktualizovat pri zmene zoom levelu.
@@ -69,9 +78,16 @@
 
             base_layer = new OpenLayers.Layer.OSM.Mapnik("OpenStreetMap", { 
                 displayOutsideMaxExtent: false,
-                displayInLayerSwitcher: false
+                displayInLayerSwitcher: true
             });
-            map.addLayer(base_layer);
+            //map.addLayer(base_layer);
+	   
+	    var layerZM = new OpenLayers.Layer.OSM( 
+		  "Zelena mapa",
+	          "http://zelenamapa.cz/media/tiles_ZM/", 
+		  { type: 'png', numZoomLevels: 19, getURL: getTileURL } );
+	    //map.addLayer(layerZM);
+	    map.addLayers([layerZM,base_layer]);
 
             kmlvrstvy = mapconfig.vrstvy;
             for (i in kmlvrstvy) {
