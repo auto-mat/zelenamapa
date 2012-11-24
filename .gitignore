@@ -1,6 +1,7 @@
 *.py[co]
 media/
 env/
+*.swp
 run.sh
 zm/settings.py
 !.gitkeep
