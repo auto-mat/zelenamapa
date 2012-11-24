@@ -17,6 +17,7 @@ sitemaps = {
 }
 
 urlpatterns = patterns('',
+    (r'^mapwidget/', include("mapwidget.urls")),
     (r'^$', mapa_view),
     (r'^misto/(\d+)/$', mapa_view),
     (r'^kml/([-\w]+)/$', kml_view),

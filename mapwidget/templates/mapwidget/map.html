@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+   <script type="text/javascript" src="/static/js/OpenLayers.js"></script>
+   <script type="text/javascript" src="{% static "js/OpenStreetMap.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/MyFramedCloud.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/jquery.tools.min.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/jquery.ba-hashchange.min.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/mapa.js" %}"></script>
+   <script type="text/javascript" src="/mapwidget/mapconfig{{obj.pk}}.js"></script>
+   
+   
+
+
+
+    <title>Zelená mapa Prahy</title>
+  </head>
+  <body onload="init(mapconfig)" style="margin:0;">
+    <div class="container" >
+    <div class="mapbox">
+        <div id="map" style="width:{{w}}px;height:{{h}}px"></div>
+    </div>
+  </div>
+  </body>
+</html>

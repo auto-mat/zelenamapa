@@ -103,4 +103,5 @@ INSTALLED_APPS = (
     'mapa',
     'easy_thumbnails',
     'compressor',
+    'mapwidget',
 )
