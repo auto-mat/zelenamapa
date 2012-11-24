@@ -9,17 +9,10 @@
         $(document).bind("mobileinit", function(){
             $.mobile.defaultTransition = 'none';
         });
-        $(document).ready ( function (){
-           $('.ui-btn-text').click ( function (){
-           
-             document.location='/misto/780/';
-             console.log(document.location);
-                    
-           }) ;
-        });
+        
         </script>
 	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
-        <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.geo.js"></script>
+        <script type="text/javascript" src="/zm/static/js/jquery.geo.js"></script>
 </head> 
 <body> 
 
@@ -52,10 +45,11 @@
 {% endif %}
 </div>
 
-<a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-b" data-role="button" data-theme="b" data-inline="true" href="geo:{{ poi.geom.y }},{{ poi.geom.x }}?z=19">
+<a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-b" data-role="button" data-theme="b" data-inline="true" href="/misto/780/">
 <span class="ui-btn-inner ui-btn-corner-all ui-corner-top ui-corner-bottom">
-<span class="ui-btn-text">Ukázat na mapě</span>
+    <span class="ui-btn-text" onclick="func_redirect">Ukázat na mapě</span>
 </span>
+ 
 </a>
 	</div><!-- /content -->
 
