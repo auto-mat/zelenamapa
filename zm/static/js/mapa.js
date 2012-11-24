@@ -46,8 +46,22 @@
             });
             mainFilter.filters.push(zoomFilter);
 
-            var options = { 
-                controls: [
+            if  (mapconfig.mapwidget.hide_controls ==  true )
+            {
+                controls = [
+                    // new OpenLayers.Control.ArgParser(),
+                    // new OpenLayers.Control.Attribution(),
+                    //new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#404040'}),
+                    // new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff'}),
+                    // new OpenLayers.Control.Navigation(),
+                    // new OpenLayers.Control.Permalink(),
+                    // new OpenLayers.Control.PanZoom()
+                    //  new OpenLayers.Control.PanZoomBar(),
+                    //  new OpenLayers.Control.MousePosition() 
+                ]
+            }
+            else {
+                    controls = [
                     new OpenLayers.Control.ArgParser(),
                     new OpenLayers.Control.Attribution(),
                     //new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#404040'}),
@@ -57,7 +71,12 @@
                     new OpenLayers.Control.PanZoom()
                     //  new OpenLayers.Control.PanZoomBar(),
                     //  new OpenLayers.Control.MousePosition() 
-                ],
+                ]
+
+            }
+
+            var options = { 
+                controls: controls,
                 maxExtent: bounds.clone().transform(EPSG4326, EPSG900913), 
                 restrictedExtent: bounds.clone().transform(EPSG4326, EPSG900913), 
                 projection: EPSG900913,

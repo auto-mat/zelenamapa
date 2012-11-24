@@ -16,7 +16,7 @@
    <script type="text/javascript" src="{% static "js/jquery.tools.min.js" %}"></script>
    <script type="text/javascript" src="{% static "js/jquery.ba-hashchange.min.js" %}"></script>
    <script type="text/javascript" src="{% static "js/mapa.js" %}"></script>
- 
+
 
     <title>Zelená mapa Prahy</title>
      
@@ -50,38 +50,20 @@
          mapconfig['zoom'] = 16;
          mapconfig['lon'] = {{obj.geom.get_x}};
          mapconfig['lat'] = {{obj.geom.get_y}};
+         mapconfig['mapwidget'] = {}
+         mapconfig['mapwidget']["hide_controls"] = true;
     
         //mapconfig['center_feature'] = {{obj.pk}};
     
         //mapconfig['mobilni'] = true;
     
-</script>
-     
-     
+</script>     
   </head>
   <body onload="init(mapconfig)">
-
-
-
-    <div class="page">
-        <div class="content">
-             
-
-                <div class="mapbox">
-                    <div id="map"></div>
-                    <div id="m_top"></div>
-                    <div id="m_left"></div>
-                    <div id="m_right"></div>
-                    <div id="m_bottom"></div>
-                </div>
-
-
-             
-        </div>
-
-         
-
+    <div class="container" >
+    <div class="mapbox">
+        <div id="map" style="width:300px;height:300px"></div>
     </div>
-
+  </div>
   </body>
 </html>
