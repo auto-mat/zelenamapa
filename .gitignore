@@ -1,0 +1,5 @@
+*.py[co]
+/media/
+run.sh
+zm/settings.py
+!.gitkeep
