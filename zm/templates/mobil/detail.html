@@ -9,11 +9,14 @@
         $(document).bind("mobileinit", function(){
             $.mobile.defaultTransition = 'none';
         });
+        
+       function  func_redirect(){
+           window.location.href='/misto/780/'; 
+           console.log(document.location);
+        }
         $(document).ready ( function (){
            $('.ui-btn-text').click ( function (){
-           
-             document.location='/misto/780/';
-             console.log(document.location);
+            func_redirect();
                     
            }) ;
         });
@@ -54,7 +57,7 @@
 
 <a class="ui-btn ui-btn-inline ui-btn-corner-all ui-shadow ui-btn-up-b" data-role="button" data-theme="b" data-inline="true" href="geo:{{ poi.geom.y }},{{ poi.geom.x }}?z=19">
 <span class="ui-btn-inner ui-btn-corner-all ui-corner-top ui-corner-bottom">
-<span class="ui-btn-text">Ukázat na mapě</span>
+    <span class="ui-btn-text" onclick="func_redirect">Ukázat na mapě</span>
 </span>
 </a>
 	</div><!-- /content -->
