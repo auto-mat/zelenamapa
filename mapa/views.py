@@ -236,12 +236,12 @@ def m_vypis(request):
         qs = qs.distance(poloha).order_by('distance')
     return render_to_response('mobil/vypis.html',
         context_instance=RequestContext(request, {
-                'pois': qs[0:100],
+                'pois': qs[0:100]
                 }))
 
 def m_detail(request, poi_id):
     # najdeme vrstvu podle slugu. pokud neexistuje, vyhodime chybu
     poi = get_object_or_404(Poi, id=poi_id)
 
-    return render_to_kml("mobil/detail.html",
+    return render_to_response("mobil/detail.html",
         context_instance=RequestContext(request, { 'poi' : poi }))
