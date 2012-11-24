@@ -374,10 +374,19 @@ function onFeatureSelect(feature) {
             document.location=url;    
         }
                    
-        OpenLayers.loadURL(url, '', feature, createPopup);
-                    
+        var request = OpenLayers.Request.GET({
+           url: url,
+           success: createPopup,
+           failure: requestFailed,
+           scope: feature
+        });
     }
 };
+
+var requestFailed = function(response) {
+   alert(response.responseText);
+}
+
 
 var createPopup = function(response) {
     if (this.fid != lastSelectedFeature) {
