@@ -9,6 +9,14 @@
         $(document).bind("mobileinit", function(){
             $.mobile.defaultTransition = 'none';
         });
+        $(document).ready ( function (){
+           $('.ui-btn-text').click ( function (){
+           
+             document.location='/misto/780/';
+             console.log(document.location);
+                    
+           }) ;
+        });
         </script>
 	<script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>
         <script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.geo.js"></script>
