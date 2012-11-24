@@ -67,7 +67,7 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
 
 /* Search  */
 
-.rounded { border: none; background: #FFF; width: 160px; height: 20px; background: url(/images/form_rounded.gif) no-repeat left 0px; }
+.rounded { border: none; background: #FFF; width: 160px; height: 20px; background: url(/static/img/form_rounded.gif) no-repeat left 0px; }
 #search_input  { display:inline; line-height:14px; padding:2px; margin:0; width: 103px; font-size: 12px;}
 #search_submit { display:inline; line-height:18px; padding:0; margin:0; width: 52px;  }
 
@@ -106,11 +106,11 @@ overflow:visible;   }
 .dataLayersDiv { z-index:2007;  overflow:visible; }
 
 .dataLayersDiv input[type="checkbox"]{ display:none; }
-.dataLayersDiv input+span { line-height:19px; background: url(/images/checkbox_zm.png) 0 2px no-repeat; padding: 0 0 0 18px; }
+.dataLayersDiv input+span { line-height:19px; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; padding: 0 0 0 18px; }
 
 /* does not work: */
-.dataLayersDiv input:checked+span { color:green; background: url(/images/checkbox_zm-checked.png) 0 2px no-repeat; }
-.dataLayersDiv input:unchecked+span { color:black; background: url(/images/checkbox_zm.png) 0 2px no-repeat; }
+.dataLayersDiv input:checked+span { color:green; background: url(/static/img/checkbox_zm-checked.png) 0 2px no-repeat; }
+.dataLayersDiv input:unchecked+span { color:black; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; }
 .dataLayersDiv input+span:hover{text-decoration:underline;}
 
 /* Very violent way how to push a 100% opacity and a grey line along the LayerSwitcher: ( works for FF and Chrome, IE7 has problems */
@@ -147,10 +147,10 @@ overflow:visible !important; }
 /* #map { position:absolute; height:607px; width:889px; } */
 #map { position:absolute; height:621px; width:889px; overflow:visible; z-index:1; }
 
-#m_bottom{float:left;position:relative;z-index:1000;background:url(/images/m_bottom.png) no-repeat left top;width:889px;height:3px; }
-#m_top{position:relative;z-index:1000;background:url(/images/m_top.png) no-repeat left bottom;width:889px; height:3px;}
-#m_left{float:left;clear:none;position:relative;z-index:1000;background:url(/images/m_left.png) no-repeat left top;width:3px;height:616px; }
-#m_right{float:right;position:relative;z-index:1000;background:url(/images/m_right.png) no-repeat right top;width:3px;height:616px; }
+#m_bottom{float:left;position:relative;z-index:1000;background:url(/static/img/m_bottom.png) no-repeat left top;width:889px;height:3px; }
+#m_top{position:relative;z-index:1000;background:url(/static/img/m_top.png) no-repeat left bottom;width:889px; height:3px;}
+#m_left{float:left;clear:none;position:relative;z-index:1000;background:url(/static/img/m_left.png) no-repeat left top;width:3px;height:616px; }
+#m_right{float:right;position:relative;z-index:1000;background:url(/static/img/m_right.png) no-repeat right top;width:3px;height:616px; }
 
 #mapover { position:absolute; height:621px; width:889px; overflow:hidden; z-index:999; }
 
@@ -204,7 +204,7 @@ overflow:visible !important; }
   z-index: 9999;
   border:none;
   padding-right:65px;
-  background: url(/images/overlay-shadow.png) repeat-y right;
+  background: url(/static/img/overlay-shadow.png) repeat-y right;
 }
 .overlay_iframe {
   background-color: white;
