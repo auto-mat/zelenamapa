@@ -96,19 +96,27 @@ img.sr_img {  width:17px; height:18px; position:relative; top: 3px; margin-right
 /* LayerSwitcher (white and black text) */
 /*.layersDiv { background-color:#404040 !important;  } */
 .layersDiv { background-color:#fff !important; z-index:1007;  overflow:visible; }
-.dataLbl, .baseLayersDiv, .baseLbl { display: none; }
+/*.dataLbl, .baseLayersDiv, .baseLbl  { display: none; }*/
+.baseLbl { display: none; }
+
+.baseLayersDiv input[type="radio"]{ display:none; }
+.baseLayersDiv input+span { line-height:19px; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; padding: 0 0 0 18px; }
+.baseLayersDiv input:checked+span { color:green; background: url(/static/img/checkbox_zm-checked.png) 0 2px no-repeat; }
+.baseLayersDiv input:unchecked+span { color:black; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; }
+.baseLayersDiv input+span:hover{text-decoration:underline;}
+
 .olControlLayerSwitcher { color: black; font-family: Arial,Helvetica,sans-serif; font-size: 10px; font-weight:normal;}
 #OpenLayers_Control_MaximizeDiv_innerImage { 
 right: 0px;
 top: -5px;
-height:150px !important;
+height:190px !important;
 overflow:visible;   }
 .dataLayersDiv { z-index:2007;  overflow:visible; }
 
 .dataLayersDiv input[type="checkbox"]{ display:none; }
 .dataLayersDiv input+span { line-height:19px; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; padding: 0 0 0 18px; }
 
-/* does not work: */
+/* does work: */
 .dataLayersDiv input:checked+span { color:green; background: url(/static/img/checkbox_zm-checked.png) 0 2px no-repeat; }
 .dataLayersDiv input:unchecked+span { color:black; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; }
 .dataLayersDiv input+span:hover{text-decoration:underline;}

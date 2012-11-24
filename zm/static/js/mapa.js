@@ -76,17 +76,18 @@
             };
             map = new OpenLayers.Map('map', options);
 
-            /*base_layer = new OpenLayers.Layer.OSM.Mapnik("OpenStreetMap", { 
+            base_layer = new OpenLayers.Layer.OSM.Mapnik("OpenStreetMap", { 
                 displayOutsideMaxExtent: false,
-                displayInLayerSwitcher: false
+                displayInLayerSwitcher: true
             });
-            map.addLayer(base_layer);*/
+            //map.addLayer(base_layer);
 	   
 	    var layerZM = new OpenLayers.Layer.OSM( 
-		  "Zelená mapa",
+		  "Zelena mapa",
 	          "http://zelenamapa.cz/media/tiles_ZM/", 
 		  { type: 'png', numZoomLevels: 19, getURL: getTileURL } );
-	    map.addLayer(layerZM);
+	    //map.addLayer(layerZM);
+	    map.addLayers([layerZM,base_layer]);
 
             kmlvrstvy = mapconfig.vrstvy;
             for (i in kmlvrstvy) {
