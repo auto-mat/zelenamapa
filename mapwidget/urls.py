@@ -6,6 +6,9 @@ from views import *
 
 urlpatterns = patterns("",
     url(r"^(?P<pk>\d+)/$",
-    map_view,
-    name="zm.mapwidget.map", ),
+        map_view,
+        name="zm.mapwidget.map", ),
+    url(r"^(?P<pk>\d+)/js/$",
+        map_js_view,
+        name="zm.mapwidget.map_js", ),
 )

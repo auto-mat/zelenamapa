@@ -15,3 +15,10 @@ def map_view(request, pk, template="mapwidget/map.html"):
         "obj": obj,
     }
     return render_to_response(template, template_dict, context_instance=RequestContext(request))
+
+def map_js_view(request, pk, template="mapwidget/map_js.html"):
+    obj = get_object_or_404(Poi, pk=pk)
+    template_dict = {
+        "obj": obj,
+    }
+    return render_to_response(template, template_dict, context_instance=RequestContext(request))
