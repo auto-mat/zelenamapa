@@ -72,6 +72,7 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
 .rounded { border: none; background: #FFF; width: 160px; height: 20px; background: url(/static/img/form_rounded.gif) no-repeat left 0px; }
 #search_input  { display:inline; line-height:14px; padding:2px; margin:0; width: 103px; font-size: 12px;}
 #search_submit { display:inline; line-height:18px; padding:0; margin:0; width: 52px;  }
+.widget_input { display:inline; width:auto; border:solid 1px grey; margin:0 0 10px 0;}
 
 #search_results   { display:none;  width:202px;  background-color: white;  z-index: 9999;  border:none; }
 #search_results h3{ margin: 0 0 5px 15px; }
@@ -189,8 +190,8 @@ url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWH
 
 /* Round corners */
 
-.foto_thumb, .foto_segment, .foto_thumb_misto, .foto_thumb_edit, .vkladani_aktual { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
-#id_email, #id_desc, #id_url, #id_address  { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
+.widget_input, .foto_thumb, .foto_segment, .foto_thumb_misto, .foto_thumb_edit, .vkladani_aktual { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
+.rounded_html_iframe, #id_content, #id_name, #id_email, #id_desc, #id_url, #id_address  { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
 .middle_ad,        .left_top_ad,        .right_top_ad,        .reklama1,        .reklama2        , .blog_ad        { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; }
 .middle_ad a img,  .left_top_ad a img,  .right_top_ad a img,  .reklama1 a img,  .reklama2 a img  , .blog_ad a img  { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
 .middle_ad object, .left_top_ad object, .right_top_ad object, .reklama1 object, .reklama2 object , .blog_ad object { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
