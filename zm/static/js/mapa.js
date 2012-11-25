@@ -109,25 +109,24 @@ function init(mapconfig)
         value: mapconfig.zoom
     });
     mainFilter.filters.push(zoomFilter);
-    if (( mapconfig.mapwidget !=  undefined ) && ( mapconfig.mapwidget.hide_controls !=  undefined ) && (mapconfig.mapwidget.hide_controls ==  true ))
+    if(mapconfig.mobilni) {
+      controls = [
+           new OpenLayers.Control.ArgParser(),
+           new OpenLayers.Control.Attribution(),
+           new OpenLayers.Control.LayerSwitcher(),
+           new OpenLayers.Control.Navigation(),
+           new OpenLayers.Control.Permalink(),
+           new OpenLayers.Control.ZoomPanel()
+      ] 
+    } else if (( mapconfig.mapwidget !=  undefined ) && ( mapconfig.mapwidget.hide_controls !=  undefined ) && (mapconfig.mapwidget.hide_controls ==  true ))
             {
                 controls = [
-                    // new OpenLayers.Control.ArgParser(),
-                    // new OpenLayers.Control.Attribution(),
-                    //new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#404040'}),
-                    // new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff'}),
-                    // new OpenLayers.Control.Navigation(),
-                    // new OpenLayers.Control.Permalink(),
-                    // defaultPanZoom()
-                    //  new OpenLayers.Control.PanZoomBar(),
-                    //  new OpenLayers.Control.MousePosition() 
                 ]
             }
             else {
                     controls = [
                     new OpenLayers.Control.ArgParser(),
                     new OpenLayers.Control.Attribution(),
-                    //new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#404040'}),
                     new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff'}),
                     new OpenLayers.Control.Navigation(),
                     new OpenLayers.Control.Permalink(),
@@ -154,13 +153,11 @@ function init(mapconfig)
         displayOutsideMaxExtent: false,
         displayInLayerSwitcher: true
     });
-    //map.addLayer(base_layer);
 	   
 	    var layerZM = new OpenLayers.Layer.OSM( 
 		  "Zelena mapa",
 	          "http://zelenamapa.cz/media/tiles_ZM/", 
 		  { type: 'png', numZoomLevels: 19, getURL: getTileURL, tileOptions : {crossOriginKeyword: null}  } );
-	    //map.addLayer(layerZM);
 	    map.addLayers([layerZM,base_layer]);
 
     kmlvrstvy = mapconfig.vrstvy;
@@ -551,19 +548,7 @@ function searchClosed(e) {
         vectors[i].setVisibility(true);
 }
 
-// Popup (version 1) - OBSOLETE!!!!
-function OverlayLeft_old(obj, pageURL)
-{
-    var title = pageURL;
-    var w = 550;
-    var h = 700;
-    var left = (screen.width/2)-(w/2);
-    var top = (screen.height/2)-(h/2);
-    var targetWin = window.open (pageURL, title, 
-        'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbar-y=yes, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
-};
-
-// Popup verison 2 - new style
+// Popup
 function OverlayLeft(obj, pageURL)
 {
     var overlay_left = $('#overlay_left');
@@ -593,6 +578,40 @@ function ZoomToLonLat( obj, lon, lat, zoom)
         map.pan(0,0);
     }
 	   
+var accuracy_style = {
+    fillOpacity: 0.1,
+    fillColor: '#000',
+    strokeColor: '#00f',
+    strokeOpacity: 0.4
+};
+function onLocationUpdate(evt) {
+    var coords = evt.position.coords;
+    position_layer.removeAllFeatures();
+    position_layer.addFeatures([
+      new OpenLayers.Feature.Vector(
+        evt.point,
+        {},
+        {
+            graphicName: 'cross',
+            strokeColor: '#00f',
+            strokeWidth: 2,
+            fillOpacity: 0,
+            pointRadius: 10
+        }
+      ),
+      new OpenLayers.Feature.Vector(
+        OpenLayers.Geometry.Polygon.createRegularPolygon(
+            new OpenLayers.Geometry.Point(evt.point.x, evt.point.y),
+            evt.position.coords.accuracy / 2,
+            50,
+            0
+        ),
+        {},
+        accuracy_style
+      )
+    ]);
+    map.zoomToExtent(position_layer.getDataExtent());
+};
 	   
 	   
 }
