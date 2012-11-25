@@ -1,10 +1,11 @@
 /* Low application: map lower */
-.mapbox { min-height:507px; } 
-#map {height:507px;}
+.mapbox { min-height:505px; } 
+#map {height:505px;}
 #m_left {background:url(/static/img/m_left_small.png) no-repeat right top;height:501px; }
 #m_right {background:url(/static/img/m_right_small.png) no-repeat right top;height:501px; }
+
 .filtry {line-height:12px;}
 .filtry a{line-height:12px;}
 #sr_inner {max-height: 400px; }
-#mapover { height:507px; }
+#mapover { height:505px; }
 #mapoverimg { margin-top:-57px;  }
