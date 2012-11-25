@@ -18,6 +18,8 @@ from django.db.models import Q
 
 from mapa.models import *
 
+from comment.forms import CommentForm
+
 def is_mobilni(request):
     subdomain = request.META.get('HTTP_HOST', '').split('.')
     try: 
@@ -158,9 +160,10 @@ def addpoi_view(request, poi_id=None):
 # View pro podrobny vypis mista
 @cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
 def detail_view(request, poi_id):
+    comment_form = CommentForm(request.POST or None)
     poi = Poi.objects.get(id=poi_id)
     return render_to_response('misto.html',
-        context_instance=RequestContext(request, { 'poi': poi }))
+        context_instance=RequestContext(request, { 'poi': poi, 'comment_form': comment_form, }))
 
 # View pro podrobny vypis seznamu vlastnosti
 @cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
