@@ -18,6 +18,10 @@ from django.db.models import Q
 
 from mapa.models import *
 
+def is_mobilni(request):
+    subdomain = request.META.get('HTTP_HOST', '').split('.')
+    return 'm' in subdomain
+
 def mapa_view(request, poi_id=None):
     vrstvy = Vrstva.objects.filter(status__show=True)
     vlastnosti = Vlastnost.objects.filter(status__show=True)
@@ -44,10 +48,7 @@ def mapa_view(request, poi_id=None):
     titulni_stranka = request.get_full_path() == '/'
 
     # detekce mobilni verze podle url
-    subdomain = request.META.get('HTTP_HOST', '').split('.')
-    mobilni = False
-    if 'm' in subdomain:
-       mobilni = True
+    mobilni = is_mobilni(request)
 
     context = RequestContext(request, {
         'vrstvy': vrstvy,
@@ -68,7 +69,11 @@ def kml_view(request, nazev_vrstvy):
 
     # vsechny body co jsou v teto vrstve a jsou zapnute
     points = Poi.viditelne.filter(znacka__vrstva=v).kml()
-    return render_to_kml("gis/kml/vrstva.kml", { 'places' : points})
+    if is_mobilni(request):
+       kml_template="gis/kml/vrstva_mobilni.kml"
+    else:
+       kml_template="gis/kml/vrstva.kml"
+    return render_to_kml(kml_template, { 'places' : points})
 
 #@cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
 def popup_view(request, poi_id):

@@ -50,6 +50,7 @@ class Znacka(models.Model):
     
     # Base icon and zoom dependent display range
     default_icon = models.ImageField(null=True, upload_to='ikony') # XXX: zrusit null=True
+    mobile_icon = models.ImageField(null=True, upload_to='ikony_m') # XXX: zrusit null=True
     minzoom = models.PositiveIntegerField(default=1)
     maxzoom = models.PositiveIntegerField(default=10)
     
