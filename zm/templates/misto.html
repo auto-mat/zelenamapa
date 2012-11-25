@@ -6,6 +6,33 @@
    <link rel="stylesheet" type="text/css" href="http://petricko.cz/static/petricko/css/bootstrap-forms.css">
    
    <title>{{ poi }}</title>
+
+   <script type="text/javascript" src="/static/js/jquery.tools.min.js"></script>
+   <script type="text/javascript">
+   function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
+
+    function saveLocalStorage () {
+      var name = $('[name=name]').val();
+      var email = $('[name=email]').val();
+      if (supports_html5_storage())
+      {
+        localStorage.setItem("comment_name", name);
+        localStorage.setItem("comment_email", email);
+      }
+    }
+
+    $(document).ready(function () {
+      $('[name=name]').val( localStorage.getItem("comment_name"));
+      $('[name=email]').val( localStorage.getItem("comment_email"));
+    })
+   </script>
+
    <style type="text/css">
    .comment p, .comment h4 {margin: 1px 0 2px 0;}
    .comment {margin: 3px 0 10px 0;}
@@ -66,7 +93,7 @@
   <input type="text" name="email" maxlength="64" placeholder="Email" style="width:248px">
 <br><textarea id="id_content" rows="10" cols="40" name="content" placeholder="Komentář" style="width:500px;height:100px;"></textarea>
 <br>
-<button><input type="submit" value="Přidat" style="height:30px;margin:0px;"></button>
+<button onmousedown="saveLocalStorage();"><input type="submit" value="Přidat" style="height:30px;margin:0px;" ></button>
 </p>
 </form>
 {% for comment in comment_list %}
