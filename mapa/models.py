@@ -4,6 +4,8 @@ from django.contrib.gis.db import models
 from django.utils.safestring import mark_safe
 from django.core.cache import cache
 
+from django.contrib.auth.models import User
+
 class Status(models.Model):
     "Stavy zobrazeni konkretniho objektu, vrstvy apod."
     nazev   = models.CharField(max_length=255)                      # Nazev statutu
@@ -64,6 +66,9 @@ class ViditelneManager(models.GeoManager):
 
 class Poi(models.Model):
     "Misto - bod v mape"
+    author = models.ForeignKey(User)
+    created_at = models.DateTimeField(auto_now_add=True)
+
     nazev   = models.CharField(max_length=255, verbose_name=u"název")   # Name of the location
     
     # Relationships
