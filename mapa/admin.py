@@ -72,6 +72,11 @@ class PoiAdmin(OSMGeoAdmin):
     #debug = False
     #widget = OpenLayersWidget
 
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            obj.author = request.user # no need to check for it.
+        obj.save()
+
 class ZnackaInline(admin.TabularInline):
     model = Znacka
 
