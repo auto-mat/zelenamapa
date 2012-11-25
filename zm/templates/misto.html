@@ -28,8 +28,11 @@
     }
 
     $(document).ready(function () {
+      if (supports_html5_storage())
+      {
       $('[name=name]').val( localStorage.getItem("comment_name"));
       $('[name=email]').val( localStorage.getItem("comment_email"));
+    }
     })
    </script>
 
