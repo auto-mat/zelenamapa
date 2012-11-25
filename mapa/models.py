@@ -67,8 +67,8 @@ class ViditelneManager(models.GeoManager):
 
 class Poi(models.Model):
     "Misto - bod v mape"
-    author = models.ForeignKey(User)
-    created_at = models.DateTimeField(auto_now_add=True)
+    author = models.ForeignKey(User, verbose_name="Autor")
+    created_at = models.DateTimeField(auto_now_add=True,  verbose_name="Posledni zmena")
 
     nazev   = models.CharField(max_length=255, verbose_name=u"název")   # Name of the location
     
