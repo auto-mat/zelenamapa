@@ -8,6 +8,10 @@
   <link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.ico" %}" />
   <link rel="stylesheet" href="{% static "css/openlayers.css" %}" type="text/css" /> 
   <link rel="stylesheet" href="{% static "css/zelenamapa.css" %}" type="text/css" />
+  {% if mobilni %}
+      <link rel="stylesheet" href="{% static "css/mobile.css" %}" type="text/css" />
+  {% endif %}
+
 
    <script type="text/javascript" src="{% static "js/OpenLayers.js" %}"></script>
  {% compress js %} 
@@ -17,6 +21,7 @@
    <script type="text/javascript" src="{% static "js/jquery.ba-hashchange.min.js" %}"></script>
    <script type="text/javascript" src="{% static "js/mapa.js" %}"></script>
 
+   {% if not mobilni %}
    <script type="text/javascript">
     
         /* <![CDATA[ */
@@ -45,6 +50,7 @@
 	});
         /*]]> */
     </script>
+   {% endif %}
     {% endcompress %}
 
     <title>Zelená mapa Prahy</title>
