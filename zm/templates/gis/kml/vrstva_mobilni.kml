@@ -1,0 +1,16 @@
+{% extends "gis/kml/base.kml" %}
+{% block placemarks %}
+{% for place in places %}
+  <Placemark id="{{place.id}}">
+    <name>{{ place }}</name>
+    <tag>{{ place.vlastnosti_cache }}</tag>
+    <minZoom>{{ place.znacka.minzoom }}</minZoom>
+    {% if place.znacka.default_icon.url %}
+       <ikona>{{ place.znacka.mobile_icon.url }}</ikona>
+       <height>{{ place.znacka.mobile_icon.height }}</height>
+       <width>{{ place.znacka.mobile_icon.width }}</width>
+    {% endif %}
+    {{ place.kml|safe }}
+  </Placemark>
+{% endfor %}
+{% endblock %}
