@@ -3,6 +3,7 @@
 <html>
   <head>
    <link rel="stylesheet" href="{% static "css/zelenamapa.css" %}" type="text/css" />
+   <link rel="stylesheet" type="text/css" href="http://petricko.cz/static/petricko/css/bootstrap-forms.css">
    
    <title>{{ poi }}</title>
    <style type="text/css">
@@ -58,10 +59,15 @@
       <div class="g-plus" data-action="share"></div>
       <div class="fb-like" data-href="http://zelenamapa.cz{{request.get_full_path}}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial"></div>
 <hr>
-<form method="post">
+<div class="addcoment">
+<form method="post" class="form">
 {% csrf_token %}
-{{comment_form.as_p}}
-<input type="submit" value="Přidat">
+<p><input type="text" name="name" maxlength="64" placeholder="Jméno" style="width:249px">
+  <input type="text" name="email" maxlength="64" placeholder="Email" style="width:248px">
+<br><textarea id="id_content" rows="10" cols="40" name="content" placeholder="Komentář" style="width:500px;height:100px;"></textarea>
+<br>
+<button><input type="submit" value="Přidat" style="height:30px;margin:0px;"></button>
+</p>
 </form>
 {% for comment in comment_list %}
 <div class="comment">
@@ -69,6 +75,7 @@
 <p>{{comment.content|linebreaksbr}}</p>
 </div>
 {%endfor%}
+</div>
 <hr>
        <!-- <h4>HTML pro zobrazení odkazu na Zelenou mapu</h4>
        
