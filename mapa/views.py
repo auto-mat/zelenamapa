@@ -20,7 +20,9 @@ from mapa.models import *
 
 def is_mobilni(request):
     subdomain = request.META.get('HTTP_HOST', '').split('.')
-    return 'm' in subdomain
+    try: explicit_mobile = True
+    except KeyError: explicit_mobile = False
+    return ('m' in subdomain) or (explicit_mobile)
 
 def mapa_view(request, poi_id=None):
     vrstvy = Vrstva.objects.filter(status__show=True)
