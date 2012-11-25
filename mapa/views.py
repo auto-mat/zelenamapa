@@ -15,9 +15,11 @@ from django.views.decorators.cache import never_cache
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.db.models import Q 
+from django.http import HttpResponse, HttpResponseRedirect
 
 from mapa.models import *
 
+from comment.models import Comment
 from comment.forms import CommentForm
 
 def is_mobilni(request):
@@ -162,8 +164,17 @@ def addpoi_view(request, poi_id=None):
 def detail_view(request, poi_id):
     comment_form = CommentForm(request.POST or None)
     poi = Poi.objects.get(id=poi_id)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.poi = poi
+        comment.save()
+        return HttpResponseRedirect("/detail/%i"%poi.pk)
     return render_to_response('misto.html',
-        context_instance=RequestContext(request, { 'poi': poi, 'comment_form': comment_form, }))
+        context_instance=RequestContext(request, {
+            'poi': poi,
+            'comment_form': comment_form, 
+            "comment_list": Comment.objects.filter(poi=poi).order_by("pk")
+        }))
 
 # View pro podrobny vypis seznamu vlastnosti
 @cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h

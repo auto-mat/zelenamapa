@@ -5,6 +5,10 @@
    <link rel="stylesheet" href="{% static "css/zelenamapa.css" %}" type="text/css" />
    
    <title>{{ poi }}</title>
+   <style type="text/css">
+   .comment p, .comment h4 {margin: 1px 0 2px 0;}
+   .comment {margin: 3px 0 10px 0;}
+   </style>
   </head>
   <body>
   <div class="page" style="text-align:center;">
@@ -54,7 +58,17 @@
       <div class="g-plus" data-action="share"></div>
       <div class="fb-like" data-href="http://zelenamapa.cz{{request.get_full_path}}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial"></div>
 <hr>
+<form method="post">
+{% csrf_token %}
 {{comment_form.as_p}}
+<input type="submit" value="Přidat">
+</form>
+{% for comment in comment_list %}
+<div class="comment">
+  <h4 style="display:inline-block;">{{comment.name}}</h4> <p style="display:inline-block;">{{comment.email}} | {{comment.created_at}}</p>
+<p>{{comment.content|linebreaksbr}}</p>
+</div>
+{%endfor%}
 <hr>
        <!-- <h4>HTML pro zobrazení odkazu na Zelenou mapu</h4>
        
