@@ -111,30 +111,94 @@
                     <div id="left_iframe" class="overlay_iframe" scrolling="auto" frameborder="0"></div>
                 </div>
 
-                <div class="right_top_ad">
+                <div class="right_top_panel">
+                   <div class="right_top_ad">
                 {% get_staticpage "box-A" as f %}
 				{{ f.content|safe }}
+                   </div>
                 </div>
-                <div class="left_top_ad">
-                {# maly box nad menu pro kratke dulezite sdeleni - moc nepouzivat, nabourava design #}
-                </div>
+		<div class="middle_top_panel">
+                  <div class="left_top_ad">
+                  {# maly box nad menu pro kratke dulezite sdeleni - moc nepouzivat, nabourava design #}
+                  </div>
+                  <div class="top-menu">
+                      <a href="#clanek=intro" title="Základní informace">Co je Zelená mapa?</a>
+                      <a href="#clanek=faq" title="Často kladené dotazy">Časté dotazy</a>
+      	    	      <a href="#clanek=manual" title="Návod k použití mapy">Manuál</a>
+     	    	      <a href="#blog=0" title="Blog Zelené mapy">Novinky</a>
+    		      <strong><a href="#doplnit" title="Doporučit nové místo nebo podnik, který v mapě chybí.">Přidejte nové místo</a></strong>
+                  </div>
   
+                </div>
                 <div class="logo">
                     <a href="http://zelenamapa.cz"><img src="{% static "img/zm_logo_300b.png" %}" alt="logo" /></a>
                     {# <!--<div class="description">Podniky, město, šetrná doprava, problémy</div>--> #}
                 </div>
                 
-                <div class="top-menu">
-                    <a href="#clanek=intro" title="Základní informace">Co je Zelená mapa?</a>
-                    <a href="#clanek=faq" title="Často kladené dotazy">Časté dotazy</a>
-    	    	    <a href="#clanek=manual" title="Návod k použití mapy">Manuál</a>
-    	    	    <a href="#blog=0" title="Blog Zelené mapy">Novinky</a>
-    		    <strong><a href="#doplnit" title="Doporučit nové místo nebo podnik, který v mapě chybí.">Přidejte nové místo</a></strong>
-                </div>
             </div>
             {% endif %} {# mobilni #}
 
-            <div class="core">
+{% endcache %}
+
+
+            {% if not mobilni %}
+            <div class="panel">
+                <form id="search_form" class="rounded" onsubmit="doSearch(this); return false;">
+                    <input id="search_input" type="text" name="query"></input><input id="search_submit" type="submit" value=""></input>
+                </form>
+                <div id="search_results">
+		       <img src="{% static "js/img/close_18.png" %}" alt="zavřít" class="close"/><h4>Výsledky hledání</h4>
+		       <div id="sr_inner"></div>
+                </div>
+                <div class="filtry">
+                    <h4>Ukaž výběr</h4>
+                    {% for v in vlastnosti %}
+                        {% if v.filtr  %}
+                            <a id="{{v.slug}}" class="inactive" onclick="toggleFilter(this); return false;" title="{{v.desc}}">
+                            <img src="{{v.default_icon.url}}" alt="{{v.nazev}}"/>{{v.nazev}}
+                            </a><br />
+                        {% endif %}
+                    {% endfor %}
+                    <a id="filtr_toggle" href="javascript:void(0);" onclick="toggleFiltry_add(this); return false;" >Další filtry</a>
+                    <div id="filtry_add" style="display:none;">
+                    {% for v in vlastnosti %}
+                        {% if not v.filtr  %}
+                            <a id="{{v.slug}}" class="inactive" onclick="toggleFilter(this); return false;" title="{{v.desc}}">
+                            <img src="{{v.default_icon.url}}" alt="{{v.nazev}}"/>{{v.nazev}}
+                            </a><br />
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                    <a id="fitr_help" href="#vlastnosti" title="Napoveda">Nápověda</a>
+                    <br />
+                </div>
+
+                <div class="reklama1">
+				  {% get_staticpage "box-B" as f %}
+				  {{ f.content|safe }}
+                </div>
+
+                <div class="obj_count" style="margin-left:10px; margin-bottom:10px;">
+                    <p>V zelené mapě je nyní <span style="font-size:150%; font-weight:bold;">{{ poi_count }}</span> míst.</p>
+                </div>
+    
+                <div class="reklama1">
+			 {% get_staticpage "box-C" as f %}
+			 {{ f.content|safe }}
+ 			 {% get_staticpage "partneri" as f %}
+                         {{ f.content|safe }}
+			 {% get_staticpage "bottomright" as f %}
+                         {{ f.content|safe }}
+                </div>
+
+
+                <div class="pan-001">
+                    <a href="http://www.toplist.cz/stat/1158957" target="_top"><img src="http://toplist.cz/count.asp?id=1158957&amp;logo=mc" border="0" alt="TOPlist" width="1" height="1" style="display:none"/></a>
+                </div>
+            </div>
+            {% endif %} {# mobilni #}
+	    
+	                <div class="core">
                 <div class="mapbox">
                     <div id="map"></div>
                     <div id="m_top"></div>
@@ -142,7 +206,6 @@
                     <div id="m_right"></div>
                     <div id="m_bottom"></div>
                 </div>
-{% endcache %}
 
                 <div class="secondary">
                     {% if not mobilni %}
@@ -216,62 +279,8 @@
                 {% endif %} {# mobilni #}
             </div>
 
-            {% if not mobilni %}
-            <div class="panel">
-                <form id="search_form" class="rounded" onsubmit="doSearch(this); return false;">
-                    <input id="search_input" type="text" name="query"></input><input id="search_submit" type="submit" value=""></input>
-                </form>
-                <div id="search_results">
-		       <img src="{% static "js/img/close_18.png" %}" alt="zavřít" class="close"/><h4>Výsledky hledání</h4>
-		       <div id="sr_inner"></div>
-                </div>
-                <div class="filtry">
-                    <h4>Ukaž výběr</h4>
-                    {% for v in vlastnosti %}
-                        {% if v.filtr  %}
-                            <a id="{{v.slug}}" class="inactive" onclick="toggleFilter(this); return false;" title="{{v.desc}}">
-                            <img src="{{v.default_icon.url}}" alt="{{v.nazev}}"/>{{v.nazev}}
-                            </a><br />
-                        {% endif %}
-                    {% endfor %}
-                    <a id="filtr_toggle" href="javascript:void(0);" onclick="toggleFiltry_add(this); return false;" >Další filtry</a>
-                    <div id="filtry_add" style="display:none;">
-                    {% for v in vlastnosti %}
-                        {% if not v.filtr  %}
-                            <a id="{{v.slug}}" class="inactive" onclick="toggleFilter(this); return false;" title="{{v.desc}}">
-                            <img src="{{v.default_icon.url}}" alt="{{v.nazev}}"/>{{v.nazev}}
-                            </a><br />
-                        {% endif %}
-                    {% endfor %}
-                    </div>
-                    <a id="fitr_help" href="#vlastnosti" title="Napoveda">Nápověda</a>
-                    <br />
-                </div>
-
-                <div class="reklama1">
-				  {% get_staticpage "box-B" as f %}
-				  {{ f.content|safe }}
-                </div>
-
-                <div class="obj_count" style="margin-left:10px; margin-bottom:10px;">
-                    <p>V zelené mapě je nyní <span style="font-size:150%; font-weight:bold;">{{ poi_count }}</span> míst.</p>
-                </div>
-    
-                <div class="reklama1">
-			 {% get_staticpage "box-C" as f %}
-			 {{ f.content|safe }}
- 			 {% get_staticpage "partneri" as f %}
-                         {{ f.content|safe }}
-			 {% get_staticpage "bottomright" as f %}
-                         {{ f.content|safe }}
-                </div>
-
-
-                <div class="pan-001">
-                    <a href="http://www.toplist.cz/stat/1158957" target="_top"><img src="http://toplist.cz/count.asp?id=1158957&amp;logo=mc" border="0" alt="TOPlist" width="1" height="1" style="display:none"/></a>
-                </div>
-            </div>
-            {% endif %} {# mobilni #}
+	    
+	    
         </div>
 
         {% if not mobilni %}
