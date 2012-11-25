@@ -47,9 +47,13 @@
 
        <p><a href="{% url 'mapa.views.addpoi_view' poi.id %}" title="Doplnit informace o objektu">upravit</a> |
        <a href="{% url 'mapa.views.mapa_view' poi.id %}" target="_top" title="Ukázat v mapě">zobrazit v mapě</a></p>
-
-       <hr>
        
+       </div>
+       <div class="content" style="max-width:500px; text-align:left;clear:both;">
+        <a href="https://twitter.com/share" class="twitter-share-button" data-via="zelenamapa" data-lang="en">Tweet</a>
+      <div class="g-plus" data-action="share"></div>
+      <div class="fb-like" data-href="http://zelenamapa.cz{{request.get_full_path}}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+<hr>
        <h4>HTML pro zobrazení odkazu na Zelenou mapu</h4>
        
        <p>Permalink na místo: <a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_top">http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}</a></p>
@@ -63,6 +67,25 @@
        <p><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_blank"><img src="{% static "img/ikonka_zm100x100.jpg" %}"></a><br>
        <textarea rows="3" name="html" cols="20" style="width:190px;"><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}"><img src="{% static "img/ikonka_zm100x100.jpg" %}" style="width:100px; height:100px;"></a></textarea>
        </p>
+
+       <!-- SOCIAL -->
+       
+
+      <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+      <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
+      
+      <!-- Place this tag where you want the share button to render. -->
+      
+      <!-- Place this tag after the last share tag. -->
+      <script type="text/javascript">
+        (function() {
+          var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+          po.src = 'https://apis.google.com/js/plusone.js';
+          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+      </script>
+      <!-- END SOCIAL -->
      </div>
 </div>
 

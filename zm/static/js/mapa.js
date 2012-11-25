@@ -159,7 +159,7 @@ function init(mapconfig)
 	    var layerZM = new OpenLayers.Layer.OSM( 
 		  "Zelena mapa",
 	          "http://zelenamapa.cz/media/tiles_ZM/", 
-		  { type: 'png', numZoomLevels: 19, getURL: getTileURL } );
+		  { type: 'png', numZoomLevels: 19, getURL: getTileURL, tileOptions : {crossOriginKeyword: null}  } );
 	    //map.addLayer(layerZM);
 	    map.addLayers([layerZM,base_layer]);
 
@@ -367,10 +367,14 @@ function onFeatureSelect(feature) {
         for (var i in map.popups) {
             removePopup(map.popups[i]);
         }
-                    
+
+        if(mapconfig.mapwidget !=  undefined && mapconfig.mapwidget.hide_controls !=  undefined && mapconfig.mapwidget.hide_controls ==  true) {
+            url='/#detail='+feature.fid;
+            document.location=url;    
+        }
+
         if (mapconfig['mobilni']){
-            //url="/vypis/"+feature.fid +"/"
-            url='/vypis/780/';
+            url='/vypis/'+feature.fid+'/';
             document.location=url;    
         }
                    
