@@ -43,7 +43,14 @@
       $('[name=name]').val( localStorage.getItem("comment_name"));
       $('[name=email]').val( localStorage.getItem("comment_email"));
     }
+    $("#wigdet_generator").hide();
+
+        $("#togle_widget_generator").click(function(){
+          $("#wigdet_generator").toggle();
+        });
     })
+
+
    </script>
 
    <style type="text/css">
@@ -99,6 +106,24 @@
       <div class="g-plus" data-action="share"></div>
       <div class="fb-like" data-href="http://zelenamapa.cz{{request.get_full_path}}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial"></div>
 <hr>
+<a href="#" id="togle_widget_generator"><h4>HTML pro zobrazení odkazu na Zelenou mapu</h4></a>
+       <div id="wigdet_generator">
+       <p>Permalink na místo: <a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_top">http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}</a></p>
+       
+       <p>Mapa pro vložení do vlastích stránek.</p>
+       
+       <input type="text" name="widget_width" placeholder="šířka" onkeyup="generateWidgetIframe();" value="300">
+       <input type="text" name="widget_height" placeholder="výška" onkeyup="generateWidgetIframe();" value="300">
+       <br>
+       <textarea name="widget_html_iframe" style="width:500px;"><iframe src="http://zelenamapa.cz/mapwidget/300x300/1205/" style="width:300px;height300px;"></iframe></textarea>
+
+       <p>Chcete-li odkázat na toto konkrétní místo v Zelené mapě, použijte následující HTML kód.</p>
+
+       <p><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_blank" style="float:left;"><img src="{% static "img/ikonka_zm100x100.jpg" %}"></a><br>
+       <textarea rows="3" name="html" cols="20" style="width:190px;margin-left:20px;"><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}"><img src="{% static "img/ikonka_zm100x100.jpg" %}" style="width:100px; height:100px;float:left;"></a></textarea>
+       </p>
+     </div>
+<hr>
 <div class="addcoment">
 <form method="post" class="form">
 {% csrf_token %}
@@ -117,23 +142,6 @@
 {%endfor%}
 </div>
 <hr>
-       <h4>HTML pro zobrazení odkazu na Zelenou mapu</h4>
-       
-       <p>Permalink na místo: <a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_top">http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}</a></p>
-       
-       <p>Mapa pro vložení do vlastích stránek.</p>
-       
-       <input type="text" name="widget_width" placeholder="šířka" onkeyup="generateWidgetIframe();" value="300">
-       <input type="text" name="widget_height" placeholder="výška" onkeyup="generateWidgetIframe();" value="300">
-       <br>
-       <textarea name="widget_html_iframe" style="width:500px;"><iframe src="http://zelenamapa.cz/mapwidget/300x300/1205/" style="width:300px;height300px;"></iframe></textarea>
-
-       <p>Chcete-li odkázat na toto konkrétní místo v Zelené mapě, použijte následující HTML kód.</p>
-
-       <p><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_blank" style="float:left;"><img src="{% static "img/ikonka_zm100x100.jpg" %}"></a><br>
-       <textarea rows="3" name="html" cols="20" style="width:190px;margin-left:20px;"><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}"><img src="{% static "img/ikonka_zm100x100.jpg" %}" style="width:100px; height:100px;float:left;"></a></textarea>
-       </p>
-
      </div>
 </div>
        <!-- SOCIAL JS-->
