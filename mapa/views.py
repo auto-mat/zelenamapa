@@ -46,8 +46,8 @@ def mapa_view(request, poi_id=None):
     # detekce mobilni verze podle url
     subdomain = request.META.get('HTTP_HOST', '').split('.')
     mobilni = False
-    #if 'm' in subdomain:
-    mobilni = True
+    if 'm' in subdomain:
+       mobilni = True
 
     context = RequestContext(request, {
         'vrstvy': vrstvy,

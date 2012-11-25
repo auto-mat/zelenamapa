@@ -11,6 +11,45 @@ var bounds = new OpenLayers.Bounds(14.22, 49.95, 14.8, 50.18);
 var EPSG4326 = new OpenLayers.Projection("EPSG:4326");
 var EPSG900913 = new OpenLayers.Projection("EPSG:900913"); 
 
+function defaultPanZoom()
+{
+   var newPanZoom = new OpenLayers.Control.PanZoom();
+
+   OpenLayers.Util.extend(newPanZoom,
+   {
+      onButtonClick: function(evt)
+      {
+         console.log("test button click");
+            var btn = evt.buttonElement;
+            switch (btn.action)
+         {
+            case "panup":
+               this.map.pan(0, -this.getSlideFactor("h"));
+                  break;
+               case "pandown":
+               this.map.pan(0, this.getSlideFactor("h"));
+                  break;
+               case "panleft":
+               this.map.pan(-this.getSlideFactor("w"), 0);
+                  break;
+               case "panright":
+               this.map.pan(this.getSlideFactor("w"), 0);
+                  break;
+               case "zoomin":
+               this.map.zoomIn();
+                  break;
+               case "zoomout":
+               this.map.zoomOut();
+                  break;
+               case "zoomworld":
+               map.setCenter(new OpenLayers.LonLat(mapconfig.baselon, mapconfig.baselat).transform(EPSG4326, map.getProjectionObject()), mapconfig.basezoom);
+                  break;
+         }
+      }
+   });
+   return newPanZoom;
+}
+
 function getTileURL(bounds)
 {
 	var res = this.map.getResolution();
@@ -79,7 +118,7 @@ function init(mapconfig)
                     // new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff'}),
                     // new OpenLayers.Control.Navigation(),
                     // new OpenLayers.Control.Permalink(),
-                    // new OpenLayers.Control.PanZoom()
+                    // defaultPanZoom()
                     //  new OpenLayers.Control.PanZoomBar(),
                     //  new OpenLayers.Control.MousePosition() 
                 ]
@@ -92,7 +131,7 @@ function init(mapconfig)
                     new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff'}),
                     new OpenLayers.Control.Navigation(),
                     new OpenLayers.Control.Permalink(),
-                    new OpenLayers.Control.PanZoom()
+                    defaultPanZoom()
                     //  new OpenLayers.Control.PanZoomBar(),
                     //  new OpenLayers.Control.MousePosition() 
                 ]
@@ -335,10 +374,19 @@ function onFeatureSelect(feature) {
             document.location=url;    
         }
                    
-        OpenLayers.loadURL(url, '', feature, createPopup);
-                    
+        var request = OpenLayers.Request.GET({
+           url: url,
+           success: createPopup,
+           failure: requestFailed,
+           scope: feature
+        });
     }
 };
+
+var requestFailed = function(response) {
+   alert(response.responseText);
+}
+
 
 var createPopup = function(response) {
     if (this.fid != lastSelectedFeature) {
