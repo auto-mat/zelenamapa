@@ -94,42 +94,24 @@ img.sr_img {  width:17px; height:18px; position:relative; top: 3px; margin-right
 #id_desc { resize:none; }
 
 /* LayerSwitcher (white and black text) */
-/*.layersDiv { background-color:#404040 !important;  } */
-.layersDiv { background-color:#fff !important; z-index:1007;  overflow:visible; }
-/*.dataLbl, .baseLayersDiv, .baseLbl  { display: none; }*/
-.baseLbl { display: none; }
-
-.baseLayersDiv input[type="radio"]{ display:none; }
-.baseLayersDiv input+span { line-height:19px; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; padding: 0 0 0 18px; }
-.baseLayersDiv input:checked+span { color:green; background: url(/static/img/checkbox_zm-checked.png) 0 2px no-repeat; }
-.baseLayersDiv input:unchecked+span { color:black; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; }
-.baseLayersDiv input+span:hover{text-decoration:underline;}
-
-.olControlLayerSwitcher { color: black; font-family: Arial,Helvetica,sans-serif; font-size: 10px; font-weight:normal;}
-#OpenLayers_Control_MaximizeDiv_innerImage { 
-right: 0px;
-top: -5px;
-height:190px !important;
-overflow:visible;   }
 .dataLayersDiv { z-index:2007;  overflow:visible; }
-
+.olControlLayerSwitcher { color: #555; font-family: Arial,Helvetica,sans-serif; font-size: 10px; font-weight:normal;}
+.baseLbl { display: none; }
+.labelSpan { line-height:19px; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; padding: 0 0 0 18px; }
+.baseLayersDiv input[type="radio"]{ display:none; }
+.baseLayersDiv input:checked+label { color:green; background: url(/static/img/checkbox_zm-checked.png) 0 2px no-repeat; }
+.baseLayersDiv input:unchecked+label { color:black; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; }
 .dataLayersDiv input[type="checkbox"]{ display:none; }
-.dataLayersDiv input+span { line-height:19px; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; padding: 0 0 0 18px; }
+.baseLayersDiv input+label:hover{text-decoration:underline;}
+.dataLayersDiv input:checked+label { color:green; background: url(/static/img/checkbox_zm-checked.png) 0 2px no-repeat; }
+.dataLayersDiv input:unchecked+label { color:black; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; }
+.dataLayersDiv input+label:hover{text-decoration:underline;}
 
-/* does work: */
-.dataLayersDiv input:checked+span { color:green; background: url(/static/img/checkbox_zm-checked.png) 0 2px no-repeat; }
-.dataLayersDiv input:unchecked+span { color:black; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; }
-.dataLayersDiv input+span:hover{text-decoration:underline;}
+.layersDiv { background-color:#fff !important; z-index:1007;  overflow:visible; }
+.layersDiv { opacity:1 !important; border:solid 1px grey; border-radius: 6px; padding:10px 75px 8px 8px !important; }
 
-/* Very violent way how to push a 100% opacity and a grey line along the LayerSwitcher: ( works for FF and Chrome, IE7 has problems */
-.olControlLayerSwitcher div span { opacity:1 !important; border-left:solid 1px grey; border-left-width: 1px  !important;
-overflow:visible !important; }
-.olControlLayerSwitcher div span:first-child { background-color: grey !important;  }
-.olControlLayerSwitcher div+div span:first-child { background-color: white !important; }
-.olControlLayerSwitcher div+div span+span+span+span { background-color: grey !important; overflow:visible !important; }
-.layersDiv { opacity:1 !important; border-left:solid 1px grey; }
-.labelSpan { border-left:none !important;} 
-/* End of CSS violence */
+#OpenLayers_Control_MaximizeDiv_innerImage {  right: 0px; top: -5px; height:190px !important; overflow:visible;   }
+
 
 /* Popup */
 .lc { float:left; bottom:0px;  width: 22px;  }
