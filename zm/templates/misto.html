@@ -3,8 +3,43 @@
 <html>
   <head>
    <link rel="stylesheet" href="{% static "css/zelenamapa.css" %}" type="text/css" />
+   <link rel="stylesheet" type="text/css" href="http://petricko.cz/static/petricko/css/bootstrap-forms.css">
    
    <title>{{ poi }}</title>
+
+   <script type="text/javascript" src="/static/js/jquery.tools.min.js"></script>
+   <script type="text/javascript">
+   function supports_html5_storage() {
+  try {
+    return 'localStorage' in window && window['localStorage'] !== null;
+  } catch (e) {
+    return false;
+  }
+}
+
+    function saveLocalStorage () {
+      var name = $('[name=name]').val();
+      var email = $('[name=email]').val();
+      if (supports_html5_storage())
+      {
+        localStorage.setItem("comment_name", name);
+        localStorage.setItem("comment_email", email);
+      }
+    }
+
+    $(document).ready(function () {
+      if (supports_html5_storage())
+      {
+      $('[name=name]').val( localStorage.getItem("comment_name"));
+      $('[name=email]').val( localStorage.getItem("comment_email"));
+    }
+    })
+   </script>
+
+   <style type="text/css">
+   .comment p, .comment h4 {margin: 1px 0 2px 0;}
+   .comment {margin: 3px 0 10px 0;}
+   </style>
   </head>
   <body>
   <div class="page" style="text-align:center;">
@@ -54,7 +89,25 @@
       <div class="g-plus" data-action="share"></div>
       <div class="fb-like" data-href="http://zelenamapa.cz{{request.get_full_path}}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial"></div>
 <hr>
-       <h4>HTML pro zobrazení odkazu na Zelenou mapu</h4>
+<div class="addcoment">
+<form method="post" class="form">
+{% csrf_token %}
+<p><input type="text" name="name" maxlength="64" placeholder="Jméno" style="width:249px">
+  <input type="text" name="email" maxlength="64" placeholder="Email" style="width:248px">
+<br><textarea id="id_content" rows="10" cols="40" name="content" placeholder="Komentář" style="width:500px;height:100px;"></textarea>
+<br>
+<button onmousedown="saveLocalStorage();"><input type="submit" value="Přidat" style="height:30px;margin:0px;" ></button>
+</p>
+</form>
+{% for comment in comment_list %}
+<div class="comment">
+  <h4 style="display:inline-block;">{{comment.name}}</h4> <p style="display:inline-block;">{{comment.email}} | {{comment.created_at}}</p>
+<p>{{comment.content|linebreaksbr}}</p>
+</div>
+{%endfor%}
+</div>
+<hr>
+       <!-- <h4>HTML pro zobrazení odkazu na Zelenou mapu</h4>
        
        <p>Permalink na místo: <a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_top">http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}</a></p>
        
@@ -66,11 +119,11 @@
 
        <p><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_blank"><img src="{% static "img/ikonka_zm100x100.jpg" %}"></a><br>
        <textarea rows="3" name="html" cols="20" style="width:190px;"><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}"><img src="{% static "img/ikonka_zm100x100.jpg" %}" style="width:100px; height:100px;"></a></textarea>
-       </p>
+       </p> -->
 
-       <!-- SOCIAL -->
-       
-
+     </div>
+</div>
+       <!-- SOCIAL JS-->
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
       <script src="http://static.ak.fbcdn.net/connect.php/js/FB.Share" type="text/javascript"></script>
@@ -85,9 +138,6 @@
           var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
         })();
       </script>
-      <!-- END SOCIAL -->
-     </div>
-</div>
-
+      <!-- END SOCIAL JS -->
   </body>
 </html>

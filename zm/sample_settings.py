@@ -105,4 +105,5 @@ INSTALLED_APPS = (
     'compressor',
     'mapwidget',
     'south',
+    'comment',
 )
