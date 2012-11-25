@@ -27,6 +27,16 @@
       }
     }
 
+    function widgetIframe (w, h) {
+      return "<iframe src=\"http://zelenamapa.cz/mapwidget/"+w+"x"+h+"/{{poi.pk}}/\" style=\"width:"+w+"px;height:"+h+"px;\"></iframe>";
+    }
+
+  function generateWidgetIframe () {
+      w = $('[name=widget_width]').val();
+      h = $('[name=widget_height]').val();
+      $('[name=widget_html_iframe]').val(widgetIframe(w, h));
+    }
+
     $(document).ready(function () {
       if (supports_html5_storage())
       {
@@ -107,19 +117,22 @@
 {%endfor%}
 </div>
 <hr>
-       <!-- <h4>HTML pro zobrazení odkazu na Zelenou mapu</h4>
+       <h4>HTML pro zobrazení odkazu na Zelenou mapu</h4>
        
        <p>Permalink na místo: <a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_top">http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}</a></p>
        
-       <p>Chcete-li odkázat na toto konkrétní místo v Zelené mapě, použijte následující HTML kody:</p>
+       <p>Mapa pro vložení do vlastích stránek.</p>
        
-       <p><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_blank">{{ poi }} v Zelené mapě</a><br>
-       <textarea rows="3" name="html" cols="20" style="width:190px;"><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}">{{ poi }} v Zelené mapě</a></textarea>
-       </p>
+       <input type="text" name="widget_width" placeholder="šířka" onkeyup="generateWidgetIframe();" value="300">
+       <input type="text" name="widget_height" placeholder="výška" onkeyup="generateWidgetIframe();" value="300">
+       <br>
+       <textarea name="widget_html_iframe" style="width:500px;"><iframe src="http://zelenamapa.cz/mapwidget/300x300/1205/" style="width:300px;height300px;"></iframe></textarea>
 
-       <p><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_blank"><img src="{% static "img/ikonka_zm100x100.jpg" %}"></a><br>
-       <textarea rows="3" name="html" cols="20" style="width:190px;"><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}"><img src="{% static "img/ikonka_zm100x100.jpg" %}" style="width:100px; height:100px;"></a></textarea>
-       </p> -->
+       <p>Chcete-li odkázat na toto konkrétní místo v Zelené mapě, použijte následující HTML kód.</p>
+
+       <p><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_blank" style="float:left;"><img src="{% static "img/ikonka_zm100x100.jpg" %}"></a><br>
+       <textarea rows="3" name="html" cols="20" style="width:190px;margin-left:20px;"><a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}"><img src="{% static "img/ikonka_zm100x100.jpg" %}" style="width:100px; height:100px;float:left;"></a></textarea>
+       </p>
 
      </div>
 </div>
