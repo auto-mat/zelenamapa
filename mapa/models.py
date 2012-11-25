@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
+import datetime
 
 from django.contrib.gis.db import models
 from django.utils.safestring import mark_safe
 from django.core.cache import cache
+
+from django.contrib.auth.models import User
 
 class Status(models.Model):
     "Stavy zobrazeni konkretniho objektu, vrstvy apod."
@@ -64,6 +67,9 @@ class ViditelneManager(models.GeoManager):
 
 class Poi(models.Model):
     "Misto - bod v mape"
+    author = models.ForeignKey(User, verbose_name="Autor")
+    created_at = models.DateTimeField(auto_now_add=True,  verbose_name="Posledni zmena")
+
     nazev   = models.CharField(max_length=255, verbose_name=u"název")   # Name of the location
     
     # Relationships
@@ -110,6 +116,10 @@ class Poi(models.Model):
         self.save()
     def get_absolute_url(self):
         return "/misto/%i/" % self.id
+
+    def save(self, *args, **kwargs):
+        self.created_at = datetime.datetime.now()
+        super(Poi, self).save(*args, **kwargs)
 
 from django.db.models.signals import m2m_changed, post_save
 def update_vlastnosti_cache(sender, instance, action, reverse, model, pk_set, **kwargs):

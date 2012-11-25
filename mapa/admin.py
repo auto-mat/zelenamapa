@@ -20,9 +20,10 @@ from mapa.models import *
 USE_GOOGLE_TERRAIN_TILES = False
 
 class PoiAdmin(OSMGeoAdmin):
-    list_display = ['nazev','status','znacka','address','url','foto_thumb']
+    list_display = ['nazev','status','znacka','address','url','foto_thumb', ]
     list_filter = ('znacka__vrstva', 'znacka', 'status',)
-    exclude = ('vlastnosti_cache',)
+    exclude = ('vlastnosti_cache', )
+    readonly_fields = ("created_at", "author")
     raw_id_fields = ('znacka',)
     search_fields = ('nazev',)
     ordering = ('nazev',)
@@ -70,6 +71,11 @@ class PoiAdmin(OSMGeoAdmin):
     #wms_name = 'OpenLayers WMS'
     #debug = False
     #widget = OpenLayersWidget
+
+    def save_model(self, request, obj, form, change):
+        if not obj.pk:
+            obj.author = request.user # no need to check for it.
+        obj.save()
 
 class ZnackaInline(admin.TabularInline):
     model = Znacka
