@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import datetime
 
 from django.contrib.gis.db import models
 from django.utils.safestring import mark_safe
@@ -115,6 +116,10 @@ class Poi(models.Model):
         self.save()
     def get_absolute_url(self):
         return "/misto/%i/" % self.id
+
+    def save(self, *args, **kwargs):
+        self.created_at = datetime.datetime.now()
+        super(Poi, self).save(*args, **kwargs)
 
 from django.db.models.signals import m2m_changed, post_save
 def update_vlastnosti_cache(sender, instance, action, reverse, model, pk_set, **kwargs):
