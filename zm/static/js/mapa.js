@@ -367,10 +367,14 @@ function onFeatureSelect(feature) {
         for (var i in map.popups) {
             removePopup(map.popups[i]);
         }
-                    
+
+        if(mapconfig.mapwidget !=  undefined && mapconfig.mapwidget.hide_controls !=  undefined && mapconfig.mapwidget.hide_controls ==  true) {
+            url='/#detail='+feature.fid;
+            document.location=url;    
+        }
+
         if (mapconfig['mobilni']){
-            //url="/vypis/"+feature.fid +"/"
-            url='/vypis/780/';
+            url='/vypis/'+feature.fid+'/';
             document.location=url;    
         }
                    
