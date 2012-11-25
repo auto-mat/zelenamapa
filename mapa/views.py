@@ -20,7 +20,9 @@ from mapa.models import *
 
 def is_mobilni(request):
     subdomain = request.META.get('HTTP_HOST', '').split('.')
-    try: explicit_mobile = True
+    try: 
+        request.GET["m"]
+        explicit_mobile = True
     except KeyError: explicit_mobile = False
     return ('m' in subdomain) or (explicit_mobile)
 
