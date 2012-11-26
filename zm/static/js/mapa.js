@@ -66,16 +66,6 @@ function init(mapconfig)
         type: OpenLayers.Filter.Logical.AND
     });
             
-    /*filter_rule = new OpenLayers.Rule({
-                filter: mainFilter,
-                symbolizer: {'externalGraphic': '${ikona}', 'graphicWidth': 30, 'graphicHeight': 32,
-                graphicXOffset: -13, graphicYOffset: -32, 'graphicOpacity': 1, 'graphicTitle': '${name}' }
-            });
-            nofilter_rule = new OpenLayers.Rule({
-                symbolizer: {'externalGraphic': '${ikona}', 'graphicWidth': 30, 'graphicHeight': 32,
-                graphicXOffset: -13, graphicYOffset: -32, 'graphicOpacity': 1, 'graphicTitle': '${name}' }
-            });*/ 
-
     filter_rule = new OpenLayers.Rule({
         filter: mainFilter,
         symbolizer: {
@@ -366,7 +356,7 @@ function onFeatureSelect(feature) {
         }
 
         if(mapconfig.mapwidget !=  undefined && mapconfig.mapwidget.hide_controls !=  undefined && mapconfig.mapwidget.hide_controls ==  true) {
-            url='/#detail='+feature.fid;
+            url=mapconfig.site_url + '/#detail='+feature.fid;
             document.location=url;    
         }
 

@@ -12,6 +12,7 @@ mapconfig['lon'] = {{obj.geom.get_x}};
 mapconfig['lat'] = {{obj.geom.get_y}};
 mapconfig['mapwidget'] = {}
 mapconfig['mapwidget']["hide_controls"] = true;
+mapconfig['site_url'] = '';
 
 //mapconfig['center_feature'] = {{obj.pk}};
 

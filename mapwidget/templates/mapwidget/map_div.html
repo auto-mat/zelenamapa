@@ -1,8 +1,10 @@
-{% load static mapwidget_tags %}<script type="text/javascript" src="http://{% http_host %}/static/js/OpenLayers.js"></script>
-<script type="text/javascript" src="http://{% http_host %}{% static "js/OpenStreetMap.js" %}"></script>
-<script type="text/javascript" src="http://{% http_host %}{% static "js/MyFramedCloud.js" %}"></script>
-<script type="text/javascript" src="http://{% http_host %}{% static "js/jquery.tools.min.js" %}"></script> <script type="text/javascript" src="http://{% http_host %}{% static "js/jquery.ba-hashchange.min.js" %}"></script>
-<script type="text/javascript" src="http://{% http_host %}{% static "js/mapa.js" %}"></script>
-<script type="text/javascript" src="http://{% http_host %}/mapwidget/mapconfig{{obj.pk}}.js"></script>
+{% load static mapwidget_tags %}
+<script type="text/javascript" src="{{ SITE_URL }}{% static "js/OpenLayers.js" %}"></script>
+<script type="text/javascript" src="{{ SITE_URL }}{% static "js/OpenStreetMap.js" %}"></script>
+<script type="text/javascript" src="{{ SITE_URL }}{% static "js/MyFramedCloud.js" %}"></script>
+<script type="text/javascript" src="{{ SITE_URL }}{% static "js/jquery.tools.min.js" %}"></script>
+<script type="text/javascript" src="{{ SITE_URL }}{% static "js/jquery.ba-hashchange.min.js" %}"></script>
+<script type="text/javascript" src="{{ SITE_URL }}{% static "js/mapa.js" %}"></script>
+<script type="text/javascript" src="{{ SITE_URL }}/mapwidget/mapconfig_div{{obj.pk}}.js"></script>
 <script type="text/javascript">$(document).ready(function(){init(mapconfig);})</script>
 <div id="map" style="width:{{w}}px;height:{{h}}px"></div>
