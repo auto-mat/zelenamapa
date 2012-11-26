@@ -44,6 +44,8 @@ TIME_ZONE = 'Europe/Prague'
 
 SITE_ID = 1
 
+SITE_URL = 'http://www.zelenamapa.cz'
+
 USE_I18N = True
 
 MEDIA_ROOT = '/home/www/zelenamapa.cz/media/'
@@ -70,6 +72,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
      'django.core.context_processors.request',
      'django.core.context_processors.media',
      'django.contrib.messages.context_processors.messages',
+     'module.context_processors.site',
 ) 
 
 MIDDLEWARE_CLASSES = (
@@ -77,6 +80,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'mapwidget.middleware.crossdomainxhr.XsSharing',
 )
 
 ROOT_URLCONF = 'zm.urls'
