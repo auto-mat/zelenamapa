@@ -1,4 +1,5 @@
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
 from django.conf import settings
 from django.conf.urls import patterns, url, include
 from django.contrib import admin
@@ -46,8 +47,6 @@ urlpatterns += staticfiles_urlpatterns()
     
 if settings.DEBUG:
     urlpatterns += patterns('',
-        (r'^foto/(.*)$','django.views.static.serve',{'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-        (r'^media/(.*)$','django.views.static.serve',{'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-        (r'^images/(.*)$','django.views.static.serve',{'document_root': settings.MEDIA_ROOT + '/images', 'show_indexes': True}),
-        (r'^static/(.*)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT , 'show_indexes': True})
-    )
+    ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT, show_indexes = True) \
+      + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT, show_indexes = True) \
+      + static('images', document_root=settings.MEDIA_ROOT + '/images', show_indexes = True)
