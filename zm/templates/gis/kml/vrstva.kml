@@ -6,7 +6,7 @@
     <tag>{{ place.vlastnosti_cache }}</tag>
     <minZoom>{{ place.znacka.minzoom }}</minZoom>
     {% if place.znacka.default_icon.url %}
-       <ikona>{{ place.znacka.default_icon.url }}</ikona>
+       <ikona>http://zelenamapa.cz{{ place.znacka.default_icon.url }}</ikona>
        <height>{{ place.znacka.default_icon.height }}</height>
        <width>{{ place.znacka.default_icon.width }}</width>
     {% endif %}
