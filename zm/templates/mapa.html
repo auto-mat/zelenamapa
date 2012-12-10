@@ -186,17 +186,17 @@
 		
                 <div class="reklama1">
 		  {% if select2_pois %}
-		 <p>Nase tipy:</p>
+		 <h4>Tipy Zelené mapy:</h4>
 		  {% endif %}
 		  {% for selected_poi in select2_pois %}
-		     <p>
+		     <p><a href="{% url 'mapa.views.mapa_view' selected_poi.id %}" title="Najet v mapě na místo" >
+		     {{ selected_poi }}</a>:<br/>
 		       {% for vl in selected_poi.vlastnosti.all %}
 		       {% if vl.status.show %}
 		       <img src="{{ vl.default_icon.url }}" title="{{ vl.nazev }}" alt="{{ vl.nazev }}"/>
 		       {% endif %}
 		       {% endfor %}
-		     <br/><a href="{% url 'mapa.views.mapa_view' selected_poi.id %}" title="Najet v mapě na místo" >
-		     {{ selected_poi }}</a></p>
+		     </p>
 
 		 {% endfor %}
 		</div>
