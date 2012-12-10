@@ -100,11 +100,11 @@
        <p><a href="{% url 'mapa.views.addpoi_view' poi.id %}" title="Doplnit informace o objektu">upravit</a> |
        <a href="{% url 'mapa.views.mapa_view' poi.id %}" target="_top" title="Ukázat v mapě">zobrazit v mapě</a></p>
        
-       </div>
-       <div class="content" style="max-width:500px; text-align:left;clear:both;">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-via="zelenamapa" data-lang="en">Tweet</a>
-      <div class="g-plus" data-action="share"></div>
-      <div class="fb-like" data-href="http://zelenamapa.cz{{request.get_full_path}}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+        <div class="content" style="max-width:500px; text-align:left;clear:both;">
+           <div class="fb-like" data-href="http://zelenamapa.cz/misto/{{ poi.id }}" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-font="arial" style="width:110px;"></div>
+           <a href="https://twitter.com/share?url=http://zelenamapa.cz/misto/{{ poi.id }}" class="twitter-share-button" data-via="zelenamapa" data-lang="en">Tweet</a>
+           <div class="g-plus" data-action="share" href="http://zelenamapa.cz/misto/{{ poi.id }}"></div>
+      </div>
 
 <h3>Komentáře</h3>
 <div class="addcoment">
