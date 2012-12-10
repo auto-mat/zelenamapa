@@ -44,6 +44,22 @@ def mapa_view(request, poi_id=None):
     except:
         pass
 
+    select_poi = None
+    # prvni misto, ktere ma vlastnost se slugem "misto-mesice"
+    try:
+        select_poi = Poi.viditelne.filter(vlastnosti__slug='misto-mesice').order_by('id')[0]
+    except:
+        pass
+
+    select2_pois = None
+    # vybrana mista pro druhy vypis - kolik jich je, tolik jich je!
+    try:
+        select2_pois = Poi.viditelne.filter(vlastnosti__slug='misto-propagace')
+        length = select2_pois.__len__()
+        
+    except:
+        pass
+    
     # volitelne poi_id zadane mape jako bod, na ktery se ma zazoomovat
     center_poi = None
     if poi_id:
@@ -62,6 +78,8 @@ def mapa_view(request, poi_id=None):
         'vrstvy': vrstvy,
         'vlastnosti' : vlastnosti,
         'random_poi' : random_poi,
+        'select_poi' : select_poi,
+        'select2_pois' : select2_pois,
         'poi_count' : Poi.viditelne.count(),
         'center_poi' : center_poi,
         'titulni_stranka' : titulni_stranka,
