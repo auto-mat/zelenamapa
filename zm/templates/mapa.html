@@ -218,40 +218,40 @@
                     <div class="first raw">
 
                         <h3>Zajímavé místo</h3>
-                        {% if random_poi %}
-                            <h4><a href="{% url 'mapa.views.mapa_view' random_poi.id %}" title="Najet v mapě na místo" >{{ random_poi }}</a></h4>
-                            {% if random_poi.foto_thumb %}
-                                <a href="#detail={{ random_poi.id }}" title="Podrobné informace o místě">
-                                  <img src="{{ random_poi.foto_thumb.url }}" title="{{ random_poi }}" class="foto_segment" /></a>
+                        {% if select_poi %}
+                            <h4><a href="{% url 'mapa.views.mapa_view' select_poi.id %}" title="Najet v mapě na místo" >{{ select_poi }}</a></h4>
+                            {% if select_poi.foto_thumb %}
+                                <a href="#detail={{ select_poi.id }}" title="Podrobné informace o místě">
+                                  <img src="{{ select_poi.foto_thumb.url }}" title="{{ select_poi }}" class="foto_segment" /></a>
                             {% endif %}
                             <p>
-                                {% for vl in random_poi.vlastnosti.all %}
+                                {% for vl in select_poi.vlastnosti.all %}
 				{% if vl.status.show %}
                                     <img src="{{ vl.default_icon.url }}" title="{{ vl.nazev }}" alt="{{ vl.nazev }}"/>
 				{% endif %}
                                 {% endfor %}
                             </p>
 
-                            {% if random_poi.desc %}
-                                <p>{{ random_poi.desc|safe }}</p>
+                            {% if select_poi.desc %}
+                                <p>{{ select_poi.desc|safe }}</p>
                             {% else %}
-                                <p>{{ random_poi.znacka }}</p>
+                                <p>{{ select_poi.znacka }}</p>
                             {% endif %}
-                            {% if random_poi.address %}
-                                <p>Adresa:<br />{{ random_poi.address|safe }}</p>
+                            {% if select_poi.address %}
+                                <p>Adresa:<br />{{ select_poi.address|safe }}</p>
                             {% endif %}
                             <p>
-                            {% if random_poi.url %}
-                                  <a target="_blank" href="{{ random_poi.url|safe }}" title="{{ random_poi.url|safe }}">web</a>,
+                            {% if select_poi.url %}
+                                  <a target="_blank" href="{{ select_poi.url|safe }}" title="{{ select_poi.url|safe }}">web</a>,
                             {% endif %}
 
 
 
-                            <a href="{% url 'mapa.views.mapa_view' random_poi.id %}" title="Najet v mapě na místo" >ukázat v mapě</a>,
-                            <a href="#detail={{ random_poi.id }}" title="Podrobné informace o místě">detail místa</a>,
-                            <a href="#doplnit={{ random_poi.id }}" title="Doplnit informace o místě, opravit chybu">doplň-oprav</a>
+                            <a href="{% url 'mapa.views.mapa_view' select_poi.id %}" title="Najet v mapě na místo" >ukázat v mapě</a>,
+                            <a href="#detail={{ select_poi.id }}" title="Podrobné informace o místě">detail místa</a>,
+                            <a href="#doplnit={{ select_poi.id }}" title="Doplnit informace o místě, opravit chybu">doplň-oprav</a>
                             </p>
-                        {% endif %} {# random_poi #}
+                        {% endif %} {# select_poi #}
                     </div>
                     {% endif %} {# mobilni #}
 
