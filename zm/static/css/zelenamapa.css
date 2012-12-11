@@ -41,7 +41,7 @@ text-align:center; border:solid 1px lightgray; }
 .secondary{float:left;}
 .content{width:100%;margin:0; margin-left:0px; text-align:left;}
 .content_left{max-width:520px;margin:0 auto; text-align:left; font-size: 13px;}
-.first, .second, .third{float:left;clear:none;width:31%; overflow: hidden;}
+.first, .second, .third{float:left;clear:none;width:48%; overflow: hidden;}
 .first p, .second p, .third p{text-align:justify;text-indent:0px;}
 .first, .second{margin:0 22px 0 0;}
 .gallery{min-width:520px;float:left;clear:none; margin-right:28px;}
