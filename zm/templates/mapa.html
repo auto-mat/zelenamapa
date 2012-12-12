@@ -54,6 +54,21 @@
     {% endcompress %}
 
     <title>{% if center_poi %}{{ center_poi }} - {% endif %}Zelená mapa Prahy</title>
+    {% if center_poi %}
+         <meta property="og:title" content="{{ center_poi }} - Zelená mapa Prahy"/>
+	 <meta property="og:site_name" content="Zelená mapa Prahy"/>
+         <!--<meta property="og:url" content="http://zelenamapa.cz:8010/misto/{{  center_poi.id }}"/>-->
+	 {% if center_poi.foto_thumb %}
+	   <meta property="og:image" content="http://zelenamapa.cz{{ center_poi.foto_thumb.url }}"/>
+	 {% else %}
+ 	   <meta property="og:image" content="http://zelenamapa.cz/static/img/zelena_mapa_ctverec.jpg"/>
+	 {% endif %}
+	 {% if center_poi.desc %}
+ 	   <meta property="og:description" content="{{ center_poi.desc|safe }}"/>
+	 {% else %}
+ 	   <meta property="og:description" content="{{ center_poi.znacka }}"/>
+	 {% endif %}
+   {% endif %}     
      
 <script type="text/javascript">
      var _gaq = _gaq || [];
