@@ -30,26 +30,36 @@ def is_mobilni(request):
     except KeyError: explicit_mobile = False
     return ('m' in subdomain) or (explicit_mobile)
 
+# Zapinani a vypinani funkcionalit
+def tipyzm(request):       return False # Ukazat tipy Zelene mapy v pravem sloupci - funguje
+def left_poi_tip(request): return True # True = poi vlevo dole je tip, False = poi vlevo dole je nahodny - funguje
+#def social(request):       return False # Social plugins (Facebook, Twitter, Google+)
+#def comments(request):     return False # Komentare k mistum
+#def show_widget(request):  return False # Widgeta k mistum
+
 def mapa_view(request, poi_id=None):
+    
+    
     vrstvy = Vrstva.objects.filter(status__show=True)
     vlastnosti = Vlastnost.objects.filter(status__show=True)
 
-    # pro nahodny objekt v mape
-    # tento kod selze pokud nemame v db zadne Poi
-    random_poi = None
-    try:
-        max_id = Poi.objects.aggregate(Max('id')).values()[0]
-        min_id = math.ceil(max_id*random.random())
-        random_poi = Poi.viditelne.filter(id__gte=min_id).order_by('id')[0]
-    except:
-        pass
-
     select_poi = None
-    # prvni misto, ktere ma vlastnost se slugem "misto-mesice"
-    try:
-        select_poi = Poi.viditelne.filter(vlastnosti__slug='misto-mesice').order_by('id')[0]
-    except:
-        pass
+    if left_poi_tip(request):
+        # prvni misto, ktere ma vlastnost se slugem "misto-mesice"
+        try:
+            select_poi = Poi.viditelne.filter(vlastnosti__slug='misto-mesice').order_by('id')[0]
+        except:
+            pass
+    else:
+        # pro nahodny objekt v mape
+        # tento kod selze pokud nemame v db zadne Poi
+        try:
+            max_id = Poi.objects.aggregate(Max('id')).values()[0]
+            min_id = math.ceil(max_id*random.random())
+            select_poi = Poi.viditelne.filter(id__gte=min_id).order_by('id')[0]
+        except:
+            pass
+
 
     select2_pois = None
     # vybrana mista pro druhy vypis - kolik jich je, tolik jich je!
@@ -77,13 +87,13 @@ def mapa_view(request, poi_id=None):
     context = RequestContext(request, {
         'vrstvy': vrstvy,
         'vlastnosti' : vlastnosti,
-        'random_poi' : random_poi,
         'select_poi' : select_poi,
         'select2_pois' : select2_pois,
         'poi_count' : Poi.viditelne.count(),
         'center_poi' : center_poi,
         'titulni_stranka' : titulni_stranka,
         'mobilni' : mobilni,
+        'tipyzm' : tipyzm(request),
     })
     return render_to_response('mapa.html', context_instance=context)
 

@@ -200,7 +200,7 @@
                 </div>
 		
                 <div class="reklama1">
-		  {% if select2_pois %}
+		  {% if tipyzm %}{% if select2_pois %}
 		 <h4>Tipy Zelené mapy:</h4>
 		  {% endif %}
 		  {% for selected_poi in select2_pois %}
@@ -214,6 +214,7 @@
 		     </p>
 
 		 {% endfor %}
+		 {% endif %}
 		</div>
 		
 
