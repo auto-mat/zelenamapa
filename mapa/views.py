@@ -31,11 +31,11 @@ def is_mobilni(request):
     return ('m' in subdomain) or (explicit_mobile)
 
 # Zapinani a vypinani funkcionalit
-def tipyzm(request):       return False # Ukazat tipy Zelene mapy v pravem sloupci - funguje
-def left_poi_tip(request): return True # True = poi vlevo dole je tip, False = poi vlevo dole je nahodny - funguje
-#def social(request):       return False # Social plugins (Facebook, Twitter, Google+)
-#def comments(request):     return False # Komentare k mistum
-#def show_widget(request):  return False # Widgeta k mistum
+def tipyzm(request):       return False # Ukazat tipy Zelene mapy v pravem sloupci 
+def left_poi_tip(request): return True # True = poi vlevo dole je tip, False = poi vlevo dole je nahodny 
+def social(request):       return True # Social plugins (Facebook, Twitter, Google+) 
+def comments(request):     return False # Komentare k mistum 
+def show_widget(request):  return False # Widgeta k mistum
 
 def mapa_view(request, poi_id=None):
     
@@ -201,7 +201,10 @@ def detail_view(request, poi_id):
         context_instance=RequestContext(request, {
             'poi': poi,
             'comment_form': comment_form, 
-            "comment_list": Comment.objects.filter(poi=poi).order_by("pk")
+            "comment_list": Comment.objects.filter(poi=poi).order_by("pk"),
+            'social'      : social(request),
+            'comments'    : comments(request),
+            'show_widget' : show_widget(request)
         }))
 
 # View pro podrobny vypis seznamu vlastnosti
