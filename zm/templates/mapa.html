@@ -53,7 +53,22 @@
    {% endif %}
     {% endcompress %}
 
-    <title>Zelená mapa Prahy</title>
+    <title>{% if center_poi %}{{ center_poi }} - {% endif %}Zelená mapa Prahy</title>
+    {% if center_poi %}
+         <meta property="og:title" content="{{ center_poi }} - Zelená mapa Prahy"/>
+	 <meta property="og:site_name" content="Zelená mapa Prahy"/>
+         <!--<meta property="og:url" content="http://zelenamapa.cz:8010/misto/{{  center_poi.id }}"/>-->
+	 {% if center_poi.foto_thumb %}
+	   <meta property="og:image" content="http://zelenamapa.cz{{ center_poi.foto_thumb.url }}"/>
+	 {% else %}
+ 	   <meta property="og:image" content="http://zelenamapa.cz/static/img/zelena_mapa_ctverec.jpg"/>
+	 {% endif %}
+	 {% if center_poi.desc %}
+ 	   <meta property="og:description" content="{{ center_poi.desc|safe }}"/>
+	 {% else %}
+ 	   <meta property="og:description" content="{{ center_poi.znacka }}"/>
+	 {% endif %}
+   {% endif %}     
      
 <script type="text/javascript">
      var _gaq = _gaq || [];
@@ -183,16 +198,37 @@
 				  {% get_staticpage "box-B" as f %}
 				  {{ f.content|safe }}
                 </div>
+		
+                <div class="reklama1">
+		  {% if tipyzm %}{% if select2_pois %}
+		 <h4>Tipy Zelené mapy:</h4>
+		  {% endif %}
+		  {% for selected_poi in select2_pois %}
+		     <p><a href="{% url 'mapa.views.mapa_view' selected_poi.id %}" title="Najet v mapě na místo" >
+		     {{ selected_poi }}</a>:<br/>
+		       {% for vl in selected_poi.vlastnosti.all %}
+		       {% if vl.status.show %}
+		       <img src="{{ vl.default_icon.url }}" title="{{ vl.nazev }}" alt="{{ vl.nazev }}"/>
+		       {% endif %}
+		       {% endfor %}
+		     </p>
+
+		 {% endfor %}
+		 {% endif %}
+		</div>
+		
 
                 <div class="obj_count" style="margin-left:10px; margin-bottom:10px;">
                     <p>V zelené mapě je nyní <span style="font-size:150%; font-weight:bold;">{{ poi_count }}</span> míst.</p>
                 </div>
     
                 <div class="reklama1">
-			 {% get_staticpage "box-C" as f %}
+
+                         {% get_staticpage "box-C" as f %}
 			 {{ f.content|safe }}
  			 {% get_staticpage "partneri" as f %}
                          {{ f.content|safe }}
+                         <iframe src="http://chodcisobe.cz/?widget=praha&limit=4&width=200" style="border:none;width:200px;height:360px;margin-top: 22px" frameborder="0" /></iframe>
 			 {% get_staticpage "bottomright" as f %}
                          {{ f.content|safe }}
                 </div>
@@ -257,9 +293,8 @@
 
 {% cache 600 dolni-cast mobilni %}
                     {% if not mobilni %}
-                    <div class="second raw">
-                        <iframe src="http://chodcisobe.cz/?widget=praha&limit=4&width=280" style="border:none;width:280px;height:450px;margin-top: 22px" frameborder="0" /></iframe> 
-                    </div>
+                    <!--<div class="second raw">
+                    </div>-->
 
                     <div class="third raw">
                         <h3><a href="#blog=0">Novinky</a></h3>

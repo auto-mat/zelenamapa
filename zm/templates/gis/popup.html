@@ -30,8 +30,16 @@
 {% if poi.url %}
     <p><a target="_blank" href="{{ poi.url|safe }}" title="{{ poi.url|safe }}">{{ poi.url|truncatewords:4 }}</a></p>
 {% endif %}
+
+<!--   <div class="fb-like" data-href="http://zelenamapa.cz/misto/{{ poi.id }}" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-font="arial" style=""></div>
+   <a href="https://twitter.com/share" class="twitter-share-button" data-via="zelenamapa" data-lang="en">Tweet</a>
+   <div class="g-plus" data-action="share"></div> -->
+
+
 </div>
 <p class="addinfo">
+
+
     <a href="#detail={{ poi.id }}" title="Podrobné informace o místě">detail místa</a>,
     <a href="javascript:void(0);" onclick="ZoomToLonLat(this, {{ poi.geom.x }}, {{ poi.geom.y }}, 17);"
       title="Najet v mapě na místo" >na střed</a>,
