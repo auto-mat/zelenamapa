@@ -9,6 +9,7 @@
 
    <script type="text/javascript" src="/static/js/jquery.tools.min.js"></script>
    <script type="text/javascript">
+{% if comments %}
    function supports_html5_storage() {
   try {
     return 'localStorage' in window && window['localStorage'] !== null;
@@ -26,7 +27,9 @@
         localStorage.setItem("comment_email", email);
       }
     }
+{% endif %}
 
+{% if show_widget %}
     function widgetIframe (w, h) {
       return "<iframe src=\"http://zelenamapa.cz/mapwidget/"+w+"x"+h+"/{{poi.pk}}/\" style=\"width:"+w+"px;height:"+h+"px;\" border=\"0\"></iframe>";
     }
@@ -36,13 +39,16 @@
       h = $('[name=widget_height]').val();
       $('[name=widget_html_iframe]').val(widgetIframe(w, h));
     }
+{% endif %}
 
     $(document).ready(function () {
+{% if comments %}
       if (supports_html5_storage())
       {
       $('[name=name]').val( localStorage.getItem("comment_name"));
       $('[name=email]').val( localStorage.getItem("comment_email"));
     }
+{% endif %}
     $("#wigdet_generator").hide();
 
         $("#togle_widget_generator").click(function(){
@@ -99,13 +105,15 @@
 
        <p><a href="{% url 'mapa.views.addpoi_view' poi.id %}" title="Doplnit informace o objektu">upravit</a> |
        <a href="{% url 'mapa.views.mapa_view' poi.id %}" target="_top" title="Ukázat v mapě">zobrazit v mapě</a></p>
-       
-       </div>
-       <div class="content" style="max-width:500px; text-align:left;clear:both;">
-        <a href="https://twitter.com/share" class="twitter-share-button" data-via="zelenamapa" data-lang="en">Tweet</a>
-      <div class="g-plus" data-action="share"></div>
-      <div class="fb-like" data-href="http://zelenamapa.cz{{request.get_full_path}}" data-send="false" data-layout="button_count" data-width="450" data-show-faces="false" data-font="arial"></div>
+       {% if social %}
+        <div class="content" style="max-width:500px; text-align:left;clear:both;">
+           <div class="fb-like" data-href="{% url 'mapa.views.mapa_view' poi.id %}" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-font="arial" style="width:110px;"></div>
+           <a href="https://twitter.com/share?url={% url 'mapa.views.mapa_view' poi.id %}" class="twitter-share-button" data-via="zelenamapa" data-lang="en">Tweet</a>
+           <div class="g-plus" data-action="share" href="{% url 'mapa.views.mapa_view' poi.id %}"></div>
+      </div>
+       {% endif %}
 
+{% if comments %}
 <h3>Komentáře</h3>
 <div class="addcoment">
 <form method="post" class="form">
@@ -130,17 +138,20 @@ value="Přidat" ></button>
 </div>
 {%endfor%}
 </div>
+{% endif %}
 <hr>
 
 <a href="#" id="togle_widget_generator"><h4>HTML pro zobrazení odkazu na Zelenou mapu</h4></a>
        <div id="wigdet_generator">
        <p>Permalink na místo: <a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_top">http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}</a></p>
-       
+
+       {% if show_widget %}
        <p>Widgeta mapy - pro vložení do vlastních stránek.</p>
        
        <p>Velikost <input type="text" class="widget_input" name="widget_width" placeholder="šířka" onkeyup="generateWidgetIframe();" value="300"> x
        <input type="text" class="widget_input" name="widget_height" placeholder="výška" onkeyup="generateWidgetIframe();" value="300"></p>
        <textarea class="rounded_html_iframe"  name="widget_html_iframe" style="width:500px;"><iframe src="http://zelenamapa.cz/mapwidget/300x300/{{ poi.pk }}/" style="width:300px;height:300px;" border="0"></iframe></textarea>
+       {% endif %}
 
        <p>Chcete-li odkázat na toto konkrétní místo v Zelené mapě, použijte následující HTML kód.</p>
 
@@ -151,6 +162,7 @@ value="Přidat" ></button>
 
 </div>
 </div>
+       {% if social %}
        <!-- SOCIAL JS-->
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
@@ -167,5 +179,7 @@ value="Přidat" ></button>
         })();
       </script>
       <!-- END SOCIAL JS -->
+      {% endif %}
+
   </body>
 </html>
