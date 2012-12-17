@@ -31,7 +31,7 @@ def is_mobilni(request):
     return ('m' in subdomain) or (explicit_mobile)
 
 # Zapinani a vypinani funkcionalit
-def tipyzm(request):       return False # Ukazat tipy Zelene mapy v pravem sloupci 
+def tipyzm(request):       return True # Ukazat tipy Zelene mapy v pravem sloupci 
 def left_poi_tip(request): return True # True = poi vlevo dole je tip, False = poi vlevo dole je nahodny 
 def social(request):       return True # Social plugins (Facebook, Twitter, Google+) 
 def comments(request):     return False # Komentare k mistum 
@@ -44,8 +44,10 @@ def mapa_view(request, poi_id=None):
     vlastnosti = Vlastnost.objects.filter(status__show=True)
 
     select_poi = None
+    select_poi_header = 'Zajimave misto' # jak s diaktritikou???
     if left_poi_tip(request):
         # prvni misto, ktere ma vlastnost se slugem "misto-mesice"
+        select_poi_header = Vlastnost.objects.get(slug='misto-mesice').nazev
         try:
             select_poi = Poi.viditelne.filter(vlastnosti__slug='misto-mesice').order_by('id')[0]
         except:
@@ -62,8 +64,10 @@ def mapa_view(request, poi_id=None):
 
 
     select2_pois = None
+    select2_pois_header = 'Tipy:' # jak s diaktritikou???
     # vybrana mista pro druhy vypis - kolik jich je, tolik jich je!
     try:
+        select2_pois_header = Vlastnost.objects.get(slug='misto-propagace').nazev
         select2_pois = Poi.viditelne.filter(vlastnosti__slug='misto-propagace')
         length = select2_pois.__len__()
         
@@ -94,6 +98,8 @@ def mapa_view(request, poi_id=None):
         'titulni_stranka' : titulni_stranka,
         'mobilni' : mobilni,
         'tipyzm' : tipyzm(request),
+        'select_poi_header' : select_poi_header,
+        'select2_pois_header' : select2_pois_header
     })
     return render_to_response('mapa.html', context_instance=context)
 
