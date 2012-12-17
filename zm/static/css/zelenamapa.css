@@ -126,7 +126,7 @@ img.sr_img {  width:17px; height:18px; position:relative; top: 3px; margin-right
 .rc_noscroll { margin-left: 24px; padding-right:2px;  }
 .addinfo { text-align:right; margin-right:5px;}
 .olPopupCloseBox { float:right !important; right:17px  !important;}
-.foto_thumb { border:none; width:150px; margin-top:4px; }
+.foto_thumb { border:none; max-width:230px; max-height:230px; margin-top:4px; }
 .foto_segment { border:none; width:100%; margin-bottom: 14px }
 		 
 /* END Popup */
