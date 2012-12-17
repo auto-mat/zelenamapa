@@ -95,7 +95,7 @@
     {% endfor %}
 {% endcache %}
 
-     mapconfig['basezoom'] = 13;
+     mapconfig['basezoom'] = 14;
      mapconfig['baselon'] = 14.4211;
      mapconfig['baselat'] = 50.08741;
     {% if center_poi %}
@@ -201,7 +201,7 @@
 		
                 <div class="reklama1">
 		  {% if tipyzm %}{% if select2_pois %}
-		 <h4>Tipy Zelené mapy:</h4>
+		 <h4>{{ select2_pois_header }}<!--Tipy Zelené mapy:--></h4>
 		  {% endif %}
 		  {% for selected_poi in select2_pois %}
 		     <p><a href="{% url 'mapa.views.mapa_view' selected_poi.id %}" title="Najet v mapě na místo" >
@@ -253,7 +253,7 @@
                     {% if not mobilni %}
                     <div class="first raw">
 
-                        <h3>Zajímavé místo</h3>
+                        <h3>{{ select_poi_header }}<!--Zajímavé místo--></h3>
                         {% if select_poi %}
                             <h4><a href="{% url 'mapa.views.mapa_view' select_poi.id %}" title="Najet v mapě na místo" >{{ select_poi }}</a></h4>
                             {% if select_poi.foto_thumb %}
