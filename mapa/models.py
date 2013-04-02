@@ -7,6 +7,8 @@ from django.core.cache import cache
 
 from django.contrib.auth.models import User
 
+from .utils import SlugifyFileSystemStorage
+
 class Status(models.Model):
     "Stavy zobrazeni konkretniho objektu, vrstvy apod."
     nazev   = models.CharField(max_length=255)                      # Nazev statutu
@@ -52,8 +54,8 @@ class Znacka(models.Model):
     remark  = models.TextField(null=True, blank=True, help_text=u"interni informace o objektu, ktere se nebudou zobrazovat")
     
     # Base icon and zoom dependent display range
-    default_icon = models.ImageField(null=True, upload_to='ikony') # XXX: zrusit null=True
-    mobile_icon = models.ImageField(null=True, upload_to='ikony_m') # XXX: zrusit null=True
+    default_icon = models.ImageField(null=True, upload_to='ikony', storage=SlugifyFileSystemStorage()) # XXX: zrusit null=True
+    mobile_icon = models.ImageField(null=True, upload_to='ikony_m', storage=SlugifyFileSystemStorage()) # XXX: zrusit null=True
     minzoom = models.PositiveIntegerField(default=1)
     maxzoom = models.PositiveIntegerField(default=10)
     
@@ -97,7 +99,10 @@ class Poi(models.Model):
     remark  = models.TextField(null=True, blank=True, verbose_name=u"interní poznámka", help_text=u"Interní informace o objektu, které se nebudou zobrazovat")
 
     # 3 fotografie museji pro vetsinu ucelu stacit
-    foto_thumb  = models.ImageField(null=True, blank=True, upload_to='foto', verbose_name=u"foto", help_text=u"Velikost max. 500x400px") # 150 x 100 px
+    foto_thumb  = models.ImageField(null=True, blank=True,
+                                    upload_to='foto', storage=SlugifyFileSystemStorage(),
+                                    verbose_name=u"foto",
+                                    help_text=u"velikost max. 500x400px")
 #    foto2 = models.ImageField(null=True, blank=True, upload_to='foto') 
 #    foto3 = models.ImageField(null=True, blank=True, upload_to='foto') 
     
@@ -145,7 +150,7 @@ class Vlastnost(models.Model):
     slug    = models.SlugField(unique=True, verbose_name="Slug")  # Popis tagu v URL
     desc    = models.TextField(null=True, blank=True) # podrobny popis vlastnosti
     remark  = models.TextField(null=True, blank=True, help_text=u"interni informace o objektu, ktere se nebudou zobrazovat")
-    default_icon = models.ImageField(null=True, upload_to='ikony') # XXX: zrusit null=True
+    default_icon = models.ImageField(null=True, upload_to='ikony', storage=SlugifyFileSystemStorage()) # XXX: zrusit null=True
    
     class Meta:
         verbose_name_plural = u"vlastnosti"
