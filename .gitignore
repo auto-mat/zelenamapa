@@ -2,7 +2,10 @@
 media/
 env/
 *.swp
+*.sql
 run.sh
 zm/settings.py
 !.gitkeep
 *~
+project/settings_local.py
+zm.log

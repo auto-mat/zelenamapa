@@ -4,7 +4,12 @@
 # e.g., for the MEDIA_ROOT, and TEMPLATE_DIRS settings.
 # see: http://rob.cogit8.org/blog/2008/Jun/20/django-and-relativity/
 import os
-PROJECT_DIR = os.path.dirname(__file__)
+import sys
+normpath = lambda *args: os.path.normpath(os.path.abspath(os.path.join(*args)))
+PROJECT_DIR = normpath(__file__, "..", "..")
+
+sys.path.append(normpath(PROJECT_DIR, "project"))
+sys.path.append(normpath(PROJECT_DIR, "apps"))
 
 # http://docs.djangoproject.com/en/dev/topics/testing/#id1
 # Your user must be a postgrest superuser
@@ -12,28 +17,12 @@ PROJECT_DIR = os.path.dirname(__file__)
 # http://www.postgresql.org/docs/8.3/interactive/libpq-pgpass.html
 TEST_RUNNER='django.contrib.gis.tests.run_gis_tests'
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
-
-ADMINS = (
-    # ('Your Name', 'your_email@domain.com'),
-)
-
-DATABASES = {
-        'default': {
-                'ENGINE': 'django.contrib.gis.db.backends.postgis',
-                'NAME': '',
-                'USER': '',
-                'PASSWORD': '',
-                'HOST': 'localhost',
-                'PORT': '',
-        },
-}
 
 CACHES = {
 	'default': {
-		'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
-#		'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+		'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
 		'LOCATION': '127.0.0.1:11211',
 	},
 }
@@ -63,10 +52,6 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-
-# DOPLNTE VLASTNI SECRET_KEY
-SECRET_KEY = ''
-
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 TEMPLATE_CONTEXT_PROCESSORS += (
      'django.core.context_processors.request',
@@ -83,11 +68,11 @@ MIDDLEWARE_CLASSES = (
     'mapwidget.middleware.crossdomainxhr.XsSharing',
 )
 
-ROOT_URLCONF = 'zm.urls'
+ROOT_URLCONF = 'urls'
 
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'zm.wsgi.application'
+WSGI_APPLICATION = 'wsgi.application'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_DIR, 'templates'),
@@ -111,3 +96,67 @@ INSTALLED_APPS = (
     'south',
     'comment',
 )
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
+    'filters': {
+         'require_debug_false': {
+             '()': 'django.utils.log.RequireDebugFalse'
+         }
+     },
+    'handlers': {
+        'null': {
+            'level': 'DEBUG',
+            'class': 'django.utils.log.NullHandler',
+        },
+        'console':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'logfile': {
+            'level':'DEBUG',
+            'class':'logging.handlers.RotatingFileHandler',
+            'filename': "/var/log/django/zm.log",
+            'backupCount': 50,
+            'maxBytes': 10000000,
+            'formatter': 'verbose',
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console', 'logfile'],
+            'propagate': True,
+            'level': 'INFO',
+        },
+        'django.request': {
+            'handlers': ['mail_admins', 'logfile'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'mapa': {
+            'handlers': ['console', 'mail_admins', 'logfile'],
+            'level': 'INFO',
+        }
+    }
+}
+
+# import local settings
+try:
+    from settings_local import *
+except ImportError:
+    pass

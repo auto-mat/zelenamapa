@@ -12,12 +12,12 @@ Instalace
 
 Ke zprovoznění je zapotřebí následující
 
-* Django 1.4
 * Postgres 8.4 + postgis 1.5
-* django-compressor
 
-Závislosti lze nainstalovat pomocí
+Aplikace se nainstaluje do prostředí virtualenv pomocí následujících příkazů:
 
-    pip install -r requirements.txt
+* virtualenv --no-site-packages env
+* env/bin/pip install distribute --upgrade
+* env/bin/pip install -r requirements.txt
 
 Vzorová konfigurace je v pnk/sample_settings.py, stačí přejmenovat na settings.py a doplnit přístup k DB a SECRET_KEY.
