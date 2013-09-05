@@ -93,8 +93,8 @@ img.sr_img {  width:17px; height:18px; position:relative; top: 3px; margin-right
 
 /* Forms */
 .errorlist li { background-color: red; }
-.fieldWrapper input{border:solid 1px grey;width:100%;margin:0 0 10px 0;}
-.fieldWrapper textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 1px grey;}
+.controls input{border:solid 1px grey;width:100%;margin:0 0 10px 0;}
+.controls textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 1px grey;}
 #id_desc { resize:none; }
 
 /* LayerSwitcher (white and black text) */
@@ -192,7 +192,7 @@ url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWH
 /* Round corners */
 
 .widget_input, .foto_thumb, .foto_segment, .foto_thumb_misto, .foto_thumb_edit, .vkladani_aktual { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
-.rounded_html_iframe, #id_content, #id_name, #id_email, #id_desc, #id_url, #id_address  { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
+.rounded_html_iframe, #id_comment, #id_name, #id_email, #id_desc, #id_url, #id_address  { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; }
 .middle_ad,        .left_top_ad,        .right_top_ad,        .reklama1,        .reklama2        , .blog_ad        { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; }
 .middle_ad a img,  .left_top_ad a img,  .right_top_ad a img,  .reklama1 a img,  .reklama2 a img  , .blog_ad a img  { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
 .middle_ad object, .left_top_ad object, .right_top_ad object, .reklama1 object, .reklama2 object , .blog_ad object { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 

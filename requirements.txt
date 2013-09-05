@@ -5,3 +5,4 @@ south
 psycopg2
 PIL
 django-constance[database]
+django-fluent-comments

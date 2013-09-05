@@ -1,5 +1,7 @@
 {% load static %}
 {% load url from future %}
+{% load comments %}
+
 <html>
   <head>
    <link rel="stylesheet" href="{% static "css/zelenamapa.css" %}" type="text/css" />
@@ -7,27 +9,17 @@
    
    <title>{{ poi }}</title>
 
-   <script type="text/javascript" src="/static/js/jquery.tools.min.js"></script>
-   <script type="text/javascript">
-{% if config.ENABLE_FEATURE_COMMENTS %}
-   function supports_html5_storage() {
-  try {
-    return 'localStorage' in window && window['localStorage'] !== null;
-  } catch (e) {
-    return false;
-  }
-}
+   <script type="text/javascript" src="/static/js/jquery.tools.min.1.2.7.js"></script>
 
-    function saveLocalStorage () {
-      var name = $('[name=name]').val();
-      var email = $('[name=email]').val();
-      if (supports_html5_storage())
-      {
-        localStorage.setItem("comment_name", name);
-        localStorage.setItem("comment_email", email);
-      }
-    }
-{% endif %}
+   {# comments #}
+   <link rel="stylesheet" type="text/css" href='{% static "fluent_comments/css/ajaxcomments.css" %}' />
+   <script type="text/javascript" src='{% static "fluent_comments/js/ajaxcomments.js" %}'></script>
+
+   {# comments - persist login values #}
+   <script type="text/javascript" src="{% static "js/jquery.cookie.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/jquery.persist.js" %}"></script>
+
+   <script type="text/javascript">
 
 {% if config.ENABLE_FEATURE_WIDGET %}
     function widgetIframe (w, h) {
@@ -43,11 +35,7 @@
 
     $(document).ready(function () {
 {% if config.ENABLE_FEATURE_COMMENTS %}
-      if (supports_html5_storage())
-      {
-      $('[name=name]').val( localStorage.getItem("comment_name"));
-      $('[name=email]').val( localStorage.getItem("comment_email"));
-    }
+   $('#id_name,#id_email').persist();
 {% endif %}
     $("#wigdet_generator").hide();
 
@@ -58,11 +46,6 @@
 
 
    </script>
-
-   <style type="text/css">
-   .comment p, .comment h4 {margin: 1px 0 2px 0;}
-   .comment {margin: 3px 0 10px 0;}
-   </style>
   </head>
   <body>
   <div class="page" style="text-align:center;">
@@ -115,28 +98,9 @@
 
 {% if config.ENABLE_FEATURE_COMMENTS %}
 <h3>Komentáře</h3>
-<div class="addcoment">
-<form method="post" class="form">
-{% csrf_token %}
-<div class="fieldWrapper">
-<input type="text" id="id_name" name="name" maxlength="64" placeholder="Jméno" >
-</div>
-<div class="fieldWrapper">
-  <input type="text" id="id_email" name="email" maxlength="64" placeholder="Email">
-</div>
-<div class="fieldWrapper">
-<textarea id="id_content" rows="10" cols="40" name="content" placeholder="Komentář" style="width:500px;height:100px;"></textarea>
-</div>
-<br/>
-<button onmousedown="saveLocalStorage();"><input type="submit"
-value="Přidat" ></button>
-</form>
-{% for comment in comment_list %}
-<div class="comment">
-  <h4 style="display:inline-block;">{{comment.name}}</h4> <p style="display:inline-block;">{{comment.email}} | {{comment.created_at}}</p>
-<p>{{comment.content|linebreaksbr}}</p>
-</div>
-{%endfor%}
+<div class="comments-wrapper">
+{% render_comment_list for poi %}
+{% render_comment_form for poi %}
 </div>
 {% endif %}
 <hr>

@@ -20,6 +20,8 @@ sitemaps = {
 
 urlpatterns = patterns('',
     (r'^mapwidget/', include("mapwidget.urls")),
+    (r'^admin/', include(admin.site.urls)),
+    url(r'^comments/', include('fluent_comments.urls')),
     (r'', include("mapa.urls")),
     # sitemap pro vyhledavace
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})

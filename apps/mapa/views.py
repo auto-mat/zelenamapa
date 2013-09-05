@@ -21,8 +21,6 @@ from django.http import HttpResponse, HttpResponseRedirect
 from mapa.models import *
 
 from constance import config
-from comment.models import Comment
-from comment.forms import CommentForm
 
 def is_mobilni(request):
     subdomain = request.META.get('HTTP_HOST', '').split('.')
@@ -191,18 +189,10 @@ def addpoi_view(request, poi_id=None):
 # View pro podrobny vypis mista
 @cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
 def detail_view(request, poi_id):
-    comment_form = CommentForm(request.POST or None)
     poi = Poi.objects.get(id=poi_id)
-    if comment_form.is_valid():
-        comment = comment_form.save(commit=False)
-        comment.poi = poi
-        comment.save()
-        return HttpResponseRedirect("/detail/%i"%poi.pk)
     return render_to_response('misto.html',
         context_instance=RequestContext(request, {
             'poi': poi,
-            'comment_form': comment_form, 
-            "comment_list": Comment.objects.filter(poi=poi).order_by("pk"),
             'config'      : config,
         }))
 

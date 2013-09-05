@@ -67,6 +67,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
     'mapwidget.middleware.crossdomainxhr.XsSharing',
 )
 
@@ -96,7 +97,10 @@ INSTALLED_APPS = (
     'compressor',
     'mapwidget',
     'south',
-    'comment',
+    'django.contrib.sites',
+    'fluent_comments',
+    'crispy_forms',
+    'django.contrib.comments',
     'constance',
     'constance.backends.database',
 )
@@ -167,6 +171,9 @@ CONSTANCE_CONFIG = {
     'ENABLE_FEATURE_WIDGET': (False, u'povolit widgetu k místům'),
 }
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
+
+FLUENT_COMMENTS_EXCLUDE_FIELDS = ('url',)
+COMMENTS_APP = 'fluent_comments'
 
 # import local settings
 try:
