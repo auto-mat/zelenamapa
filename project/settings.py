@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Django global settings
 
 # This allows us to construct the needed absolute paths dynamically,
@@ -57,6 +58,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
      'django.core.context_processors.request',
      'django.core.context_processors.media',
      'django.contrib.messages.context_processors.messages',
+     'constance.context_processors.config',
      'module.context_processors.site',
 ) 
 
@@ -95,6 +97,8 @@ INSTALLED_APPS = (
     'mapwidget',
     'south',
     'comment',
+    'constance',
+    'constance.backends.database',
 )
 
 LOGGING = {
@@ -154,6 +158,15 @@ LOGGING = {
         }
     }
 }
+
+CONSTANCE_CONFIG = {
+    'ENABLE_FEATURE_TIPY_ZM': (True, u'povolit tipy Zelené mapy v pravém sloupci'),
+    'ENABLE_FEATURE_LEFT_POI_TIP': (True, u'povolit tip vlevo dole (True = poi vlevo dole je tip, False = poi vlevo dole je nahodny)'),
+    'ENABLE_FEATURE_SOCIAL': (True, u'povolit sociální pluginy (Google+, Facebook, Twitter)'),
+    'ENABLE_FEATURE_COMMENTS': (False, u'povolit komentáře k místům'),
+    'ENABLE_FEATURE_WIDGET': (False, u'povolit widgetu k místům'),
+}
+CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 
 # import local settings
 try:

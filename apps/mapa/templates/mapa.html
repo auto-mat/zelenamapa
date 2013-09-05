@@ -200,7 +200,7 @@
                 </div>
 		
                 <div class="reklama1">
-		  {% if tipyzm %}{% if select2_pois %}
+		  {% if config.ENABLE_FEATURE_TIPY_ZM %}{% if select2_pois %}
 		 <h4>{{ select2_pois_header }}<!--Tipy Zelené mapy:--></h4>
 		  {% endif %}
 		  {% for selected_poi in select2_pois %}

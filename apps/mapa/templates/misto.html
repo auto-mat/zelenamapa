@@ -9,7 +9,7 @@
 
    <script type="text/javascript" src="/static/js/jquery.tools.min.js"></script>
    <script type="text/javascript">
-{% if comments %}
+{% if config.ENABLE_FEATURE_COMMENTS %}
    function supports_html5_storage() {
   try {
     return 'localStorage' in window && window['localStorage'] !== null;
@@ -29,7 +29,7 @@
     }
 {% endif %}
 
-{% if show_widget %}
+{% if config.ENABLE_FEATURE_WIDGET %}
     function widgetIframe (w, h) {
       return "<script type=\"text/javascript\" src=\"http:\/\/www.zelenamapa.cz:8036\/mapwidget\/mapconfig_div{{ poi.pk }}.js\"><\/script><div id=\"map\" style=\"width:"+w+"px;height:"+h+"px\"><\/div>"
     }
@@ -42,7 +42,7 @@
 {% endif %}
 
     $(document).ready(function () {
-{% if comments %}
+{% if config.ENABLE_FEATURE_COMMENTS %}
       if (supports_html5_storage())
       {
       $('[name=name]').val( localStorage.getItem("comment_name"));
@@ -105,7 +105,7 @@
 
        <p><a href="{% url 'mapa.views.addpoi_view' poi.id %}" title="Doplnit informace o objektu">upravit</a> |
        <a href="{% url 'mapa.views.mapa_view' poi.id %}" target="_top" title="Ukázat v mapě">zobrazit v mapě</a></p>
-       {% if social %}
+       {% if config.ENABLE_FEATURE_SOCIAL %}
         <div class="content" style="max-width:500px; text-align:left;clear:both;">
            <div class="fb-like" data-href="http://zelenamapa.cz/misto/{{ poi.id }}" data-send="false" data-layout="button_count" data-width="150" data-show-faces="false" data-font="arial" style="width:110px;"></div>
            <a href="https://twitter.com/share?url=http://zelenamapa.cz/misto/{{ poi.id }}" class="twitter-share-button" data-via="zelenamapa" data-lang="en">Tweet</a>
@@ -113,7 +113,7 @@
       </div>
        {% endif %}
 
-{% if comments %}
+{% if config.ENABLE_FEATURE_COMMENTS %}
 <h3>Komentáře</h3>
 <div class="addcoment">
 <form method="post" class="form">
@@ -145,7 +145,7 @@ value="Přidat" ></button>
        <div id="wigdet_generator">
        <p>Permalink na místo: <a href="http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}" target="_top">http://zelenamapa.cz{% url 'mapa.views.mapa_view' poi.id %}</a></p>
 
-       {% if show_widget %}
+       {% if config.ENABLE_FEATURE_WIDGET %}
        <p>Widgeta mapy - pro vložení do vlastních stránek.</p>
        
        <p>Velikost: <input type="text" class="widget_input" name="widget_width" placeholder="šířka" onkeyup="generateWidgetIframe();" value="300"> x
@@ -162,7 +162,7 @@ value="Přidat" ></button>
 
 </div>
 </div>
-       {% if social %}
+       {% if config.ENABLE_FEATURE_SOCIAL %}
        <!-- SOCIAL JS-->
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="https://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 

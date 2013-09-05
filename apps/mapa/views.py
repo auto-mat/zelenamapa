@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # views.py
 
 import random, math
@@ -19,6 +20,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 
 from mapa.models import *
 
+from constance import config
 from comment.models import Comment
 from comment.forms import CommentForm
 
@@ -30,13 +32,6 @@ def is_mobilni(request):
     except KeyError: explicit_mobile = False
     return ('m' in subdomain) or (explicit_mobile)
 
-# Zapinani a vypinani funkcionalit
-def tipyzm(request):       return True # Ukazat tipy Zelene mapy v pravem sloupci 
-def left_poi_tip(request): return True # True = poi vlevo dole je tip, False = poi vlevo dole je nahodny 
-def social(request):       return True # Social plugins (Facebook, Twitter, Google+) 
-def comments(request):     return False # Komentare k mistum 
-def show_widget(request):  return True # Widgeta k mistum
-
 def mapa_view(request, poi_id=None):
     
     
@@ -45,7 +40,7 @@ def mapa_view(request, poi_id=None):
 
     select_poi = None
     select_poi_header = 'Zajimave misto' # jak s diaktritikou???
-    if left_poi_tip(request):
+    if config.ENABLE_FEATURE_LEFT_POI_TIP:
         # prvni misto, ktere ma vlastnost se slugem "misto-mesice"
         select_poi_header = Vlastnost.objects.get(slug='misto-mesice').nazev
         try:
@@ -97,7 +92,7 @@ def mapa_view(request, poi_id=None):
         'center_poi' : center_poi,
         'titulni_stranka' : titulni_stranka,
         'mobilni' : mobilni,
-        'tipyzm' : tipyzm(request),
+        'config' : config,
         'select_poi_header' : select_poi_header,
         'select2_pois_header' : select2_pois_header
     })
@@ -208,9 +203,7 @@ def detail_view(request, poi_id):
             'poi': poi,
             'comment_form': comment_form, 
             "comment_list": Comment.objects.filter(poi=poi).order_by("pk"),
-            'social'      : social(request),
-            'comments'    : comments(request),
-            'show_widget' : show_widget(request)
+            'config'      : config,
         }))
 
 # View pro podrobny vypis seznamu vlastnosti
