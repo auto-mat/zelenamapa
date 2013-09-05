@@ -20,24 +20,7 @@ sitemaps = {
 
 urlpatterns = patterns('',
     (r'^mapwidget/', include("mapwidget.urls")),
-    (r'^$', mapa_view),
-    (r'^misto/(\d+)/$', mapa_view),
-    (r'^kml/([-\w]+)/$', kml_view),
-    (r'^popup/(\d+)/$', popup_view),
-    (r'^doplnit/(\d+)/$', 'mapa.views.addpoi_view'),
-    (r'^doplnit/$', 'mapa.views.addpoi_view'),
-    (r'^detail/(\d+)/', detail_view),
-    (r'^vlastnosti/', vlastnosti_view),
-    (r'^vrstvy/', vrstvy_view),
-    (r'^znacky/', znacky_view),
-    (r'^festival/(.*)', festival_view),
-    (r'^search/([- \w]+)/$', search_view),
-    (r'^admin/', include(admin.site.urls)),
-    (r'^clanky/(.*)', static_view),
-    # mobilni verze
-    (r'^hledani/$', m_hledani),
-    (r'^vypis/$', m_vypis),
-    (r'^vypis/(\d+)/$', m_detail),
+    (r'', include("mapa.urls")),
     # sitemap pro vyhledavace
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})
 
