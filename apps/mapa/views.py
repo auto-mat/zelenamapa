@@ -35,7 +35,7 @@ def tipyzm(request):       return True # Ukazat tipy Zelene mapy v pravem sloupc
 def left_poi_tip(request): return True # True = poi vlevo dole je tip, False = poi vlevo dole je nahodny 
 def social(request):       return True # Social plugins (Facebook, Twitter, Google+) 
 def comments(request):     return False # Komentare k mistum 
-def show_widget(request):  return False # Widgeta k mistum
+def show_widget(request):  return True # Widgeta k mistum
 
 def mapa_view(request, poi_id=None):
     

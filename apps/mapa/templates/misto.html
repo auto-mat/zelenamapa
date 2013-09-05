@@ -31,7 +31,7 @@
 
 {% if show_widget %}
     function widgetIframe (w, h) {
-      return "<iframe src=\"http://zelenamapa.cz/mapwidget/"+w+"x"+h+"/{{poi.pk}}/\" style=\"width:"+w+"px;height:"+h+"px;\" border=\"0\"></iframe>";
+      return "<script type=\"text/javascript\" src=\"http:\/\/www.zelenamapa.cz:8036\/mapwidget\/mapconfig_div{{ poi.pk }}.js\"><\/script><div id=\"map\" style=\"width:"+w+"px;height:"+h+"px\"><\/div>"
     }
 
   function generateWidgetIframe () {
@@ -148,9 +148,9 @@ value="Přidat" ></button>
        {% if show_widget %}
        <p>Widgeta mapy - pro vložení do vlastních stránek.</p>
        
-       <p>Velikost <input type="text" class="widget_input" name="widget_width" placeholder="šířka" onkeyup="generateWidgetIframe();" value="300"> x
+       <p>Velikost: <input type="text" class="widget_input" name="widget_width" placeholder="šířka" onkeyup="generateWidgetIframe();" value="300"> x
        <input type="text" class="widget_input" name="widget_height" placeholder="výška" onkeyup="generateWidgetIframe();" value="300"></p>
-       <textarea class="rounded_html_iframe"  name="widget_html_iframe" style="width:500px;"><iframe src="http://zelenamapa.cz/mapwidget/300x300/{{ poi.pk }}/" style="width:300px;height:300px;" border="0"></iframe></textarea>
+       <textarea class="rounded_html_iframe"  name="widget_html_iframe" style="width:500px;"><script type="text/javascript" src="http://www.zelenamapa.cz:8036/mapwidget/mapconfig_div{{ poi.pk }}.js"></script><div id="map" style="width:300px;height:300px"></div></textarea>
        {% endif %}
 
        <p>Chcete-li odkázat na toto konkrétní místo v Zelené mapě, použijte následující HTML kód.</p>
