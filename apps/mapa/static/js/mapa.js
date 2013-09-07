@@ -6,8 +6,6 @@ var lastSelectedFeature;
 var criteria = {};
 var criteriaCnt = 0;
 
-var bounds = new OpenLayers.Bounds(14.22, 49.95, 14.8, 50.18);
-
 var EPSG4326 = new OpenLayers.Projection("EPSG:4326");
 var EPSG900913 = new OpenLayers.Projection("EPSG:900913"); 
 
@@ -130,8 +128,8 @@ function init(mapconfig)
 
     var options = { 
         controls: controls,
-        maxExtent: bounds.clone().transform(EPSG4326, EPSG900913), 
-        restrictedExtent: bounds.clone().transform(EPSG4326, EPSG900913), 
+        maxExtent: mapconfig.bounds.clone().transform(EPSG4326, EPSG900913),
+        restrictedExtent: mapconfig.bounds.clone().transform(EPSG4326, EPSG900913),
         projection: EPSG900913,
         displayProjection : EPSG4326,
         // fallThrough : false,

@@ -169,6 +169,11 @@ CONSTANCE_CONFIG = {
     'ENABLE_FEATURE_SOCIAL': (True, u'povolit sociální pluginy (Google+, Facebook, Twitter)'),
     'ENABLE_FEATURE_COMMENTS': (False, u'povolit komentáře k místům'),
     'ENABLE_FEATURE_WIDGET': (False, u'povolit widgetu k místům'),
+    'MAP_BASEZOOM': (14, u'základní zoom mapy'),
+    'MAP_POIZOOM': (17, u'zoom mapy pro zobrazení POI'),
+    'MAP_BASELON': (14.4211, u'zeměpisná délka základní polohy mapy'),
+    'MAP_BASELAT': (50.08741, u'zeměpisná délka základní polohy mapy'),
+    'MAP_BOUNDS': ("14.22, 49.95, 14.8, 50.18", u'hranice zobrazení mapy'),
 }
 CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 

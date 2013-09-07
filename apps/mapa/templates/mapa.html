@@ -95,11 +95,12 @@
     {% endfor %}
 {% endcache %}
 
-     mapconfig['basezoom'] = 14;
-     mapconfig['baselon'] = 14.4211;
-     mapconfig['baselat'] = 50.08741;
+     mapconfig['basezoom'] = {{ config.MAP_BASEZOOM }};
+     mapconfig['baselon'] = {{ config.MAP_BASELON }};
+     mapconfig['baselat'] = {{ config.MAP_BASELAT }};
+     mapconfig['bounds'] = new OpenLayers.Bounds( {{ config.MAP_BOUNDS }});
     {% if center_poi %}
-        mapconfig['zoom'] = 17;
+        mapconfig['zoom'] = {{ config.MAP_POIZOOM }};
         mapconfig['lon'] = {{ center_poi.geom.x }};
         mapconfig['lat'] = {{ center_poi.geom.y }};
         mapconfig['center_feature'] = {{ center_poi.id }};
