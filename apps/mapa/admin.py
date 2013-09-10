@@ -4,10 +4,12 @@ from django.conf import settings # needed if we use the GOOGLE_MAPS_API_KEY from
 
 # Import the admin site reference from django.contrib.admin
 from django.contrib import admin
+from constance import config
 
 # Grab the Admin Manager that automaticall initializes an OpenLayers map
 # for any geometry field using the in Google Mercator projection with OpenStreetMap basedata
 from django.contrib.gis.admin import OSMGeoAdmin
+from django.contrib.gis.geos import Point
 
 # Note, another simplier manager that does not reproject the data on OpenStreetMap is available
 # with from `django.contrib.gis.admin import GeoModelAdmin`
@@ -43,8 +45,13 @@ class PoiAdmin(OSMGeoAdmin):
     # To learn more about this jargon visit:
     # www.openlayers.org
     
-    default_lon = 1605350
-    default_lat = 6461466
+    def get_form(self, request, obj=None, **kwargs):
+         pnt = Point(config.MAP_BASELON, config.MAP_BASELAT, srid=4326)
+         print pnt
+         pnt.transform(900913)
+         self.default_lon, self.default_lat = pnt.coords
+         return super(PoiAdmin, self).get_form(request, obj, **kwargs)
+
     default_zoom = 12
     #display_wkt = False
     #display_srid = False
