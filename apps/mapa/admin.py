@@ -4,6 +4,7 @@ from django.conf import settings # needed if we use the GOOGLE_MAPS_API_KEY from
 
 # Import the admin site reference from django.contrib.admin
 from django.contrib import admin
+from django.contrib.admin import SimpleListFilter
 from constance import config
 
 # Grab the Admin Manager that automaticall initializes an OpenLayers map
@@ -21,9 +22,26 @@ from mapa.models import *
 
 USE_GOOGLE_TERRAIN_TILES = False
 
+class SektorFilter(SimpleListFilter):
+    title = (u"Sektor")
+    parameter_name = u"sektor"
+
+    def lookups(self, request, model_admin):
+        return [("mimo", u"Mimo sektory")] + [(sektor.slug, sektor.nazev) for sektor in Sektor.objects.all()]
+
+    def queryset(self, request, queryset):
+        if not self.value():
+            return queryset
+        if self.value() == "mimo":
+            for sektor in Sektor.objects.all():
+                queryset = queryset.exclude(geom__contained = sektor.geom)
+            return queryset
+        return queryset.filter(geom__contained = Sektor.objects.get(slug = self.value()).geom)
+
+
 class PoiAdmin(OSMGeoAdmin):
     list_display = ['nazev','status','znacka','address','url','foto_thumb', ]
-    list_filter = ('znacka__vrstva', 'znacka', 'status',)
+    list_filter = (SektorFilter, 'znacka__vrstva', 'znacka', 'status',)
     exclude = ('vlastnosti_cache', )
     readonly_fields = ("created_at", "author")
     raw_id_fields = ('znacka',)
@@ -84,6 +102,27 @@ class PoiAdmin(OSMGeoAdmin):
             obj.author = request.user # no need to check for it.
         obj.save()
 
+class SektorAdmin(OSMGeoAdmin):
+    list_display = ('nazev',)
+    if USE_GOOGLE_TERRAIN_TILES:
+      map_template = 'gis/admin/google.html'
+      extra_js = ['http://openstreetmap.org/openlayers/OpenStreetMap.js', 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=%s' % settings.GOOGLE_MAPS_API_KEY]
+    else:
+      pass # defaults to OSMGeoAdmin presets of OpenStreetMap tiles
+
+    def get_form(self, request, obj=None, **kwargs):
+         pnt = Point(config.MAP_BASELON, config.MAP_BASELAT, srid=4326)
+         print pnt
+         pnt.transform(900913)
+         self.default_lon, self.default_lat = pnt.coords
+         return super(SektorAdmin, self).get_form(request, obj, **kwargs)
+
+    default_zoom = 12
+    scrollable = False
+    map_width = 700
+    map_height = 500
+    map_srid = 900913
+
 class ZnackaInline(admin.TabularInline):
     model = Znacka
 
@@ -114,6 +153,7 @@ class StaticAdmin(admin.ModelAdmin):
     
 admin.site.register(Poi   , PoiAdmin   )
 admin.site.register(Vrstva, VrstvaAdmin)
+admin.site.register(Sektor, SektorAdmin)
 admin.site.register(Znacka, ZnackaAdmin)
 admin.site.register(Status, admin.ModelAdmin)
 admin.site.register(Vlastnost, VlastnostAdmin)

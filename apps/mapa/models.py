@@ -138,7 +138,14 @@ def invalidate_cache(sender, instance, **kwargs):
     if sender in [Status, Vrstva, Znacka, Poi, Vlastnost, Staticpage]:
         cache.clear()
 post_save.connect(invalidate_cache)
+
+class Sektor(models.Model):
+    "Sektor mapy"
+    nazev   = models.CharField(max_length=255)
+    slug    = models.SlugField(unique=True, verbose_name="Slug")
     
+    geom    = models.PolygonField(verbose_name=u"plocha",srid=4326, help_text=u"Plocha sektoru")
+    objects = models.GeoManager()
 
 class Vlastnost(models.Model):
     "Vlastnosti mist"
