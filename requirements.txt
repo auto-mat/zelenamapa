@@ -6,3 +6,5 @@ psycopg2
 PIL
 django-constance[database]
 django-fluent-comments
+python-memcached
+django-picklefield
