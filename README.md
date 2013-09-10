@@ -20,4 +20,4 @@ Aplikace se nainstaluje do prostředí virtualenv pomocí následujících pří
 * env/bin/pip install distribute --upgrade
 * env/bin/pip install -r requirements.txt
 
-Vzorová konfigurace je v pnk/sample_settings.py, stačí přejmenovat na settings.py a doplnit přístup k DB a SECRET_KEY.
+Vzorová konfigurace je v pnk/sample_settings_local.py, stačí překopírovat na settings_local.py a doplnit přístup k DB a SECRET_KEY.
