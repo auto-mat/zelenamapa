@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /kml
+Disallow: /search
+Disallow: /doplnit
+Disallow: /mapa
+Allow: /
+
