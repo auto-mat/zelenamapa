@@ -38,13 +38,13 @@ SITE_URL = 'http://www.zelenamapa.cz'
 
 USE_I18N = True
 
-MEDIA_ROOT = '/home/www/zelenamapa.cz/media/'
+MEDIA_ROOT = '/media/'
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = '/home/www/zelenamapa.cz/static/'
+STATIC_ROOT = '/static/'
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-        os.path.join(PROJECT_DIR, 'static'),
+        os.path.join(PROJECT_DIR, 'apps/mapa/static'),
 )
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
