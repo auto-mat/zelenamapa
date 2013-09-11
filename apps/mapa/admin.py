@@ -5,6 +5,7 @@ from django.conf import settings # needed if we use the GOOGLE_MAPS_API_KEY from
 # Import the admin site reference from django.contrib.admin
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
+from django.contrib.auth.admin import UserAdmin
 from constance import config
 
 # Grab the Admin Manager that automaticall initializes an OpenLayers map
@@ -21,6 +22,9 @@ from django.contrib.gis.geos import Point
 from mapa.models import *
 
 USE_GOOGLE_TERRAIN_TILES = False
+
+class UserAdmin(UserAdmin):
+    list_display = ('__unicode__', 'email', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'is_active', 'date_joined', 'last_login',)
 
 class SektorFilter(SimpleListFilter):
     title = (u"Sektor")
@@ -160,3 +164,6 @@ admin.site.register(Status, admin.ModelAdmin)
 admin.site.register(Vlastnost, VlastnostAdmin)
 admin.site.register(Upresneni, UpresneniAdmin)
 admin.site.register(Staticpage, StaticAdmin)
+
+admin.site.unregister(User)
+admin.site.register(User, UserAdmin)
