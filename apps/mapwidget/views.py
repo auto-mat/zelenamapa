@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.contrib.sites.models import get_current_site
 
 from mapa.models import Poi
 
@@ -31,5 +32,6 @@ def map_div_view(request, pk, w, h, template="mapwidget/map_div.html"):
         "obj": obj,
         "w": w,
         "h": h,
+        'site': get_current_site(request).domain,
     }
     return render_to_response(template, template_dict, context_instance=RequestContext(request), mimetype="text/plain")

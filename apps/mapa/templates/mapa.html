@@ -57,11 +57,11 @@
     {% if center_poi %}
          <meta property="og:title" content="{{ center_poi }} - Zelená mapa Prahy"/>
 	 <meta property="og:site_name" content="Zelená mapa Prahy"/>
-         <!--<meta property="og:url" content="http://zelenamapa.cz:8010/misto/{{  center_poi.id }}"/>-->
+         <!--<meta property="og:url" content="http://{{ site }}:8010/misto/{{  center_poi.id }}"/>-->
 	 {% if center_poi.foto_thumb %}
-	   <meta property="og:image" content="http://zelenamapa.cz{{ center_poi.foto_thumb.url }}"/>
+	   <meta property="og:image" content="http://{{ site }}{{ center_poi.foto_thumb.url }}"/>
 	 {% else %}
- 	   <meta property="og:image" content="http://zelenamapa.cz/static/img/zelena_mapa_ctverec.jpg"/>
+ 	   <meta property="og:image" content="http://{{ site }}/static/img/zelena_mapa_ctverec.jpg"/>
 	 {% endif %}
 	 {% if center_poi.desc %}
  	   <meta property="og:description" content="{{ center_poi.desc|safe }}"/>
@@ -73,7 +73,7 @@
 <script type="text/javascript">
      var _gaq = _gaq || [];
      _gaq.push(['_setAccount', 'UA-22281359-1']);
-     _gaq.push(['_setDomainName', '.zelenamapa.cz']);
+     _gaq.push(['_setDomainName', '.{{ site }}']);
      _gaq.push(['_trackPageview']);
    
      (function() 
@@ -153,7 +153,7 @@
   
                 </div>
                 <div class="logo">
-                    <a href="http://zelenamapa.cz"><img src="{% static "img/zm_logo_300b.png" %}" alt="logo" /></a>
+                    <a href="http://{{ site }}"><img src="{% static "img/zm_logo_300b.png" %}" alt="logo" /></a>
                     {# <!--<div class="description">Podniky, město, šetrná doprava, problémy</div>--> #}
                 </div>
                 
@@ -299,7 +299,7 @@
 
                     <div class="third raw">
                         <h3><a href="#blog=0">Novinky</a></h3>
-                        {% geturl "http://wp.zelenamapa.cz/?page_id=373" 1 %}
+                        {% geturl "http://wp.{{ site }}/?page_id=373" 1 %}
                     </div>
                     {% endif %} {# mobilni #}
                 </div>

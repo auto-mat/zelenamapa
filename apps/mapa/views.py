@@ -10,6 +10,7 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.gis.geos import Point
 from django.contrib.gis.shortcuts import render_to_kml
+from django.contrib.sites.models import get_current_site
 from django.db.models import Max
 from django.views.decorators.cache import cache_page
 from django.views.decorators.cache import never_cache
@@ -91,6 +92,7 @@ def mapa_view(request, poi_id=None):
         'titulni_stranka' : titulni_stranka,
         'mobilni' : mobilni,
         'config' : config,
+        'site': get_current_site(request).domain,
         'select_poi_header' : select_poi_header,
         'select2_pois_header' : select2_pois_header
     })
@@ -194,6 +196,7 @@ def detail_view(request, poi_id):
         context_instance=RequestContext(request, {
             'poi': poi,
             'config'      : config,
+            'site': get_current_site(request).domain,
         }))
 
 # View pro podrobny vypis seznamu vlastnosti
