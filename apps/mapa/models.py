@@ -127,6 +127,15 @@ class Poi(models.Model):
         self.created_at = datetime.datetime.now()
         super(Poi, self).save(*args, **kwargs)
 
+class Sit(models.Model):
+    "Importovaná data ze SIT"
+    poi = models.OneToOneField(Poi, related_name="sit")
+
+    sit_id = models.IntegerField(default=0, unique=True)
+    sit_id_um = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"id_um")
+    sit_rc = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"rc")
+    sit_lokalita = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"lokalita")
+
 from django.db.models.signals import m2m_changed, post_save
 def update_vlastnosti_cache(sender, instance, action, reverse, model, pk_set, **kwargs):
     "Aktualizace cache vlastnosti pri ulozeni Poi. Je treba jeste vyresit smazani Vlastnosti"

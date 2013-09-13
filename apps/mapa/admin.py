@@ -42,6 +42,8 @@ class SektorFilter(SimpleListFilter):
             return queryset
         return queryset.filter(geom__contained = Sektor.objects.get(slug = self.value()).geom)
 
+class SitInline(admin.TabularInline):
+    model = Sit
 
 class PoiAdmin(OSMGeoAdmin):
     list_display = ['nazev','status','znacka','address','url','foto_thumb', ]
@@ -56,6 +58,7 @@ class PoiAdmin(OSMGeoAdmin):
     list_select_related = True
     filter_horizontal = ('vlastnosti',)
     list_max_show_all = 10000
+    inlines = [ SitInline, ]
 
     if USE_GOOGLE_TERRAIN_TILES:
       map_template = 'gis/admin/google.html'
