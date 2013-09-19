@@ -73,7 +73,6 @@ class PoiAdmin(OSMGeoAdmin):
     
     def get_form(self, request, obj=None, **kwargs):
          pnt = Point(config.MAP_BASELON, config.MAP_BASELAT, srid=4326)
-         print pnt
          pnt.transform(900913)
          self.default_lon, self.default_lat = pnt.coords
          return super(PoiAdmin, self).get_form(request, obj, **kwargs)
@@ -120,7 +119,6 @@ class SektorAdmin(OSMGeoAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
          pnt = Point(config.MAP_BASELON, config.MAP_BASELAT, srid=4326)
-         print pnt
          pnt.transform(900913)
          self.default_lon, self.default_lat = pnt.coords
          return super(SektorAdmin, self).get_form(request, obj, **kwargs)
