@@ -38,9 +38,8 @@
 
 </div>
 <p class="addinfo">
-    {% if perms.cyklomapa.change_poi %}
-       <a href="{% url 'admin:mapa_poi_change' poi.id %}">upravit</a>,
-    {% endif %}
+
+
     <a href="#detail={{ poi.id }}" title="Podrobné informace o místě">detail místa</a>,
     <a href="javascript:void(0);" onclick="ZoomToLonLat(this, {{ poi.geom.x }}, {{ poi.geom.y }}, 17);"
       title="Najet v mapě na místo" >na střed</a>,
