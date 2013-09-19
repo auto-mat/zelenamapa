@@ -222,18 +222,20 @@ function init(mapconfig)
         }
         );
 
-    var offset = $('.core').offset();
-    $('#overlay_left').overlay({
-        effect: 'namiste',
-        top: 0,
-        left: offset.left,
-        fixed: false,
-        oneInstance: false, 
-        closeOnClick: false,
-        onClose: onLeftOverlayClosed
-    });
-    $(window).hashchange(onHashChange);
-    $(window).hashchange();
+    if(mapconfig.mapwidget ==  undefined || mapconfig.mapwidget.hide_controls ==  undefined || mapconfig.mapwidget.hide_controls == false) {
+       var offset = $('.core').offset();
+       $('#overlay_left').overlay({
+           effect: 'namiste',
+           top: 0,
+           left: offset.left,
+           fixed: false,
+           oneInstance: false, 
+           closeOnClick: false,
+           onClose: onLeftOverlayClosed
+       });
+       $(window).hashchange(onHashChange);
+       $(window).hashchange();
+    }
 } // init
 
 function onHashChange() {
