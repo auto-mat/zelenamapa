@@ -43,6 +43,7 @@ MEDIA_URL = '/media/'
 
 STATIC_ROOT = '/static/'
 STATIC_URL = '/static/'
+LOGIN_URL = '/admin/'
 STATICFILES_DIRS = (
         os.path.join(PROJECT_DIR, 'apps/mapa/static'),
 )
