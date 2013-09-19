@@ -1,5 +1,3 @@
-{% load mapwidget_tags %}
-
 function loadScript(url, callback)
 {
     // adding the script tag to the head as suggested before
@@ -19,27 +17,28 @@ function loadScript(url, callback)
 
 var mapconfig = {};
 mapconfig['vrstvy'] = [];
-mapconfig['vrstvy'].push(["Město", "{{ SITE_URL }}/kml/mesto/"]);
-mapconfig['vrstvy'].push(["Podniky", "{{ SITE_URL }}/kml/restaurace-kavarny/"]);
-mapconfig['vrstvy'].push(["Obchody", "{{ SITE_URL }}/kml/obchody/"]);
-mapconfig['vrstvy'].push(["Kultura", "{{ SITE_URL }}/kml/kultura/"]);
-mapconfig['vrstvy'].push(["Komunity a NGO", "{{ SITE_URL }}/kml/komunity-ngo/"]);
-mapconfig['vrstvy'].push(["Doprava", "{{ SITE_URL }}/kml/verejna-doprava/"]);
+mapconfig['vrstvy'].push(["Město", "http://{{ site }}/kml/mesto/"]);
+mapconfig['vrstvy'].push(["Podniky", "http://{{ site }}/kml/restaurace-kavarny/"]);
+mapconfig['vrstvy'].push(["Obchody", "http://{{ site }}/kml/obchody/"]);
+mapconfig['vrstvy'].push(["Kultura", "http://{{ site }}/kml/kultura/"]);
+mapconfig['vrstvy'].push(["Komunity a NGO", "http://{{ site }}/kml/komunity-ngo/"]);
+mapconfig['vrstvy'].push(["Doprava", "http://{{ site }}/kml/verejna-doprava/"]);
 
 mapconfig['zoom'] = 16;
 mapconfig['lon'] = {{obj.geom.get_x}};
 mapconfig['lat'] = {{obj.geom.get_y}};
 mapconfig['mapwidget'] = {}
 mapconfig['mapwidget']["hide_controls"] = true;
-mapconfig['site_url'] = "{{ SITE_URL }}";
+mapconfig['site_url'] = "http://{{ site }}";
 
-loadScript("{{ SITE_URL }}/static/js/OpenLayers.js", function(){
-   loadScript("{{ SITE_URL }}/static/js/OpenStreetMap.js", function(){
-      loadScript("{{ SITE_URL }}/static/js/MyFramedCloud.js", function(){
-         loadScript("{{ SITE_URL }}/static/js/jquery.tools.min.js", function(){
-            loadScript("{{ SITE_URL }}/static/js/jquery.ba-hashchange.min.js", function(){
-            loadScript("{{ SITE_URL }}/static/js/mapa.js", function(){
+loadScript("http://{{ site }}/static/js/OpenLayers.js", function(){
+   loadScript("http://{{ site }}/static/js/OpenStreetMap.js", function(){
+      loadScript("http://{{ site }}/static/js/MyFramedCloud.js", function(){
+         loadScript("http://{{ site }}/static/js/jquery.tools.min.js", function(){
+            loadScript("http://{{ site }}/static/js/jquery.ba-hashchange.min.js", function(){
+            loadScript("http://{{ site }}/static/js/mapa.js", function(){
                
+               mapconfig['bounds'] = new OpenLayers.Bounds( {{ config.MAP_BOUNDS }});
                $(document).ready(function(){init(mapconfig);})
 })})})})})});
 

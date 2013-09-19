@@ -25,6 +25,7 @@ def mapconfig_js_view(request, pk, template="mapwidget/mapconfig.js"):
     template_dict = {
         "obj": obj,
         'config' : config,
+        'site': get_current_site(request).domain,
     }
     return render_to_response(template, template_dict, context_instance=RequestContext(request), mimetype="text/javascript")
 
