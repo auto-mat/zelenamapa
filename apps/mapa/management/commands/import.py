@@ -11,8 +11,9 @@ author_id = 0
 
 # Helper object to transfor imported data
 class ImportPoi(Poi):
-    sit_id = models.IntegerField(default=0, unique=True)
+    sit_id = models.IntegerField(default=0)
     sit_id_um = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"id_um")
+    sit_znaceni = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"id_znaceni")
     sit_rc = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"rc")
     sit_lokalita = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"lokalita")
 
@@ -50,6 +51,11 @@ class Command(BaseCommand):
             dest='author_id',
             default=0,
             help='Set author id for new Poi objects'),
+        make_option('--type',
+            action='store',
+            dest='type',
+            default='point',
+            help='Set geometry type ( point, line, poly) for new Poi objects'),
         )
 
     def print_layer_info(self, ds):
@@ -67,14 +73,29 @@ class Command(BaseCommand):
 
         self.print_layer_info(DataSource(args[0]))
 
-        mapping = {'nazev' : 'nazev',
-                   'geom' : 'POINT',
-                   'sit_id' : 'id',
-                   'sit_id_um' : 'id_um',
-                   'sit_rc': 'rc',
-                   'sit_lokalita': 'lokalita',
-                  }
+        if options['type'] == 'point':
+            mapping = {'nazev' : 'nazev',
+                       'geom' : 'POINT',
+                       'sit_id' : 'id',
+                       'sit_id_um' : 'id_um',
+                       'sit_rc': 'rc',
+                       'sit_lokalita': 'lokalita',
+                      }
     
+        if options['type'] == "line":
+            mapping = {
+                       'geom' : 'LINESTRING',
+                       'sit_id' : 'id',
+                       'sit_rc': 'rc',
+                       'sit_znaceni': 'znaceni',
+                      }
+        
+        if options['type'] == "poly":
+            mapping = {
+                       'geom' : 'POLYGON',
+                       'sit_id' : 'id',
+                      }
+
         source_srs = "+proj=krovak +lat_0=49.5 +lon_0=24.83333333333333 +alpha=30.28813972222222 \
                 +k=0.9999 +x_0=0 +y_0=0 +ellps=bessel +pm=greenwich +units=m +no_defs \
                 +towgs84=570.8,85.7,462.8,4.998,1.587,5.261,3.56"
