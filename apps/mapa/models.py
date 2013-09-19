@@ -88,7 +88,7 @@ class Poi(models.Model):
                                Lze použít pro placenou reklamu! ("Váš podnik bude vidět hned po otevření mapy")""")
     
     # Geographical intepretation
-    geom    = models.PointField(verbose_name=u"poloha",srid=4326, help_text=u"Klikni na tužku s plusem a umisti bod na mapu")
+    geom    = models.GeometryField(verbose_name=u"poloha",srid=4326, help_text=u"Klikni na tužku s plusem a umisti bod na mapu")
     objects = models.GeoManager()
     
     # Own content (facultative)
@@ -133,6 +133,7 @@ class Sit(models.Model):
 
     sit_id = models.IntegerField(default=0, unique=True)
     sit_id_um = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"id_um")
+    sit_znaceni = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"id_znaceni")
     sit_rc = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"rc")
     sit_lokalita = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"lokalita")
 
