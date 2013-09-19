@@ -10,3 +10,4 @@ django-mass-edit==1.5.1
 python-memcached
 django-picklefield
 gdal
+importlib
