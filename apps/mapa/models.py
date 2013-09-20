@@ -157,6 +157,9 @@ class Sektor(models.Model):
     geom    = models.PolygonField(verbose_name=u"plocha",srid=4326, help_text=u"Plocha sektoru")
     objects = models.GeoManager()
 
+    class Meta:
+        verbose_name_plural = u"sektory"
+
 class Vlastnost(models.Model):
     "Vlastnosti mist"
     nazev   = models.CharField(max_length=255)   # Name of the property
