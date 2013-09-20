@@ -22,7 +22,10 @@ class ImportPoi(Poi):
         poi.znacka = Znacka.objects.get(pk = znacka_id)
         poi.status = Status.objects.get(pk = status_id)
         poi.author = User.objects.get(pk = author_id)
-        poi.nazev = self.nazev
+        if self.nazev or self.nazev != "":
+            poi.nazev = self.nazev
+        else:
+            poi.nazev = "SIT import"
         poi.geom = self.geom
         poi.save()
         poi.sit = Sit()
