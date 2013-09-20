@@ -111,6 +111,7 @@ class PoiAdmin(OSMGeoAdmin):
 
 class SektorAdmin(OSMGeoAdmin):
     list_display = ('nazev',)
+    prepopulated_fields = {'slug': ('nazev',) } # slug se automaticky vytvari z nazvu
     if USE_GOOGLE_TERRAIN_TILES:
       map_template = 'gis/admin/google.html'
       extra_js = ['http://openstreetmap.org/openlayers/OpenStreetMap.js', 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=%s' % settings.GOOGLE_MAPS_API_KEY]
