@@ -8,6 +8,9 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Removing unique constraint on 'Sit', fields ['sit_id']
+        db.delete_unique(u'mapa_sit', ['sit_id'])
+
 
         # Changing field 'Poi.geom'
         db.alter_column(u'mapa_poi', 'geom', self.gf('django.contrib.gis.db.models.fields.GeometryField')())
@@ -23,6 +26,9 @@ class Migration(SchemaMigration):
         db.alter_column(u'mapa_poi', 'geom', self.gf('django.contrib.gis.db.models.fields.PointField')())
         # Deleting field 'Sit.sit_znaceni'
         db.delete_column(u'mapa_sit', 'sit_znaceni')
+
+        # Adding unique constraint on 'Sit', fields ['sit_id']
+        db.create_unique(u'mapa_sit', ['sit_id'])
 
 
     models = {
@@ -92,7 +98,7 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Sit'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'poi': ('django.db.models.fields.related.OneToOneField', [], {'related_name': "'sit'", 'unique': 'True', 'to': u"orm['mapa.Poi']"}),
-            'sit_id': ('django.db.models.fields.IntegerField', [], {'default': '0', 'unique': 'True'}),
+            'sit_id': ('django.db.models.fields.IntegerField', [], {'default': '0'}),
             'sit_id_um': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'sit_lokalita': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'sit_rc': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),

@@ -131,7 +131,7 @@ class Sit(models.Model):
     "Importovaná data ze SIT"
     poi = models.OneToOneField(Poi, related_name="sit")
 
-    sit_id = models.IntegerField(default=0, unique=True)
+    sit_id = models.IntegerField(default=0)
     sit_id_um = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"id_um")
     sit_znaceni = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"id_znaceni")
     sit_rc = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"rc")
