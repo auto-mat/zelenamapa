@@ -11,10 +11,10 @@ from .utils import SlugifyFileSystemStorage
 
 class Status(models.Model):
     "Stavy zobrazeni konkretniho objektu, vrstvy apod."
-    nazev   = models.CharField(max_length=255)                      # Nazev statutu
-    desc    = models.TextField(null=True, blank=True)               # Description
-    show    = models.BooleanField()                                 # Zobrazit uzivateli zvenci
-    show_TU = models.BooleanField()                                 # Zobrazit editorovi mapy
+    nazev   = models.CharField(max_length=255, help_text=u"Název statutu")
+    desc    = models.TextField(null=True, blank=True, help_text=u"Popis")
+    show    = models.BooleanField(help_text=u"Zobrazit uživateli zvenčí")
+    show_TU = models.BooleanField(help_text=u"Zobrazit editorovi mapy")
 
     class Meta:
         verbose_name_plural = "Statuty"
@@ -73,12 +73,12 @@ class Poi(models.Model):
     author = models.ForeignKey(User, verbose_name="Autor")
     created_at = models.DateTimeField(auto_now_add=True,  verbose_name="Posledni zmena")
 
-    nazev   = models.CharField(max_length=255, verbose_name=u"název")   # Name of the location
+    nazev   = models.CharField(max_length=255, verbose_name=u"název", help_text=u"Stručný a výstižný název místa.")
     
     # Relationships
-    znacka  = models.ForeignKey(Znacka, verbose_name=u"značka")          # "Znacky"   - misto ma prave jednu
+    znacka  = models.ForeignKey(Znacka, limit_choices_to = {'status__show': 'True'}, verbose_name=u"značka", help_text="Značka určuje ikonu, která se zobrazí na mapě.")
     status  = models.ForeignKey(Status)          # "Statuty"  - misto ma prave jeden
-    vlastnosti    = models.ManyToManyField('Vlastnost', blank=True, null=True)       # "Vlastnosti" - ma vice
+    vlastnosti    = models.ManyToManyField('Vlastnost', blank=True, null=True, help_text="Určete, jaké má místo vlastnosti.<br/>")
     
     # "dulezitost" - modifikator minimalniho zoomu, ve kterem se misto zobrazuje. 
     dulezitost = models.SmallIntegerField(default=0, verbose_name=u"důležitost",
@@ -88,14 +88,17 @@ class Poi(models.Model):
                                Lze použít pro placenou reklamu! ("Váš podnik bude vidět hned po otevření mapy")""")
     
     # Geographical intepretation
-    geom    = models.GeometryField(verbose_name=u"poloha",srid=4326, help_text=u"Klikni na tužku s plusem a umisti bod na mapu")
+    geom    = models.GeometryField(verbose_name=u"poloha",srid=4326, help_text=u"""Vložení bodu: Klikni na tužku s plusem a umísti bod na mapu<br/>
+            Kreslení linie: Klikněte na ikonu linie a klikáním do mapy určete lomenou čáru. Kreslení ukončíte dvouklikem.<br/>
+            Kreslení oblasti: Klikněte na ikonu oblasti a klikáním do mapy definujte oblast. Kreslení ukončíte dvouklikem.<br/>
+            Úprava vložených objektů: Klikněte na první ikonu a potom klikněte na objekt v mapě. Tažením přesouváte body, body uprostřed úseků slouží k vkládání nových bodů do úseku.""")
     objects = models.GeoManager()
     
     # Own content (facultative)
     desc    = models.TextField(null=True, blank=True, verbose_name=u"popis", help_text=u"Text do buliny na mapě")
     desc_extra = models.TextField(null=True, blank=True, verbose_name=u"podrobný popis", help_text="Text do detailu místa (mimo bublinu)")
     url     = models.URLField(null=True, blank=True, help_text=u"Webový odkaz na stránku podniku apod.")
-    address = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"adresa")
+    address = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"adresa", help_text=u"Adresa místa")
     remark  = models.TextField(null=True, blank=True, verbose_name=u"interní poznámka", help_text=u"Interní informace o objektu, které se nebudou zobrazovat")
 
     # 3 fotografie museji pro vetsinu ucelu stacit

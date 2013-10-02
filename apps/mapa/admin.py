@@ -24,7 +24,16 @@ from mapa.models import *
 USE_GOOGLE_TERRAIN_TILES = False
 
 class UserAdmin(UserAdmin):
-    list_display = ('__unicode__', 'email', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'is_active', 'date_joined', 'last_login',)
+    list_display = ('__unicode__', 'email', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'is_active', 'last_login', 'get_groups', 'get_user_permissions')
+
+    def get_groups(self, obj):
+        if obj:
+            return ", ".join([group.name for group in obj.groups.all()])
+
+    def get_user_permissions(self, obj):
+        if obj:
+            return ", ".join([user_permission.name for user_permission in obj.user_permissions.all()])
+
 
 class SektorFilter(SimpleListFilter):
     title = (u"Sektor")
@@ -146,8 +155,15 @@ class VlastnostAdmin(admin.ModelAdmin):
     model = Vlastnost
 
 class ZnackaAdmin(admin.ModelAdmin):
-    list_display = ('nazev', 'desc', 'vrstva', 'minzoom', 'status')
+    list_display = ('nazev', 'desc', 'vrstva', 'minzoom', 'status', 'default_icon_image')
     search_fields = ('nazev', 'desc',)
+
+    def default_icon_image(self, obj):
+        return '<img src="%s"/>' % obj.default_icon.url
+    default_icon_image.allow_tags = True
+
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('nazev', 'desc', 'show', 'show_TU')
     
 class UpresneniAdmin(admin.ModelAdmin):
     model = Upresneni
@@ -162,7 +178,7 @@ admin.site.register(Poi   , PoiAdmin   )
 admin.site.register(Vrstva, VrstvaAdmin)
 admin.site.register(Sektor, SektorAdmin)
 admin.site.register(Znacka, ZnackaAdmin)
-admin.site.register(Status, admin.ModelAdmin)
+admin.site.register(Status, StatusAdmin)
 admin.site.register(Vlastnost, VlastnostAdmin)
 admin.site.register(Upresneni, UpresneniAdmin)
 admin.site.register(Staticpage, StaticAdmin)
