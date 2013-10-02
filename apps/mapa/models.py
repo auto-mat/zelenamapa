@@ -11,10 +11,10 @@ from .utils import SlugifyFileSystemStorage
 
 class Status(models.Model):
     "Stavy zobrazeni konkretniho objektu, vrstvy apod."
-    nazev   = models.CharField(max_length=255)                      # Nazev statutu
-    desc    = models.TextField(null=True, blank=True)               # Description
-    show    = models.BooleanField()                                 # Zobrazit uzivateli zvenci
-    show_TU = models.BooleanField()                                 # Zobrazit editorovi mapy
+    nazev   = models.CharField(max_length=255, help_text=u"Název statutu")
+    desc    = models.TextField(null=True, blank=True, help_text=u"Popis")
+    show    = models.BooleanField(help_text=u"Zobrazit uživateli zvenčí")
+    show_TU = models.BooleanField(help_text=u"Zobrazit editorovi mapy")
 
     class Meta:
         verbose_name_plural = "Statuty"
