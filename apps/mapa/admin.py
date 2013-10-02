@@ -161,6 +161,9 @@ class ZnackaAdmin(admin.ModelAdmin):
     def default_icon_image(self, obj):
         return '<img src="%s"/>' % obj.default_icon.url
     default_icon_image.allow_tags = True
+
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ('nazev', 'desc', 'show', 'show_TU')
     
 class UpresneniAdmin(admin.ModelAdmin):
     model = Upresneni
@@ -175,7 +178,7 @@ admin.site.register(Poi   , PoiAdmin   )
 admin.site.register(Vrstva, VrstvaAdmin)
 admin.site.register(Sektor, SektorAdmin)
 admin.site.register(Znacka, ZnackaAdmin)
-admin.site.register(Status, admin.ModelAdmin)
+admin.site.register(Status, StatusAdmin)
 admin.site.register(Vlastnost, VlastnostAdmin)
 admin.site.register(Upresneni, UpresneniAdmin)
 admin.site.register(Staticpage, StaticAdmin)
