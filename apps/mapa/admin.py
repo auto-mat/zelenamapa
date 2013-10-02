@@ -155,8 +155,12 @@ class VlastnostAdmin(admin.ModelAdmin):
     model = Vlastnost
 
 class ZnackaAdmin(admin.ModelAdmin):
-    list_display = ('nazev', 'desc', 'vrstva', 'minzoom', 'status')
+    list_display = ('nazev', 'desc', 'vrstva', 'minzoom', 'status', 'default_icon_image')
     search_fields = ('nazev', 'desc',)
+
+    def default_icon_image(self, obj):
+        return '<img src="%s"/>' % obj.default_icon.url
+    default_icon_image.allow_tags = True
     
 class UpresneniAdmin(admin.ModelAdmin):
     model = Upresneni
