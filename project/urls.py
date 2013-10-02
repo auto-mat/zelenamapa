@@ -26,6 +26,7 @@ urlpatterns = patterns('',
     url(r'^admin/passresetcomplete/$',auth_views.password_reset_complete,name='password_reset_complete'),
     (r'^mapwidget/', include("mapwidget.urls")),
     (r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include("massadmin.urls")),
     url(r'^comments/', include('fluent_comments.urls')),
     (r'', include("mapa.urls")),
     # sitemap pro vyhledavace
