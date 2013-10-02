@@ -76,7 +76,7 @@ class Poi(models.Model):
     nazev   = models.CharField(max_length=255, verbose_name=u"název")   # Name of the location
     
     # Relationships
-    znacka  = models.ForeignKey(Znacka, verbose_name=u"značka")          # "Znacky"   - misto ma prave jednu
+    znacka  = models.ForeignKey(Znacka, limit_choices_to = {'status__show': 'True'}, verbose_name=u"značka")          # "Znacky"   - misto ma prave jednu
     status  = models.ForeignKey(Status)          # "Statuty"  - misto ma prave jeden
     vlastnosti    = models.ManyToManyField('Vlastnost', blank=True, null=True)       # "Vlastnosti" - ma vice
     
