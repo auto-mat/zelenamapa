@@ -159,7 +159,8 @@ class ZnackaAdmin(admin.ModelAdmin):
     search_fields = ('nazev', 'desc',)
 
     def default_icon_image(self, obj):
-        return '<img src="%s"/>' % obj.default_icon.url
+        if obj.default_icon:
+            return '<img src="%s"/>' % obj.default_icon.url
     default_icon_image.allow_tags = True
 
 class StatusAdmin(admin.ModelAdmin):
