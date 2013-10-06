@@ -20,6 +20,10 @@ class ImportPoi(Poi):
     sit_rc = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"rc")
     sit_lokalita = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"lokalita")
     sit_prvek = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"prvek")
+    sit_oblast = models.CharField(max_length=255, null=True, blank=True)
+    sit_kod_co = models.IntegerField(default=0)
+    sit_kod_mc = models.IntegerField(default=0)
+    sit_katastr = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         poi = Poi()
