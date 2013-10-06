@@ -8,6 +8,7 @@ from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.admin import UserAdmin
 from constance import config
+import fgp
 
 # Grab the Admin Manager that automaticall initializes an OpenLayers map
 # for any geometry field using the in Google Mercator projection with OpenStreetMap basedata
@@ -58,12 +59,14 @@ class SitInline(admin.TabularInline):
     extra = 0
     can_delete = False
 
+@fgp.enforce
 class PoiAdmin(OSMGeoAdmin):
+    model = Poi
     list_display = ['nazev','status','znacka','address','url','foto_thumb', 'desc' ]
     list_filter = (SektorFilter, 'znacka__vrstva', 'znacka', 'status',)
     exclude = ('vlastnosti_cache', )
     readonly_fields = ("created_at", "author", "sit_geom")
-    raw_id_fields = ('znacka',)
+    raw_id_fields_readonly = ('znacka',)
     search_fields = ('nazev',)
     ordering = ('nazev',)
     save_as = True
@@ -166,6 +169,12 @@ class ZnackaAdmin(admin.ModelAdmin):
         if obj.default_icon:
             return '<img src="%s"/>' % obj.default_icon.url
     default_icon_image.allow_tags = True
+
+    def get_form(self, request, obj=None, **kwargs):
+        if request.user.has_perm(u'mapa.can_only_view'):
+            self.fields = ('nazev', )
+            self.readonly_fields = ('nazev', )
+        return super(ZnackaAdmin, self).get_form(request, obj, **kwargs)
 
 class StatusAdmin(admin.ModelAdmin):
     list_display = ('nazev', 'desc', 'show', 'show_TU')

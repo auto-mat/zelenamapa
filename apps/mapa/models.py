@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import datetime
+import fgp
 
 from django.contrib.gis.db import models
 from django.utils.safestring import mark_safe
@@ -60,6 +61,9 @@ class Znacka(models.Model):
     maxzoom = models.PositiveIntegerField(default=10)
     
     class Meta:
+        permissions = [
+            ("can_only_view", "Can only view"),
+        ]
         verbose_name_plural = "Znacky"
     def __unicode__(self):
         return self.nazev
@@ -68,6 +72,7 @@ class ViditelneManager(models.GeoManager):
     def get_query_set(self):
         return super(ViditelneManager, self).get_query_set().filter(status__show=True, znacka__status__show=True)
 
+@fgp.guard('dulezitost', 'status', name='can_edit_advanced_fields')
 class Poi(models.Model):
     "Misto - bod v mape"
     author = models.ForeignKey(User, verbose_name="Autor")
