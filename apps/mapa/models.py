@@ -133,13 +133,10 @@ class Poi(models.Model):
 
 class Sit(models.Model):
     "Importovaná data ze SIT"
-    poi = models.OneToOneField(Poi, related_name="sit")
-
-    sit_id = models.IntegerField(default=0)
-    sit_id_um = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"id_um")
-    sit_znaceni = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"id_znaceni")
-    sit_rc = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"rc")
-    sit_lokalita = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"lokalita")
+    poi = models.ForeignKey("Poi", related_name="sit_keys")
+    
+    key = models.CharField(max_length=255, null=False, blank=False, default="", verbose_name=u"key")
+    value = models.CharField(max_length=255, null=True, blank=True, default="", verbose_name=u"value")
 
 from django.db.models.signals import m2m_changed, post_save
 def update_vlastnosti_cache(sender, instance, action, reverse, model, pk_set, **kwargs):
