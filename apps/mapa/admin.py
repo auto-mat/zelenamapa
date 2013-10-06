@@ -91,6 +91,13 @@ class PoiAdmin(OSMGeoAdmin):
          pnt = Point(config.MAP_BASELON, config.MAP_BASELAT, srid=4326)
          pnt.transform(900913)
          self.default_lon, self.default_lat = pnt.coords
+
+         if request.user.has_perm(u'mapa.can_only_own_data_only') and obj and obj.author != request.user:
+             self.fields = ('nazev', )
+             self.readonly_fields = ('nazev', )
+         else:
+             self.fields = PoiAdmin.fields
+             self.readonly_fields = PoiAdmin.readonly_fields
          return super(PoiAdmin, self).get_form(request, obj, **kwargs)
 
     default_zoom = 12

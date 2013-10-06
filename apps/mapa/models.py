@@ -123,6 +123,9 @@ class Poi(models.Model):
     viditelne = ViditelneManager()
     
     class Meta:
+        permissions = [
+            ("can_only_own_data_only", "Can only edit his own data"),
+        ]
         verbose_name = "místo"
         verbose_name_plural = "místa"
     def __unicode__(self):
