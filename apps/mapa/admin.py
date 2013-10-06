@@ -7,6 +7,7 @@ from django.conf import settings # needed if we use the GOOGLE_MAPS_API_KEY from
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.admin import UserAdmin
+from django.db.models import Q
 from constance import config
 import fgp
 
@@ -53,6 +54,23 @@ class SektorFilter(SimpleListFilter):
             return queryset
         return queryset.filter(geom__contained = Sektor.objects.get(slug = self.value()).geom)
 
+class PoiStatusFilter(SimpleListFilter):
+    title = (u"Všechny statuty")
+    parameter_name = u"statuty"
+
+    def lookups(self, request, model_admin):
+        return [("viditelne_tu", u"Viditelné TU"), ("viditelne", u"Viditelné"), ("skryte", u"Skryté")]
+
+    def queryset(self, request, queryset):
+        if not self.value():
+            return queryset
+        if self.value() == "viditelne":
+            return queryset.filter(Q(status__show = True) & Q(znacka__status__show = True) & Q(znacka__vrstva__status__show = True))
+        if self.value() == "viditelne_tu":
+            return queryset.filter(Q(status__show_TU = True) & Q(znacka__status__show_TU = True) & Q(znacka__vrstva__status__show_TU = True))
+        if self.value() == "skryte":
+            return queryset.exclude(Q(status__show = True) & Q(znacka__status__show = True) & Q(znacka__vrstva__status__show = True))
+
 class SitInline(admin.TabularInline):
     model = Sit
     readonly_fields = ("key", "value")
@@ -63,7 +81,7 @@ class SitInline(admin.TabularInline):
 class PoiAdmin(OSMGeoAdmin):
     model = Poi
     list_display = ['nazev','status','znacka','address','url','foto_thumb', 'desc' ]
-    list_filter = (SektorFilter, 'znacka__vrstva', 'znacka', 'status',)
+    list_filter = (PoiStatusFilter, 'status', SektorFilter, 'znacka__vrstva', 'znacka',)
     exclude = ('vlastnosti_cache', )
     readonly_fields = ("created_at", "author", "sit_geom")
     raw_id_fields = ('znacka',)
