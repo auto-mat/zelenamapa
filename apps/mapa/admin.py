@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # admin.py
 
 from django.conf import settings # needed if we use the GOOGLE_MAPS_API_KEY from settings
@@ -53,12 +54,15 @@ class SektorFilter(SimpleListFilter):
 
 class SitInline(admin.TabularInline):
     model = Sit
+    readonly_fields = ("key", "value")
+    extra = 0
+    can_delete = False
 
 class PoiAdmin(OSMGeoAdmin):
-    list_display = ['nazev','status','znacka','address','url','foto_thumb', ]
+    list_display = ['nazev','status','znacka','address','url','foto_thumb', 'desc' ]
     list_filter = (SektorFilter, 'znacka__vrstva', 'znacka', 'status',)
     exclude = ('vlastnosti_cache', )
-    readonly_fields = ("created_at", "author")
+    readonly_fields = ("created_at", "author", "sit_geom")
     raw_id_fields = ('znacka',)
     search_fields = ('nazev',)
     ordering = ('nazev',)

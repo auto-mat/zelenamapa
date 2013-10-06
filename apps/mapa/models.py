@@ -113,6 +113,8 @@ class Poi(models.Model):
     # zde se ulozi slugy vsech vlastnosti, aby se pri renederovani kml
     # nemusel delat db dotaz pro kazde Poi na jeho vlastnosti
     vlastnosti_cache = models.CharField(max_length=255, null=True, blank=True)
+
+    sit_geom = models.GeometryField(verbose_name=u"SIT poloha",srid=4326, blank=True, null=True, help_text=u"Původní poloha podle SITu")
     
     viditelne = ViditelneManager()
     

@@ -39,9 +39,9 @@ class ImportPoi(Poi):
 
         poi.desc = self.desc
         poi.geom = self.geom
+        poi.sit_geom = self.geom
         poi.save()
 
-        Sit(key = 'geom', value = self.geom, poi = poi).save()
         Sit(key = 'table_name', value = table_name, poi = poi).save()
         for field in import_fields:
             if field == 'popis':
