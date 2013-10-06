@@ -12,3 +12,4 @@ django-picklefield
 #gdal
 #importlib
 django-finegrained-permissions==0.0.1
+django-import-export==0.1.4
