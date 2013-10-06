@@ -82,16 +82,15 @@ class Poi(models.Model):
     
     # Relationships
     znacka  = models.ForeignKey(Znacka, limit_choices_to = {'status__show': 'True'}, verbose_name=u"značka", help_text="Zde vyberte ikonu, která se zobrazí na mapě.")
-    status  = models.ForeignKey(Status, default=2, help_text="Nechte status \"Navržený\".")          # "Statuty"  - misto ma prave jeden
+    status  = models.ForeignKey(Status, default=2, help_text="Status místa; určuje, kde všude se místo zobrazí.")
     vlastnosti    = models.ManyToManyField('Vlastnost', blank=True, null=True, help_text="Určete, jaké má místo vlastnosti. Postupujte podle manuálu.<br/>")
     
     # "dulezitost" - modifikator minimalniho zoomu, ve kterem se misto zobrazuje. 
     dulezitost = models.SmallIntegerField(default=0, verbose_name=u"důležitost",
-                 help_text=u"""Nechte hodnotu 0.""")
-                               #Modifikátor minimalniho zoomu, ve kterém se místo zobrazuje (20+ bude vidět vždy). 
-                               #Cíl je mít výběr základních objektů viditelných ve velkých měřítcích
-                               #a zabránit přetížení mapy značkami v přehledce.
-                               #Lze použít pro placenou reklamu! ("Váš podnik bude vidět hned po otevření mapy")""")
+                 help_text=u"""Modifikátor minimalniho zoomu, ve kterém se místo zobrazuje (20+ bude vidět vždy).<br/>
+                               Cíl je mít výběr základních objektů viditelných ve velkých měřítcích
+                               a zabránit přetížení mapy značkami v přehledce.<br/>
+                               Lze použít pro placenou reklamu! ("Váš podnik bude vidět hned po otevření mapy")""")
     
     # Geographical intepretation
     geom    = models.GeometryField(verbose_name=u"poloha",srid=4326, help_text=u"""Vložení bodu: Klikněte na tužku s plusem a umístěte bod na mapu.""")
