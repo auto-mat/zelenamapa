@@ -110,7 +110,7 @@ class PoiAdmin(OSMGeoAdmin):
          pnt.transform(900913)
          self.default_lon, self.default_lat = pnt.coords
 
-         if request.user.has_perm(u'mapa.can_only_own_data_only') and obj and obj.author != request.user:
+         if not request.user.is_superuser and request.user.has_perm(u'mapa.can_only_own_data_only') and obj and obj.author != request.user:
              self.fields = ('nazev', )
              self.readonly_fields = ('nazev', )
          else:
@@ -196,7 +196,7 @@ class ZnackaAdmin(admin.ModelAdmin):
     default_icon_image.allow_tags = True
 
     def get_form(self, request, obj=None, **kwargs):
-        if request.user.has_perm(u'mapa.can_only_view'):
+        if not request.user.is_superuser and request.user.has_perm(u'mapa.can_only_view'):
             self.fields = ('nazev', )
             self.readonly_fields = ('nazev', )
         else:
