@@ -66,7 +66,7 @@ class PoiAdmin(OSMGeoAdmin):
     list_filter = (SektorFilter, 'znacka__vrstva', 'znacka', 'status',)
     exclude = ('vlastnosti_cache', )
     readonly_fields = ("created_at", "author", "sit_geom")
-    raw_id_fields_readonly = ('znacka',)
+    raw_id_fields = ('znacka',)
     search_fields = ('nazev',)
     ordering = ('nazev',)
     save_as = True
