@@ -25,7 +25,15 @@ class ImportPoi(Poi):
         if self.nazev or self.nazev != "":
             poi.nazev = self.nazev
         else:
+            poi.nazev = self.sit_rc + " - " + self.desc
+
+        if poi.nazev == "":
             poi.nazev = "SIT import"
+
+        #Just to be shown in output
+        self.nazev = poi.nazev
+
+        poi.desc = self.desc
         poi.geom = self.geom
         poi.save()
         poi.sit = Sit()
@@ -54,11 +62,6 @@ class Command(BaseCommand):
             dest='author_id',
             default=0,
             help='Set author id for new Poi objects'),
-        make_option('--type',
-            action='store',
-            dest='type',
-            default='point',
-            help='Set geometry type ( point, line, poly) for new Poi objects'),
         )
 
     def print_layer_info(self, ds):
@@ -75,29 +78,38 @@ class Command(BaseCommand):
         author_id = options['author_id']
 
         self.print_layer_info(DataSource(args[0]))
+        fields = DataSource(args[0])[0].fields
+        geom_type = DataSource(args[0])[0].geom_type
 
-        if options['type'] == 'point':
-            mapping = {'nazev' : 'nazev',
+        if geom_type == 'Point':
+            mapping = {
                        'geom' : 'POINT',
-                       'sit_id' : 'id',
-                       'sit_id_um' : 'id_um',
-                       'sit_rc': 'rc',
-                       'sit_lokalita': 'lokalita',
                       }
     
-        if options['type'] == "line":
+        if geom_type == "LineString":
             mapping = {
                        'geom' : 'LINESTRING',
-                       'sit_id' : 'id',
-                       'sit_rc': 'rc',
-                       'sit_znaceni': 'znaceni',
                       }
         
-        if options['type'] == "poly":
+        if geom_type == "Polygon":
             mapping = {
                        'geom' : 'POLYGON',
-                       'sit_id' : 'id',
                       }
+
+        if 'id' in fields:
+            mapping['sit_id'] = 'id'
+        if 'nazev' in fields:
+            mapping['nazev'] = 'nazev'
+        if 'id_um' in fields:
+            mapping['sit_id_um'] = 'id_um'
+        if 'rc' in fields:
+            mapping['sit_rc'] = 'rc'
+        if 'lokalita' in fields:
+            mapping['sit_lokalita'] = 'lokalita'
+        if 'znaceni' in fields:
+            mapping['sit_znaceni'] = 'znaceni'
+        if 'popis' in fields:
+            mapping['desc'] = 'popis'
 
         source_srs = "+proj=krovak +lat_0=49.5 +lon_0=24.83333333333333 +alpha=30.28813972222222 \
                 +k=0.9999 +x_0=0 +y_0=0 +ellps=bessel +pm=greenwich +units=m +no_defs \
