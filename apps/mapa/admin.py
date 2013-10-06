@@ -181,6 +181,9 @@ class ZnackaAdmin(admin.ModelAdmin):
         if request.user.has_perm(u'mapa.can_only_view'):
             self.fields = ('nazev', )
             self.readonly_fields = ('nazev', )
+        else:
+            self.fields = ZnackaAdmin.fields
+            self.readonly_fields = ZnackaAdmin.readonly_fields
         return super(ZnackaAdmin, self).get_form(request, obj, **kwargs)
 
 class StatusAdmin(admin.ModelAdmin):
