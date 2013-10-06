@@ -54,8 +54,8 @@ class Znacka(models.Model):
     remark  = models.TextField(null=True, blank=True, help_text=u"interni informace o objektu, ktere se nebudou zobrazovat")
     
     # Base icon and zoom dependent display range
-    default_icon = models.ImageField(null=True, upload_to='ikony', storage=SlugifyFileSystemStorage()) # XXX: zrusit null=True
-    mobile_icon = models.ImageField(null=True, upload_to='ikony_m', storage=SlugifyFileSystemStorage()) # XXX: zrusit null=True
+    default_icon = models.ImageField(null=True, blank=True, upload_to='ikony', storage=SlugifyFileSystemStorage()) # XXX: zrusit null=True
+    mobile_icon = models.ImageField(null=True, blank=True, upload_to='ikony_m', storage=SlugifyFileSystemStorage()) # XXX: zrusit null=True
     minzoom = models.PositiveIntegerField(default=1)
     maxzoom = models.PositiveIntegerField(default=10)
     
