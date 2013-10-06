@@ -9,6 +9,7 @@ znacka_id = 0
 status_id = 0
 author_id = 0
 import_fields = []
+table_name = ""
 
 # Helper object to transfor imported data
 class ImportPoi(Poi):
@@ -41,6 +42,7 @@ class ImportPoi(Poi):
         poi.save()
 
         Sit(key = 'geom', value = self.geom, poi = poi).save()
+        Sit(key = 'table_name', value = table_name, poi = poi).save()
         for field in import_fields:
             if field == 'popis':
                 Sit(key = field, value = self.desc, poi = poi).save()
@@ -73,20 +75,22 @@ class Command(BaseCommand):
 
     def print_layer_info(self, ds):
         layer = ds[0]
+        print "Table name: %s" % layer.name
         print "Fields: %s" % layer.fields
         print "Features in layer: %s" % len(layer)
         print "Geom type: %s" % layer.geom_type
         print "WGS84 in WKT: %s" % layer.srs
 
     def handle(self, *args, **options):
-        global znacka_id, status_id, author_id, import_fields
+        global znacka_id, status_id, author_id, import_fields, table_name
         znacka_id = options['znacka_id']
         status_id = options['status_id']
         author_id = options['author_id']
-
-        self.print_layer_info(DataSource(args[0]))
-        fields = DataSource(args[0])[0].fields
-        geom_type = DataSource(args[0])[0].geom_type
+        data_source = DataSource(args[0])
+        self.print_layer_info(data_source)
+        fields = data_source[0].fields
+        geom_type = data_source[0].geom_type
+        table_name = data_source[0].name
 
         if geom_type == 'Point':
             mapping = {
