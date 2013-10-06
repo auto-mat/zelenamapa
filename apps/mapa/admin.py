@@ -6,6 +6,7 @@ from django.conf import settings # needed if we use the GOOGLE_MAPS_API_KEY from
 # Import the admin site reference from django.contrib.admin
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.admin import UserAdmin
 from django.db.models import Q
 from constance import config
@@ -59,12 +60,22 @@ class PoiStatusFilter(SimpleListFilter):
     parameter_name = u"statuty"
 
     def lookups(self, request, model_admin):
-        return [("viditelne_tu", u"Viditelné TU"), ("viditelne", u"Viditelné"), ("skryte", u"Skryté")]
+        return ((None, u"Viditelné"), ('all', _('All')), ("viditelne_tu", u"Viditelné TU"), ("skryte", u"Skryté"))
+
+    def choices(self, cl):
+        for lookup, title in self.lookup_choices:
+            yield {
+                'selected': self.value() == lookup,
+                'query_string': cl.get_query_string({
+                    self.parameter_name: lookup,
+                }, []),
+                'display': title,
+            }
 
     def queryset(self, request, queryset):
-        if not self.value():
+        if self.value() == 'all':
             return queryset
-        if self.value() == "viditelne":
+        if not self.value() or self.value() == "viditelne":
             return queryset.filter(Q(status__show = True) & Q(znacka__status__show = True) & Q(znacka__vrstva__status__show = True))
         if self.value() == "viditelne_tu":
             return queryset.filter(Q(status__show_TU = True) & Q(znacka__status__show_TU = True) & Q(znacka__vrstva__status__show_TU = True))
