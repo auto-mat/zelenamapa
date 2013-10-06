@@ -169,7 +169,7 @@ class VlastnostAdmin(admin.ModelAdmin):
     model = Vlastnost
 
 class ZnackaAdmin(admin.ModelAdmin):
-    list_display = ('nazev', 'desc', 'vrstva', 'minzoom', 'status', 'default_icon_image')
+    list_display = ('nazev', 'desc', 'vrstva', 'minzoom', 'status', 'default_icon_image', 'poi_count')
     search_fields = ('nazev', 'desc',)
 
     def default_icon_image(self, obj):
@@ -185,6 +185,9 @@ class ZnackaAdmin(admin.ModelAdmin):
             self.fields = ZnackaAdmin.fields
             self.readonly_fields = ZnackaAdmin.readonly_fields
         return super(ZnackaAdmin, self).get_form(request, obj, **kwargs)
+
+    def poi_count(self, obj):
+        return obj.pois.count()
 
 class StatusAdmin(admin.ModelAdmin):
     list_display = ('nazev', 'desc', 'show', 'show_TU')
