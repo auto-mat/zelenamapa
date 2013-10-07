@@ -92,7 +92,7 @@ class SitInline(admin.TabularInline):
 @fgp.enforce
 class PoiAdmin(OSMGeoAdmin, ImportExportModelAdmin):
     model = Poi
-    list_display = ['nazev','status','znacka','address','url','foto_thumb', 'desc' ]
+    list_display = ['nazev','status','znacka','address','url','foto_thumb', 'desc', 'id' ]
     list_filter = (PoiStatusFilter, 'status', SektorFilter, 'znacka__vrstva', 'znacka',)
     exclude = ('vlastnosti_cache', )
     readonly_fields = ("created_at", "author", "sit_geom")
