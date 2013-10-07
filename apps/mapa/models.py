@@ -81,7 +81,7 @@ class Poi(models.Model):
     nazev   = models.CharField(max_length=255, verbose_name=u"název", help_text=u"Přesný název místa.")
     
     # Relationships
-    znacka  = models.ForeignKey(Znacka, limit_choices_to = {'status__show': 'True', 'vrstva__status__show': 'True'}, verbose_name=u"značka", help_text="Zde vyberte ikonu, která se zobrazí na mapě.", related_name="pois")
+    znacka  = models.ForeignKey(Znacka, limit_choices_to = {'status__show_TU': 'True', 'vrstva__status__show_TU': 'True'}, verbose_name=u"značka", help_text="Zde vyberte ikonu, která se zobrazí na mapě.", related_name="pois")
     status  = models.ForeignKey(Status, default=2, help_text="Status místa; určuje, kde všude se místo zobrazí.")
     vlastnosti    = models.ManyToManyField('Vlastnost', blank=True, null=True, help_text="Určete, jaké má místo vlastnosti. Postupujte podle manuálu.<br/>")
     

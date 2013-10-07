@@ -61,7 +61,9 @@ class PoiStatusFilter(SimpleListFilter):
     parameter_name = u"statuty"
 
     def lookups(self, request, model_admin):
-        return ((None, u"Viditelné"), ('all', _('All')), ("viditelne_tu", u"Viditelné TU"), ("skryte", u"Skryté"))
+        return ((None, u"Viditelné"),
+                ('all', _('All')),
+                ("skryte", u"Skryté"))
 
     def choices(self, cl):
         for lookup, title in self.lookup_choices:
@@ -77,11 +79,9 @@ class PoiStatusFilter(SimpleListFilter):
         if self.value() == 'all':
             return queryset
         if not self.value() or self.value() == "viditelne":
-            return queryset.filter(Q(status__show = True) & Q(znacka__status__show = True) & Q(znacka__vrstva__status__show = True))
-        if self.value() == "viditelne_tu":
             return queryset.filter(Q(status__show_TU = True) & Q(znacka__status__show_TU = True) & Q(znacka__vrstva__status__show_TU = True))
         if self.value() == "skryte":
-            return queryset.exclude(Q(status__show = True) & Q(znacka__status__show = True) & Q(znacka__vrstva__status__show = True))
+            return queryset.exclude(Q(status__show_TU = True) & Q(znacka__status__show_TU = True) & Q(znacka__vrstva__status__show_TU = True))
 
 class SitInline(admin.TabularInline):
     model = Sit
