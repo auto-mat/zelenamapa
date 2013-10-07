@@ -205,6 +205,7 @@ class ZnackaAdmin(admin.ModelAdmin):
     def default_icon_image(self, obj):
         if obj.default_icon:
             return '<img src="%s"/>' % obj.default_icon.url
+    default_icon_image.short_description = "icon"
     default_icon_image.allow_tags = True
 
     def get_form(self, request, obj=None, **kwargs):
@@ -218,6 +219,7 @@ class ZnackaAdmin(admin.ModelAdmin):
 
     def poi_count(self, obj):
         return obj.pois.count()
+    poi_count.short_description = "Count"
 
 class StatusAdmin(admin.ModelAdmin):
     list_display = ('nazev', 'desc', 'show', 'show_TU')
