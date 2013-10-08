@@ -200,6 +200,7 @@ class VlastnostAdmin(admin.ModelAdmin):
 
 class ZnackaAdmin(admin.ModelAdmin):
     list_display = ('nazev', 'desc', 'vrstva', 'minzoom', 'status', 'default_icon_image', 'poi_count')
+    list_filter = ('vrstva','status',)
     search_fields = ('nazev', 'desc',)
 
     def default_icon_image(self, obj):
