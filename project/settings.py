@@ -106,6 +106,7 @@ INSTALLED_APPS = (
     'constance.backends.database',
     'massadmin',
     'import_export',
+    'colorful',
 )
 
 LOGGING = {

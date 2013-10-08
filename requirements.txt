@@ -13,3 +13,4 @@ django-picklefield
 #importlib
 django-finegrained-permissions==0.0.1
 django-import-export==0.1.4
+django-colorful==0.1.3

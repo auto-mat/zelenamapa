@@ -7,21 +7,21 @@ from django.utils.safestring import mark_safe
 from django.core.cache import cache
 
 from django.contrib.auth.models import User
+from colorful.fields import RGBColorField
 
 from .utils import SlugifyFileSystemStorage
 
 class Status(models.Model):
-    "Stavy zobrazeni konkretniho objektu, vrstvy apod."
-    nazev   = models.CharField(max_length=255, help_text=u"Název statutu")
+    "Stavy zobrazeni konkretniho objektu, vrstvy apod. - aktivni, navrzeny, zruseny, ..."
+    nazev   = models.CharField(unique=True, max_length=255, help_text=u"Název statutu")
     desc    = models.TextField(null=True, blank=True, help_text=u"Popis")
     show    = models.BooleanField(help_text=u"Zobrazit uživateli zvenčí")
     show_TU = models.BooleanField(help_text=u"Zobrazit editorovi mapy")
 
     class Meta:
-        verbose_name_plural = "Statuty"
+        verbose_name_plural = "statuty"
     def __unicode__(self):
         return self.nazev
-    
 
 class Vrstva(models.Model):
     "Vrstvy, ktere se zobrazi v konkretni mape"
@@ -40,7 +40,7 @@ class Vrstva(models.Model):
 
 class Znacka(models.Model):
     "Mapove znacky vcetne definice zobrazeni"
-    nazev   = models.CharField(max_length=255)   # Name of the mark
+    nazev   = models.CharField(unique=True, max_length=255)   # Name of the mark
     
     # Relationships
     vrstva  = models.ForeignKey(Vrstva)              # Kazda znacka lezi prave v jedne vrstve
@@ -59,16 +59,26 @@ class Znacka(models.Model):
     mobile_icon = models.ImageField(null=True, blank=True, upload_to='ikony_m', storage=SlugifyFileSystemStorage()) # XXX: zrusit null=True
     minzoom = models.PositiveIntegerField(default=1)
     maxzoom = models.PositiveIntegerField(default=10)
+
+    # Linear elements style
+    line_width = models.FloatField( verbose_name=u"šířka čáry", default=2,)
+    line_color = RGBColorField(default="#ffc90e")
+    def line_color_kml(this):
+        color = this.line_color[1:]
+        return "88" + color[4:6] + color[2:4] + color[0:2]
     
     class Meta:
         permissions = [
             ("can_only_view", "Can only view"),
         ]
-        verbose_name_plural = "Znacky"
+        verbose_name_plural = "znacky"
+        ordering = ['-vrstva__order', 'nazev']
+
     def __unicode__(self):
         return self.nazev
 
 class ViditelneManager(models.GeoManager):
+    "Pomocny manazer pro dotazy na Poi se zobrazitelnym statuem"
     def get_query_set(self):
         return super(ViditelneManager, self).get_query_set().filter(status__show=True, znacka__status__show=True)
 
@@ -102,18 +112,16 @@ class Poi(models.Model):
     # Own content (facultative)
     desc    = models.TextField(null=True, blank=True, verbose_name=u"popis", help_text=u"Text, který se zobrazí na mapě po kliknutí na ikonu.")
     desc_extra = models.TextField(null=True, blank=True, verbose_name=u"podrobný popis", help_text="Text, který rozšiřuje informace výše.")
-    url     = models.URLField(null=True, blank=True, help_text=u"Webový odkaz na stránku podniku apod.")
+    url     = models.URLField(null=True, blank=True, help_text=u"Odkaz na webovou stránku místa.")
     address = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"adresa", help_text=u"Adresa místa (ulice, číslo domu)")
-    remark  = models.TextField(null=True, blank=True, verbose_name=u"interní poznámka", help_text=u"Interní informace o objektu, které se nebudou zobrazovat")
+    remark  = models.TextField(null=True, blank=True, verbose_name=u"interní poznámka", help_text=u"Interní informace o objektu, které se nebudou zobrazovat.")
 
-    # 3 fotografie museji pro vetsinu ucelu stacit
+    # navzdory nazvu jde o fotku v plnem rozliseni
     foto_thumb  = models.ImageField(null=True, blank=True,
                                     upload_to='foto', storage=SlugifyFileSystemStorage(),
-                                    verbose_name=u"foto",
-                                    help_text=u"Nahrajte fotku v plné velikosti.")
-#    foto2 = models.ImageField(null=True, blank=True, upload_to='foto') 
-#    foto3 = models.ImageField(null=True, blank=True, upload_to='foto') 
-    
+                                    verbose_name=u"fotka",
+                                    help_text=u"Nahrajte fotku v plné velikosti.",
+                                   )
     # zde se ulozi slugy vsech vlastnosti, aby se pri renederovani kml
     # nemusel delat db dotaz pro kazde Poi na jeho vlastnosti
     vlastnosti_cache = models.CharField(max_length=255, null=True, blank=True)
@@ -198,10 +206,12 @@ UPRESNENI_CHOICE = (
 class Upresneni(models.Model):
     """
     Tabulka pro uzivatelske doplnovani informaci do mapy. 
-    Prozatim na proncipu rucniho prepisu udaju v adminu.
+
+    Prozatim na principu rucniho prepisu udaju v adminu.
     Vyzchazi z POI, ale nekopiruje se do ni.
     Slouzi predevsim k doplneni informace k mistu. Nektera pole mohou byt proto nefunkncni.
     """
+
     misto  = models.ForeignKey(Poi, blank=True, null=True) # Odkaz na objekt, ktery chce opravit, muze byt prazdne.
     email  = models.EmailField(verbose_name=u"Váš e-mail (pro další komunikaci)", null=True)    # Prispevatel musi vyplnit email.
     status  = models.CharField(max_length=10,choices=UPRESNENI_CHOICE) 
