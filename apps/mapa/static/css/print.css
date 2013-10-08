@@ -1,0 +1,35 @@
+.panel,
+.olControlZoomPanel,
+.panel_switch,
+.left,
+.footer,
+.secondary,
+.bottom,
+.olControlPermalink,
+.SimpleLayerSwitcher,
+.olControlPanZoom,
+.head,
+#m_right,
+#m_left,
+#m_top,
+#m_bottom,
+.olControlPanZoomBar,
+.olControlLayerSwitcher,
+.olControlLayerSwitcher {
+  display: none !important;
+}
+
+.olControlAttribution {
+  bottom: 0px;
+}
+
+#map {
+  position: absolute !important;
+  border: 0px solid black !important;
+  bottom: 5px !important;
+  top: 0px !important;
+  left: 0px !important;
+  right: 0px !important;
+  width: 297mm !important;
+  height: 185mm !important;
+}
