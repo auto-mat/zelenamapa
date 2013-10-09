@@ -12,6 +12,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.db.models import Q
 from constance import config
 import fgp
+from django.core.urlresolvers import reverse
 
 # Grab the Admin Manager that automaticall initializes an OpenLayers map
 # for any geometry field using the in Google Mercator projection with OpenStreetMap basedata
@@ -202,6 +203,7 @@ class ZnackaAdmin(admin.ModelAdmin):
     list_display = ('nazev', 'desc', 'vrstva', 'minzoom', 'status', 'default_icon_image', 'id', 'poi_count')
     list_filter = ('vrstva','status',)
     search_fields = ('nazev', 'desc',)
+    readonly_fields = ('poi_count',)
 
     def default_icon_image(self, obj):
         if obj.default_icon:
@@ -219,8 +221,10 @@ class ZnackaAdmin(admin.ModelAdmin):
         return super(ZnackaAdmin, self).get_form(request, obj, **kwargs)
 
     def poi_count(self, obj):
-        return obj.pois.count()
+        url = reverse('admin:mapa_poi_changelist')
+        return '<a href="{0}?znacka__id__exact={1}&amp;statuty=all">{2}</a>'.format(url, obj.id, obj.pois.count())
     poi_count.short_description = "Count"
+    poi_count.allow_tags = True
 
 class StatusAdmin(admin.ModelAdmin):
     list_display = ('nazev', 'desc', 'show', 'show_TU')
