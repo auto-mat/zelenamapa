@@ -21,9 +21,18 @@ class ImportPoi(Poi):
     sit_lokalita = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"lokalita")
     sit_prvek = models.CharField(max_length=255, null=True, blank=True, verbose_name=u"prvek")
     sit_oblast = models.CharField(max_length=255, null=True, blank=True)
+    sit_typ = models.CharField(max_length=255, null=True, blank=True)
+    sit_typ_stan = models.CharField(max_length=255, null=True, blank=True)
+    sit_organizace = models.CharField(max_length=255, null=True, blank=True)
+    sit_provozovat = models.CharField(max_length=255, null=True, blank=True)
+    sit_cc_typ = models.CharField(max_length=255, null=True, blank=True)
+    sit_poznamka = models.CharField(max_length=255, null=True, blank=True)
+    sit_drevina = models.CharField(max_length=255, null=True, blank=True)
+    sit_adresa = models.CharField(max_length=255, null=True, blank=True)
     sit_kod_co = models.IntegerField(default=0)
     sit_kod_mc = models.IntegerField(default=0)
     sit_katastr = models.IntegerField(default=0)
+    sit_id_hriste = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         poi = Poi()
