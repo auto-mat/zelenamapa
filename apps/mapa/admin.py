@@ -199,7 +199,7 @@ class VlastnostAdmin(admin.ModelAdmin):
     model = Vlastnost
 
 class ZnackaAdmin(admin.ModelAdmin):
-    list_display = ('nazev', 'desc', 'vrstva', 'minzoom', 'status', 'default_icon_image', 'poi_count')
+    list_display = ('nazev', 'desc', 'vrstva', 'minzoom', 'status', 'default_icon_image', 'id', 'poi_count')
     list_filter = ('vrstva','status',)
     search_fields = ('nazev', 'desc',)
 
