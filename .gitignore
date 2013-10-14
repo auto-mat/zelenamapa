@@ -9,3 +9,4 @@ zm/settings.py
 *~
 project/settings_local.py
 zm.log
+db_backup/
