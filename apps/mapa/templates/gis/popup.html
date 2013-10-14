@@ -38,7 +38,7 @@
 
 </div>
 <p class="addinfo">
-    {% if perms.cyklomapa.change_poi %}
+    {% if perms.mapa.change_poi %}
        <a href="{% url 'admin:mapa_poi_change' poi.id %}">upravit</a>,
     {% endif %}
     <a href="#detail={{ poi.id }}" title="Podrobné informace o místě">detail místa</a>,
