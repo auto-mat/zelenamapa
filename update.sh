@@ -1,7 +1,7 @@
 #!/bin/sh
 
 git pull
-env/bin/pip install -r requirements
+env/bin/pip install -r requirements.txt
 if [ "$1" = "migrate" ]; then
    echo "Backuping db..."
    mkdir db_backup
