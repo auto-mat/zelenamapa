@@ -71,7 +71,7 @@ class Znacka(models.Model):
         permissions = [
             ("can_only_view", "Can only view"),
         ]
-        verbose_name_plural = "znacky"
+        verbose_name_plural = "značky"
         ordering = ['-vrstva__order', 'nazev']
 
     def __unicode__(self):
