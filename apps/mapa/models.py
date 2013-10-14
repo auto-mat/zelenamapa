@@ -155,7 +155,7 @@ class Sit(models.Model):
     key = models.CharField(max_length=255, null=False, blank=False, default="", verbose_name=u"key")
     value = models.CharField(max_length=255, null=True, blank=True, default="", verbose_name=u"value")
 
-from django.db.models.signals import m2m_changed, post_save
+from django.db.models.signals import m2m_changed, post_save, post_delete
 def update_vlastnosti_cache(sender, instance, action, reverse, model, pk_set, **kwargs):
     "Aktualizace cache vlastnosti pri ulozeni Poi. Je treba jeste vyresit smazani Vlastnosti"
     if action == 'post_add':
@@ -166,6 +166,7 @@ def invalidate_cache(sender, instance, **kwargs):
     if sender in [Status, Vrstva, Znacka, Poi, Vlastnost, Staticpage]:
         cache.clear()
 post_save.connect(invalidate_cache)
+post_delete.connect(invalidate_cache)
 
 class Sektor(models.Model):
     "Sektor mapy"
