@@ -14,3 +14,4 @@ django-picklefield
 django-finegrained-permissions==0.0.1
 django-import-export==0.1.4
 django-colorful==0.1.3
+-e git+https://github.com/PetrDlouhy/django-comments-moderation.git#egg=django-comments-moderation

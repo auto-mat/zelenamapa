@@ -249,3 +249,6 @@ admin.site.register(Staticpage, StaticAdmin)
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
+
+from comments_moderation import filtered_moderator
+filtered_moderator.register(Poi)
