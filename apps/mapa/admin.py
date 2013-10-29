@@ -53,9 +53,9 @@ class SektorFilter(SimpleListFilter):
             return queryset
         if self.value() == "mimo":
             for sektor in Sektor.objects.all():
-                queryset = queryset.exclude(geom__contained = sektor.geom)
+                queryset = queryset.exclude(geom__intersects = sektor.geom)
             return queryset
-        return queryset.filter(geom__contained = Sektor.objects.get(slug = self.value()).geom)
+        return queryset.filter(geom__intersects = Sektor.objects.get(slug = self.value()).geom)
 
 class PoiStatusFilter(SimpleListFilter):
     title = (u"Všechny statuty")
