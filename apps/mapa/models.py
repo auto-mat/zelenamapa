@@ -93,7 +93,7 @@ class Poi(models.Model):
     # Relationships
     znacka  = models.ForeignKey(Znacka, limit_choices_to = {'status__show_TU': 'True', 'vrstva__status__show_TU': 'True'}, verbose_name=u"značka", help_text="Zde vyberte ikonu, která se zobrazí na mapě.", related_name="pois")
     status  = models.ForeignKey(Status, default=2, help_text="Status místa; určuje, kde všude se místo zobrazí.")
-    vlastnosti    = models.ManyToManyField('Vlastnost', blank=True, null=True, help_text="Určete, jaké má místo vlastnosti. Postupujte podle manuálu.<br/>")
+    vlastnosti    = models.ManyToManyField('Vlastnost', blank=True, null=True, limit_choices_to = {'status__show_TU': 'True'}, help_text="Určete, jaké má místo vlastnosti. Postupujte podle manuálu.<br/>")
     
     # "dulezitost" - modifikator minimalniho zoomu, ve kterem se misto zobrazuje. 
     dulezitost = models.SmallIntegerField(default=0, verbose_name=u"důležitost",
