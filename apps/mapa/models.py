@@ -178,6 +178,7 @@ class Sektor(models.Model):
 
     class Meta:
         verbose_name_plural = u"sektory"
+        ordering = ['nazev']
 
 class Vlastnost(models.Model):
     "Vlastnosti mist"
