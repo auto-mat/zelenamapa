@@ -112,7 +112,6 @@ def kml_view(request, nazev_vrstvy):
        kml_template="gis/kml/vrstva.kml"
     return render_to_kml(kml_template, {
         'places' : points,
-        'site': get_current_site(request).domain,
         })
 
 #@cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
