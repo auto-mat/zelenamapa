@@ -105,7 +105,10 @@ def popup_view(request, poi_id):
     poi = get_object_or_404(Poi, id=poi_id)
 
     return render_to_kml("gis/popup.html",
-        context_instance=RequestContext(request, { 'poi' : poi }))
+        context_instance=RequestContext(request, {
+            'poi' : poi,
+            'fotky': Photo.objects.filter(poi = poi).order_by('order'),
+            }))
 
 def search_view(request, query):
     if len(query) < 3:
@@ -182,6 +185,7 @@ def detail_view(request, poi_id):
     return render_to_response('misto.html',
         context_instance=RequestContext(request, {
             'poi': poi,
+            'fotky': Photo.objects.filter(poi = poi).order_by('order'),
             'config'      : config,
             'site': get_current_site(request).domain,
         }))

@@ -1,6 +1,7 @@
 {% load static %}
 {% load url from future %}
 {% load comments %}
+{% load thumbnail %}
 
 <html>
   <head>
@@ -52,9 +53,13 @@
        <div class="content" style="max-width:500px; text-align:left;">
 
        <h2>{{ poi }}</h2>
-       {% if poi.foto_thumb %}
-            <a href="{{ MEDIA_URL }}{{ poi.foto_thumb }}"><img src="{{ MEDIA_URL }}{{ poi.foto_thumb }}" title="{{ poi }}" class="foto_thumb_misto"></a>
-       {% else %}	    
+       {% for fotka in fotky %}
+         {% thumbnail fotka.photo "250x250" as foto_thumb %}
+         <a href="{{ fotka.photo.url }}">
+         <img src="{{ foto_thumb.url }}" title="{{ fotka.name }}" width="{{ foto_thumb.width }}" height="{{ foto_thumb.height }}" class="foto_thumb_misto"></a>
+       {% endfor %}
+
+       {% if not fotky %}
             <div class="foto_thumb_misto"></div>
        {% endif %}
 

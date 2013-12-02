@@ -14,10 +14,10 @@
 </div>
 
 <div class="rc">
-{% if poi.foto_thumb %}
-  {% thumbnail poi.foto_thumb "250x250" as foto %}
+{% if fotky %}
+  {% thumbnail fotky.0.photo "250x250" as foto_thumb %}
     <a href="#detail={{ poi.id }}" title="Podrobné informace o místě" >
-    <img src="{{ foto.url }}" title="{{ poi }}" width="{{ foto.width }}" height="{{ foto.height }}" class="foto_thumb"></a>
+    <img src="{{ foto_thumb.url }}" title="{{ fotky.0.name }}" width="{{ foto_thumb.width }}" height="{{ foto_thumb.height }}" class="foto_thumb"></a>
 {% endif %}
 {% if poi.desc %}
     <p>{{ poi.desc|safe }}</p>
