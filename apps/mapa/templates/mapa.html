@@ -93,7 +93,7 @@
     var mapconfig = {};
     mapconfig['vrstvy'] = [];
     {% for v in vrstvy %}
-        mapconfig['vrstvy'].push(["{{v.name}}", "{% url 'mapa.views.kml_view' v.slug %}"]);
+        mapconfig['vrstvy'].push(["{{v.name}}", "{% url 'webmap.views.kml_view' v.slug %}"]);
     {% endfor %}
 {% endcache %}
 

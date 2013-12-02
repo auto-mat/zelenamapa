@@ -5,7 +5,6 @@ from mapa.views import *
 urlpatterns = patterns('',
     (r'^$', mapa_view),
     (r'^misto/(\d+)/$', mapa_view),
-    (r'^kml/([-\w]+)/$', kml_view),
     (r'^popup/(\d+)/$', popup_view),
     (r'^doplnit/(\d+)/$', 'mapa.views.addpoi_view'),
     (r'^doplnit/$', 'mapa.views.addpoi_view'),

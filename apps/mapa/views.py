@@ -99,22 +99,6 @@ def mapa_view(request, poi_id=None):
     })
     return render_to_response('mapa.html', context_instance=context)
 
-@never_cache              # zabranime prohlizeci cachovat si kml
-@cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
-def kml_view(request, nazev_vrstvy):
-    # najdeme vrstvu podle slugu. pokud neexistuje, vyhodime 404
-    v = get_object_or_404(Vrstva, slug=nazev_vrstvy, status__show=True)
-
-    # vsechny body co jsou v teto vrstve a jsou zapnute
-    points = Poi.viditelne.filter(znacka__vrstva=v).kml()
-    if is_mobilni(request):
-       kml_template="gis/kml/vrstva_mobilni.kml"
-    else:
-       kml_template="gis/kml/vrstva.kml"
-    return render_to_kml(kml_template, {
-        'places' : points,
-        })
-
 #@cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
 def popup_view(request, poi_id):
     # najdeme vrstvu podle slugu. pokud neexistuje, vyhodime chybu
