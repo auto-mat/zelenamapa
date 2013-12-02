@@ -19,7 +19,8 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q 
 from django.http import HttpResponse, HttpResponseRedirect
 
-from mapa.models import *
+from mapa.models import Upresneni
+from webmap.models import Poi, Layer, Property, Photo
 
 from constance import config
 
@@ -34,16 +35,16 @@ def is_mobilni(request):
 def mapa_view(request, poi_id=None):
     
     
-    vrstvy = Vrstva.objects.filter(status__show=True)
-    vlastnosti = Vlastnost.objects.filter(status__show=True)
+    vrstvy = Layer.objects.filter(status__show=True)
+    vlastnosti = Property.objects.filter(status__show=True)
 
     select_poi = None
     select_poi_header = 'Zajimave misto' # jak s diaktritikou???
     if config.ENABLE_FEATURE_LEFT_POI_TIP:
         # prvni misto, ktere ma vlastnost se slugem "misto-mesice"
-        select_poi_header = Vlastnost.objects.get(slug='misto-mesice').nazev
+        select_poi_header = Property.objects.get(slug='misto-mesice').name
         try:
-            select_poi = Poi.viditelne.filter(vlastnosti__slug='misto-mesice').order_by('id')[0]
+            select_poi = Poi.visible.filter(properties__slug='misto-mesice').order_by('id')[0]
         except:
             pass
     else:
@@ -52,7 +53,7 @@ def mapa_view(request, poi_id=None):
         try:
             max_id = Poi.objects.aggregate(Max('id')).values()[0]
             min_id = math.ceil(max_id*random.random())
-            select_poi = Poi.viditelne.filter(id__gte=min_id).order_by('id')[0]
+            select_poi = Poi.visible.filter(id__gte=min_id).order_by('id')[0]
         except:
             pass
 
@@ -61,8 +62,8 @@ def mapa_view(request, poi_id=None):
     select2_pois_header = 'Tipy:' # jak s diaktritikou???
     # vybrana mista pro druhy vypis - kolik jich je, tolik jich je!
     try:
-        select2_pois_header = Vlastnost.objects.get(slug='misto-propagace').nazev
-        select2_pois = Poi.viditelne.filter(vlastnosti__slug='misto-propagace')
+        select2_pois_header = Property.objects.get(slug='misto-propagace').name
+        select2_pois = Poi.visible.filter(vlastnosti__slug='misto-propagace')
         length = select2_pois.__len__()
         
     except:
@@ -72,7 +73,7 @@ def mapa_view(request, poi_id=None):
     center_poi = None
     if poi_id:
         try:
-            center_poi = Poi.viditelne.get(id=poi_id)
+            center_poi = Poi.visible.get(id=poi_id)
         except Poi.DoesNotExist:
             pass
 
@@ -87,7 +88,7 @@ def mapa_view(request, poi_id=None):
         'vlastnosti' : vlastnosti,
         'select_poi' : select_poi,
         'select2_pois' : select2_pois,
-        'poi_count' : Poi.viditelne.count(),
+        'poi_count' : Poi.visible.count(),
         'center_poi' : center_poi,
         'titulni_stranka' : titulni_stranka,
         'mobilni' : mobilni,
@@ -128,19 +129,19 @@ def search_view(request, query):
     ikona = None
 
     #  nejdriv podle nazvu
-    nazev_qs = Poi.viditelne.filter(Q(nazev__icontains=query))
+    name_qs = Poi.visible.filter(Q(name__icontains=query))
     # pak podle popisu, adresy a nazvu znacky, pokud uz nejsou vyse
-    extra_qs = Poi.viditelne.filter(Q(desc__icontains=query)|Q(address__icontains=query)|Q(znacka__nazev__icontains=query)).exclude(id__in=nazev_qs)
+    extra_qs = Poi.visible.filter(Q(desc__icontains=query)|Q(address__icontains=query)|Q(znacka__name__icontains=query)).exclude(id__in=name_qs)
     # union qs nezachova poradi, tak je prevedeme na listy a spojime
-    points = list(nazev_qs.kml()) + list(extra_qs.kml())
+    points = list(name_qs.kml()) + list(extra_qs.kml())
     return render_to_kml("gis/kml/vrstva.kml", {
         'places' : points,
         'ikona': ikona})
 
 # pro danou vrstvu vrati seznam bodu ve formatu txt
-def txt_view(request, nazev_vrstvy):
+def txt_view(request, name_vrstvy):
     # najdeme vrstvu podle slugu. pokud neexistuje, vyhodime chybu
-    v = Vrstva.objects.get(slug=nazev_vrstvy)
+    v = Vrstva.objects.get(slug=name_vrstvy)
     # vsechny body co jsou v teto vrstve
     points = Poi.objects.filter(znacka__vrstva=v)
     return render_to_response('txtlayer.txt', { 'points': points})
@@ -155,7 +156,7 @@ def addpoi_view(request, poi_id=None):
     static_vkladani = Staticpage.objects.get(slug='vkladani')
     if poi_id:
         poi = Poi.objects.get(id=poi_id)
-        poi_desc = poi.nazev
+        poi_desc = poi.name
     else:
         poi = None
         poi_desc = 'nove misto'
@@ -205,7 +206,7 @@ def detail_view(request, poi_id):
 @cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
 def vlastnosti_view(request):
     static_filtry = Staticpage.objects.get(slug='filtry')
-    vlastnosti = Vlastnost.objects.filter(status__show='True')
+    vlastnosti = Property.objects.filter(status__show='True')
     return render_to_response('vlastnosti.html',
         context_instance=RequestContext(request, { 'vlastnosti': vlastnosti, 'static_filtry' : static_filtry }))
 
@@ -253,7 +254,7 @@ def festival_view(request,akce_slug):
     except:
         pass
        
-    pois_vlastnost = Poi.viditelne.filter(vlastnosti__slug=vlastnost)
+    pois_vlastnost = Poi.visible.filter(vlastnosti__slug=vlastnost)
     static_page = Staticpage.objects.get(slug=clanek)
         
     return render_to_response('festival.html',
@@ -265,15 +266,15 @@ def festival_view(request,akce_slug):
          }))
       
 def m_hledani(request):
-    vlastnosti = Vlastnost.objects.filter(status__show=True, filtr=True)
+    vlastnosti = Property.objects.filter(status__show=True, filtr=True)
     return render_to_response('mobil/hledani.html',
         context_instance=RequestContext(request, {
                 'vlastnosti': vlastnosti,
                 }))
         
 def m_vypis(request):
-    qs = Poi.viditelne.all()
-    vlastnosti = Vlastnost.objects.filter(status__show=True)
+    qs = Poi.visible.all()
+    vlastnosti = Property.objects.filter(status__show=True)
     for v in vlastnosti:
         if v.slug in request.GET:
             qs = qs.filter(vlastnosti_cache__icontains=v.slug)

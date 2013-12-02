@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     url(r'^admin/', include("massadmin.urls")),
     url(r'^comments/', include('fluent_comments.urls')),
+    url(r'^webmap/', include('webmap.urls')),
     (r'', include("mapa.urls")),
     # sitemap pro vyhledavace
     (r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps})

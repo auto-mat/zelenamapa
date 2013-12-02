@@ -59,13 +59,13 @@
        {% endif %}
 
 
-       <p class="poi_type"><img src="{{ poi.znacka.default_icon.url }}" title="{{ poi.znacka }}" class="poi_znacka"> {{ poi.znacka }}</p>
+       <p class="poi_type"><img src="{{ poi.marker.default_icon.url }}" title="{{ poi.marker }}" class="poi_znacka"> {{ poi.marker }}</p>
 
 
        <ul class="misto_vlastnosti">
-       {% for vl in poi.vlastnosti.all %}
+       {% for vl in poi.properties.all %}
             {% if vl.status.show %}
-            <li><img src="{{ vl.default_icon.url }}" title="{{ vl.nazev }}">{{  vl.nazev }}</li>
+            <li><img src="{{ vl.default_icon.url }}" title="{{ vl.name }}">{{  vl.name }}</li>
 	    {% endif %}    
        {% endfor %}
        </ul>    

@@ -70,6 +70,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'mapwidget.middleware.crossdomainxhr.XsSharing',
+    'author.middlewares.AuthorDefaultBackendMiddleware',
 )
 
 ROOT_URLCONF = 'urls'
@@ -108,6 +109,8 @@ INSTALLED_APPS = (
     'import_export',
     'comments_moderation',
     'colorful',
+    'author',
+    'webmap',
 )
 
 LOGGING = {
@@ -168,6 +171,7 @@ LOGGING = {
     }
 }
 
+CONSTANCE_APP_NAME = "webmap"
 CONSTANCE_CONFIG = {
     'ENABLE_FEATURE_TIPY_ZM': (True, u'povolit tipy Zelené mapy v pravém sloupci'),
     'ENABLE_FEATURE_LEFT_POI_TIP': (True, u'povolit tip vlevo dole (True = poi vlevo dole je tip, False = poi vlevo dole je nahodny)'),

@@ -93,7 +93,7 @@
     var mapconfig = {};
     mapconfig['vrstvy'] = [];
     {% for v in vrstvy %}
-        mapconfig['vrstvy'].push(["{{v.nazev}}", "{% url 'mapa.views.kml_view' v.slug %}"]);
+        mapconfig['vrstvy'].push(["{{v.name}}", "{% url 'mapa.views.kml_view' v.slug %}"]);
     {% endfor %}
 {% endcache %}
 
@@ -177,18 +177,18 @@
                 <div class="filtry">
                     <h4>Ukaž výběr</h4>
                     {% for v in vlastnosti %}
-                        {% if v.filtr  %}
+                        {% if v.as_filter  %}
                             <a id="{{v.slug}}" class="inactive" onclick="toggleFilter(this); return false;" title="{{v.desc}}">
-                            <img src="{{v.default_icon.url}}" alt="{{v.nazev}}"/>{{v.nazev}}
+                            <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>{{v.name}}
                             </a><br />
                         {% endif %}
                     {% endfor %}
                     <a id="filtr_toggle" href="javascript:void(0);" onclick="toggleFiltry_add(this); return false;" >Další filtry</a>
                     <div id="filtry_add" style="display:none;">
                     {% for v in vlastnosti %}
-                        {% if not v.filtr  %}
+                        {% if not v.as_filter  %}
                             <a id="{{v.slug}}" class="inactive" onclick="toggleFilter(this); return false;" title="{{v.desc}}">
-                            <img src="{{v.default_icon.url}}" alt="{{v.nazev}}"/>{{v.nazev}}
+                            <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>{{v.name}}
                             </a><br />
                         {% endif %}
                     {% endfor %}
@@ -209,9 +209,9 @@
 		  {% for selected_poi in select2_pois %}
 		     <p><a href="{% url 'mapa.views.mapa_view' selected_poi.id %}" title="Najet v mapě na místo" >
 		     {{ selected_poi }}</a>:<br/>
-		       {% for vl in selected_poi.vlastnosti.all %}
+		       {% for vl in selected_poi.properties.all %}
 		       {% if vl.status.show %}
-		       <img src="{{ vl.default_icon.url }}" title="{{ vl.nazev }}" alt="{{ vl.nazev }}"/>
+		       <img src="{{ vl.default_icon.url }}" title="{{ vl.name }}" alt="{{ vl.name }}"/>
 		       {% endif %}
 		       {% endfor %}
 		     </p>
@@ -264,9 +264,9 @@
                                   <img src="{{ select_poi.foto_thumb.url }}" title="{{ select_poi }}" class="foto_segment" /></a>
                             {% endif %}
                             <p>
-                                {% for vl in select_poi.vlastnosti.all %}
+                                {% for vl in select_poi.properties.all %}
 				{% if vl.status.show %}
-                                    <img src="{{ vl.default_icon.url }}" title="{{ vl.nazev }}" alt="{{ vl.nazev }}"/>
+                                    <img src="{{ vl.default_icon.url }}" title="{{ vl.name }}" alt="{{ vl.name }}"/>
 				{% endif %}
                                 {% endfor %}
                             </p>

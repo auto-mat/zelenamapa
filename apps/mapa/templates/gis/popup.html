@@ -1,8 +1,8 @@
 {% load thumbnail %}
 <div class="lc">
-{% for vl in poi.vlastnosti.all %}
+{% for vl in poi.properties.all %}
 {% if vl.status.show %}
-    <img src="{{ vl.default_icon.url }}" title="{{ vl.nazev }}">
+    <img src="{{ vl.default_icon.url }}" title="{{ vl.name }}">
 {% endif %}    
 {% endfor %}
 </div>
