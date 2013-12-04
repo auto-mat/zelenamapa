@@ -102,6 +102,16 @@ class Migration(DataMigration):
             obj_new.properties = orm['webmap.property'].objects.filter(slug__in= [o.slug for o in obj.vlastnosti.all()])
             obj_new.save()
 
+            #Sit
+            orm.sitpoi.objects.create(sit_geom = obj.sit_geom, webmap_poi = obj_new).save()
+
+            for sit_prop in obj.sit_set.all():
+                sit_prop.webmap_poi = obj_new
+                sit_prop.save()
+            for upresneni in obj.upresneni_set.all():
+                upresneni.webmap_poi = obj_new
+                upresneni.save()
+
             for field in obj_new._meta.local_fields:
                 if field.name == "last_modification":
                     field.auto_now = True
@@ -116,6 +126,7 @@ class Migration(DataMigration):
         "Write your backwards methods here."
         orm['webmap.photo'].objects.all().delete()
         orm['webmap.poi'].objects.all().delete()
+        orm.sitpoi.objects.all().delete()
 
 
     models = {
@@ -275,8 +286,15 @@ class Migration(DataMigration):
             'Meta': {'object_name': 'Sit'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'key': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255'}),
-            'poi': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'sit_keys'", 'to': "orm['mapa.Poi']"}),
-            'value': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255', 'null': 'True', 'blank': 'True'})
+            'poi': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mapa.Poi']"}),
+            'value': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'webmap_poi': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['webmap.Poi']", 'null': 'True', 'blank': 'True'})
+        },
+        'mapa.sitpoi': {
+            'Meta': {'object_name': 'SitPoi'},
+            'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'sit_geom': ('django.contrib.gis.db.models.fields.GeometryField', [], {'null': 'True', 'blank': 'True'}),
+            'webmap_poi': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['webmap.Poi']", 'unique': 'True'})
         },
         'mapa.staticpage': {
             'Meta': {'object_name': 'Staticpage'},
@@ -303,7 +321,8 @@ class Migration(DataMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'misto': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['mapa.Poi']", 'null': 'True', 'blank': 'True'}),
             'status': ('django.db.models.fields.CharField', [], {'max_length': '10'}),
-            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
+            'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'}),
+            'webmap_poi': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['webmap.Poi']", 'null': 'True', 'blank': 'True'})
         },
         'mapa.vlastnost': {
             'Meta': {'ordering': "['poradi']", 'object_name': 'Vlastnost'},

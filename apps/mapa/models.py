@@ -8,6 +8,7 @@ from django.core.cache import cache
 
 from django.contrib.auth.models import User
 from colorful.fields import RGBColorField
+from webmap.models import Poi as Webmap_Poi
 
 from .utils import SlugifyFileSystemStorage
 
@@ -148,9 +149,14 @@ class Poi(models.Model):
         self.created_at = datetime.datetime.now()
         super(Poi, self).save(*args, **kwargs)
 
+class SitPoi(models.Model):
+    webmap_poi = models.OneToOneField(Webmap_Poi)
+    sit_geom = models.GeometryField(verbose_name=u"SIT poloha",srid=4326, blank=True, null=True, help_text=u"Původní poloha podle SITu")
+
 class Sit(models.Model):
     "Importovaná data ze SIT"
-    poi = models.ForeignKey("Poi", related_name="sit_keys")
+    poi = models.ForeignKey("Poi")
+    webmap_poi = models.ForeignKey(Webmap_Poi, null=True, blank=True)
     
     key = models.CharField(max_length=255, null=False, blank=False, default="", verbose_name=u"key")
     value = models.CharField(max_length=255, null=True, blank=True, default="", verbose_name=u"value")
@@ -215,6 +221,7 @@ class Upresneni(models.Model):
     """
 
     misto  = models.ForeignKey(Poi, blank=True, null=True) # Odkaz na objekt, ktery chce opravit, muze byt prazdne.
+    webmap_poi = models.ForeignKey(Webmap_Poi, null=True, blank=True)
     email  = models.EmailField(verbose_name=u"Váš e-mail (pro další komunikaci)", null=True)    # Prispevatel musi vyplnit email.
     status  = models.CharField(max_length=10,choices=UPRESNENI_CHOICE) 
     desc    = models.TextField(verbose_name=u"Popis (doplnění nebo oprava nebo popis nového místa, povinné pole)",null=True)

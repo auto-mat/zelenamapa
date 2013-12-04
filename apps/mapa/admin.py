@@ -11,6 +11,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.admin import UserAdmin
 from django.db.models import Q
 from constance import config
+from webmap.models import Poi as Webmap_Poi
+import webmap
 import fgp
 from django.core.urlresolvers import reverse
 
@@ -84,11 +86,20 @@ class PoiStatusFilter(SimpleListFilter):
         if self.value() == "skryte":
             return queryset.exclude(Q(status__show_TU = True) & Q(znacka__status__show_TU = True) & Q(znacka__vrstva__status__show_TU = True))
 
+class SitPoiInline(admin.TabularInline):
+    model = SitPoi
+    readonly_fields = ("sit_geom",)
+    extra = 0
+    can_delete = False
+
 class SitInline(admin.TabularInline):
     model = Sit
     readonly_fields = ("key", "value")
     extra = 0
     can_delete = False
+
+class Webmap_PoiAdmin(webmap.admin.PoiAdmin):
+    inlines = webmap.admin.PoiAdmin.inlines + [ SitPoiInline, SitInline, ]
 
 @fgp.enforce
 class PoiAdmin(OSMGeoAdmin, ImportExportModelAdmin):
@@ -233,11 +244,13 @@ class UpresneniAdmin(admin.ModelAdmin):
     model = Upresneni
     raw_id_fields = ('misto',)
     list_filter = ('status',)
-    list_display = ('misto', 'email', 'status', 'desc',)
+    list_display = ('misto', 'webmap_poi', 'email', 'status', 'desc',)
 
 class StaticAdmin(admin.ModelAdmin):
     model = Staticpage
     
+admin.site.unregister(Webmap_Poi)
+admin.site.register(Webmap_Poi   , Webmap_PoiAdmin   )
 admin.site.register(Poi   , PoiAdmin   )
 admin.site.register(Vrstva, VrstvaAdmin)
 admin.site.register(Sektor, SektorAdmin)

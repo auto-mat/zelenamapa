@@ -94,7 +94,6 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'mapa',
     'easy_thumbnails',
     'compressor',
     'mapwidget',
@@ -111,6 +110,7 @@ INSTALLED_APPS = (
     'colorful',
     'author',
     'webmap',
+    'mapa',
 )
 
 LOGGING = {
