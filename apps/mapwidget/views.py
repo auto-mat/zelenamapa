@@ -8,7 +8,7 @@ from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.models import get_current_site
 
-from mapa.models import Poi
+from webmap.models import Poi
 from constance import config
 
 def map_view(request, pk, w, h, template="mapwidget/map.html"):

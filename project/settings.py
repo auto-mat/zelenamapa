@@ -105,10 +105,7 @@ INSTALLED_APPS = (
     'constance',
     'constance.backends.database',
     'massadmin',
-    'import_export',
     'comments_moderation',
-    'colorful',
-    'author',
     'webmap',
     'mapa',
 )

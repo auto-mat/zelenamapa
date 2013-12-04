@@ -107,7 +107,7 @@ def popup_view(request, poi_id):
     return render_to_kml("gis/popup.html",
         context_instance=RequestContext(request, {
             'poi' : poi,
-            'fotky': Photo.objects.filter(poi = poi).order_by('order'),
+            'fotky': poi.photos.all(),
             }))
 
 def search_view(request, query):

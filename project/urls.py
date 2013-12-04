@@ -9,11 +9,11 @@ from mapa.views import *
 admin.autodiscover()
 
 from django.contrib.sitemaps import Sitemap
-from mapa.models import Poi
+from webmap.models import Poi
 
 class MistaSitemap(Sitemap):
     def items(self):
-        return Poi.viditelne.all()
+        return Poi.visible.all()
 
 sitemaps = {
         'mista': MistaSitemap
