@@ -93,7 +93,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sitemaps',
     'django.contrib.staticfiles',
+
+    #for django_webmap_corpus:
+    'author',
+    'positions',
     'django.contrib.gis',
+    'constance.backends.database',
+    'constance',
+    'webmap',
+
     'easy_thumbnails',
     'compressor',
     'mapwidget',
@@ -102,11 +110,8 @@ INSTALLED_APPS = (
     'fluent_comments',
     'crispy_forms',
     'django.contrib.comments',
-    'constance',
-    'constance.backends.database',
     'massadmin',
     'comments_moderation',
-    'webmap',
     'mapa',
 )
 
