@@ -53,15 +53,13 @@
        <div class="content" style="max-width:500px; text-align:left;">
 
        <h2>{{ poi }}</h2>
+       <div class="foto_thumb_misto">
        {% for fotka in fotky %}
          {% thumbnail fotka.photo "250x250" as foto_thumb %}
          <a href="{{ fotka.photo.url }}">
-         <img src="{{ foto_thumb.url }}" title="{{ fotka.name }}" width="{{ foto_thumb.width }}" height="{{ foto_thumb.height }}" class="foto_thumb_misto"></a>
+         <img src="{{ foto_thumb.url }}" title="{{ fotka.name }}" width="{{ foto_thumb.width }}" height="{{ foto_thumb.height }}"></a>
        {% endfor %}
-
-       {% if not fotky %}
-            <div class="foto_thumb_misto"></div>
-       {% endif %}
+       </div>
 
 
        <p class="poi_type"><img src="{{ poi.marker.default_icon.url }}" title="{{ poi.marker }}" class="poi_znacka"> {{ poi.marker }}</p>

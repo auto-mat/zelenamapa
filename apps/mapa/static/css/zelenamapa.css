@@ -175,7 +175,8 @@ url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWH
 .titulek { font-style:italic; }
 .misto_vlastnosti li  { margin: 2px 0 2px 0; }
 .misto_vlastnosti img{position:relative;top: 5px; margin-right:10px; }
-.foto_thumb_misto { border:solid 1px grey; width:300px; min-height:150px; margin:0 0 4px 5px; background-color:whitesmoke; float:right; }
+.foto_thumb_misto { max-width:300px; float:right;}
+.foto_thumb_misto img { border:solid 1px grey; max-width:300px; margin:0 0 4px 5px; background-color:whitesmoke; }
 .foto_thumb_edit { border:solid 1px grey; width:200px; min-height:120px; margin:0 0 4px 4px; background-color:whitesmoke; float:none; }
 
 
@@ -191,7 +192,7 @@ url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWH
 
 /* Round corners */
 
-.widget_input, .foto_thumb, .foto_segment, .foto_thumb_misto, .foto_thumb_edit, .vkladani_aktual { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
+.widget_input, .foto_thumb, .foto_segment, .foto_thumb_misto img, .foto_thumb_edit, .vkladani_aktual { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
 .rounded_html_iframe, #id_comment, #id_name, #id_email, #id_desc, #id_url, #id_address  { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; }
 .middle_ad,        .left_top_ad,        .right_top_ad,        .reklama1,        .reklama2        , .blog_ad        { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; }
 .middle_ad a img,  .left_top_ad a img,  .right_top_ad a img,  .reklama1 a img,  .reklama2 a img  , .blog_ad a img  { -moz-border-radius: 5px; -webkit-border-radius: 5px; -khtml-border-radius: 5px; border-radius: 5px; } 
