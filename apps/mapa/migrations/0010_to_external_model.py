@@ -103,7 +103,8 @@ class Migration(DataMigration):
             obj_new.save()
 
             #Sit
-            orm.sitpoi.objects.create(sit_geom = obj.sit_geom, webmap_poi = obj_new).save()
+            if obj.sit_geom:
+               orm.sitpoi.objects.create(sit_geom = obj.sit_geom, webmap_poi = obj_new).save()
 
             for sit_prop in obj.sit_set.all():
                 sit_prop.webmap_poi = obj_new
