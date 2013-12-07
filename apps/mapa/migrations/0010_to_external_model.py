@@ -74,7 +74,13 @@ class Migration(DataMigration):
                 )
             obj_new.save()
 
-        for obj in orm.poi.objects.all():
+        poi_objects = orm.poi.objects
+        print poi_objects.count();
+        i = 0.0
+        for obj in poi_objects.all():
+            if i % 1000 == 0:
+               print i
+            i += 1
             for field in obj_new._meta.local_fields:
                 if field.name == "last_modification":
                     field.auto_now = False
