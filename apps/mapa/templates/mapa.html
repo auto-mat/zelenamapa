@@ -179,7 +179,10 @@
                     {% for v in vlastnosti %}
                         {% if v.as_filter  %}
                             <a id="{{v.slug}}" class="inactive" onclick="toggleFilter(this); return false;" title="{{v.desc}}">
-                            <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>{{v.name}}
+                            {% if v.default_icon %}
+                               <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>
+                            {% endif %}
+                            {{v.name}}
                             </a><br />
                         {% endif %}
                     {% endfor %}
@@ -188,7 +191,10 @@
                     {% for v in vlastnosti %}
                         {% if not v.as_filter  %}
                             <a id="{{v.slug}}" class="inactive" onclick="toggleFilter(this); return false;" title="{{v.desc}}">
-                            <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>{{v.name}}
+                            {% if v.default_icon %}
+                               <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>
+                            {% endif %}
+                            {{v.name}}
                             </a><br />
                         {% endif %}
                     {% endfor %}
