@@ -11,6 +11,7 @@ author_id = 0
 import_fields = []
 table_name = ""
 
+
 # Helper object to transfor imported data
 class ImportPoi(Poi):
     sit_id = models.IntegerField(default=0)
@@ -36,9 +37,9 @@ class ImportPoi(Poi):
 
     def save(self, *args, **kwargs):
         poi = Poi()
-        poi.znacka = Znacka.objects.get(pk = znacka_id)
-        poi.status = Status.objects.get(pk = status_id)
-        poi.author = User.objects.get(pk = author_id)
+        poi.znacka = Znacka.objects.get(pk=znacka_id)
+        poi.status = Status.objects.get(pk=status_id)
+        poi.author = User.objects.get(pk=author_id)
         if self.nazev or self.nazev != "":
             poi.nazev = self.nazev
         else:
@@ -55,35 +56,36 @@ class ImportPoi(Poi):
         poi.sit_geom = self.geom
         poi.save()
 
-        Sit(key = 'table_name', value = table_name, poi = poi).save()
+        Sit(key='table_name', value=table_name, poi=poi).save()
         for field in import_fields:
             if field == 'popis':
-                Sit(key = field, value = self.desc, poi = poi).save()
+                Sit(key=field, value=self.desc, poi=poi).save()
                 continue
             if field == 'nazev':
-                Sit(key = field, value = self.nazev, poi = poi).save()
+                Sit(key=field, value=self.nazev, poi=poi).save()
                 continue
-            Sit(key = field, value = getattr(self, 'sit_' + field), poi = poi).save()
+            Sit(key=field, value=getattr(self, 'sit_' + field), poi=poi).save()
+
 
 class Command(BaseCommand):
     help = "Import data from SIT"
 
     option_list = BaseCommand.option_list + (
         make_option('--znacka',
-            action='store',
-            dest='znacka_id',
-            default=0,
-            help='Set znacka id for new Poi objects'),
+                    action='store',
+                    dest='znacka_id',
+                    default=0,
+                    help='Set znacka id for new Poi objects'),
         make_option('--status',
-            action='store',
-            dest='status_id',
-            default=0,
-            help='Set status id for new Poi objects'),
+                    action='store',
+                    dest='status_id',
+                    default=0,
+                    help='Set status id for new Poi objects'),
         make_option('--author',
-            action='store',
-            dest='author_id',
-            default=0,
-            help='Set author id for new Poi objects'),
+                    action='store',
+                    dest='author_id',
+                    default=0,
+                    help='Set author id for new Poi objects'),
         )
 
     def print_layer_info(self, ds):
@@ -107,18 +109,18 @@ class Command(BaseCommand):
 
         if geom_type == 'Point':
             mapping = {
-                       'geom' : 'POINT',
-                      }
-    
+                'geom': 'POINT',
+                }
+
         if geom_type == "LineString":
             mapping = {
-                       'geom' : 'LINESTRING',
-                      }
-        
+                'geom': 'LINESTRING',
+                }
+
         if geom_type == "Polygon":
             mapping = {
-                       'geom' : 'POLYGON',
-                      }
+                'geom': 'POLYGON',
+                }
 
         for field in fields:
             if field == 'popis':
@@ -135,5 +137,5 @@ class Command(BaseCommand):
                 +k=0.9999 +x_0=0 +y_0=0 +ellps=bessel +pm=greenwich +units=m +no_defs \
                 +towgs84=570.8,85.7,462.8,4.998,1.587,5.261,3.56"
         encoding = "WINDOWS-1250"
-        lm = LayerMapping(ImportPoi, args[0], mapping, source_srs = source_srs, encoding = encoding)
+        lm = LayerMapping(ImportPoi, args[0], mapping, source_srs=source_srs, encoding=encoding)
         lm.save(verbose=True)

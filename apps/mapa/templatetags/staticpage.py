@@ -3,6 +3,7 @@ from mapa.models import Staticpage
 
 register = template.Library()
 
+
 class GetStaticPageNode(template.Node):
     def __init__(self, slug, variable):
         self.slug = slug
@@ -11,6 +12,7 @@ class GetStaticPageNode(template.Node):
     def render(self, context):
         context[self.variable] = Staticpage.objects.get(slug=self.slug)
         return ''
+
 
 @register.tag
 def get_staticpage(parser, token):

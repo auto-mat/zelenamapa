@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # views.py
 
-import random, math
-import urllib, re
+import random
+import math
+import urllib
 
-from django.conf import settings
 from django import forms, http
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
@@ -16,35 +16,36 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.cache import never_cache
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.db.models import Q 
-from django.http import HttpResponse, HttpResponseRedirect
+from django.db.models import Q
 
 from mapa.models import Upresneni
-from webmap.models import Poi, Layer, Property, Photo
+from webmap.models import Poi, Layer, Property, Photo, Marker
 
 from constance import config
 
+
 def is_mobilni(request):
     subdomain = request.META.get('HTTP_HOST', '').split('.')
-    try: 
+    try:
         request.GET["m"]
         explicit_mobile = True
-    except KeyError: explicit_mobile = False
+    except KeyError:
+        explicit_mobile = False
     return ('m' in subdomain) or (explicit_mobile)
 
+
 def mapa_view(request, poi_id=None):
-    
-    
     vrstvy = Layer.objects.filter(status__show=True)
     vlastnosti = Property.objects.filter(status__show=True)
 
     select_poi = None
-    select_poi_header = 'Zajimave misto' # jak s diaktritikou???
+    select_poi_header = 'Zajimave misto'  # jak s diaktritikou???
     if config.ENABLE_FEATURE_LEFT_POI_TIP:
         # prvni misto, ktere ma vlastnost se slugem "misto-mesice"
         select_poi_header = Property.objects.get(slug='misto-mesice').name
         try:
-            select_poi = Poi.visible.filter(properties__slug='misto-mesice').order_by('id')[0]
+            select_poi = Poi.visible.filter(
+                properties__slug='misto-mesice').order_by('id')[0]
         except:
             pass
     else:
@@ -57,18 +58,15 @@ def mapa_view(request, poi_id=None):
         except:
             pass
 
-
     select2_pois = None
-    select2_pois_header = 'Tipy:' # jak s diaktritikou???
+    select2_pois_header = 'Tipy:'  # jak s diaktritikou???
     # vybrana mista pro druhy vypis - kolik jich je, tolik jich je!
     try:
         select2_pois_header = Property.objects.get(slug='misto-propagace').name
         select2_pois = Poi.visible.filter(vlastnosti__slug='misto-propagace')
-        length = select2_pois.__len__()
-        
     except:
         pass
-    
+
     # volitelne poi_id zadane mape jako bod, na ktery se ma zazoomovat
     center_poi = None
     if poi_id:
@@ -85,19 +83,20 @@ def mapa_view(request, poi_id=None):
 
     context = RequestContext(request, {
         'vrstvy': vrstvy,
-        'vlastnosti' : vlastnosti,
-        'select_poi' : select_poi,
-        'select2_pois' : select2_pois,
-        'poi_count' : Poi.visible.count(),
-        'center_poi' : center_poi,
-        'titulni_stranka' : titulni_stranka,
-        'mobilni' : mobilni,
-        'config' : config,
+        'vlastnosti': vlastnosti,
+        'select_poi': select_poi,
+        'select2_pois': select2_pois,
+        'poi_count': Poi.visible.count(),
+        'center_poi': center_poi,
+        'titulni_stranka': titulni_stranka,
+        'mobilni': mobilni,
+        'config': config,
         'site': get_current_site(request).domain,
-        'select_poi_header' : select_poi_header,
-        'select2_pois_header' : select2_pois_header
+        'select_poi_header': select_poi_header,
+        'select2_pois_header': select2_pois_header
     })
     return render_to_response('mapa.html', context_instance=context)
+
 
 #@cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
 def popup_view(request, poi_id):
@@ -105,10 +104,11 @@ def popup_view(request, poi_id):
     poi = get_object_or_404(Poi, id=poi_id)
 
     return render_to_kml("gis/popup.html",
-        context_instance=RequestContext(request, {
-            'poi' : poi,
-            'fotky': poi.photos.all(),
-            }))
+                         context_instance=RequestContext(request, {
+                             'poi': poi,
+                             'fotky': poi.photos.all(),
+                             }))
+
 
 def search_view(request, query):
     if len(query) < 3:
@@ -118,25 +118,31 @@ def search_view(request, query):
     #  nejdriv podle nazvu
     name_qs = Poi.visible.filter(Q(name__icontains=query))
     # pak podle popisu, adresy a nazvu znacky, pokud uz nejsou vyse
-    extra_qs = Poi.visible.filter(Q(desc__icontains=query)|Q(address__icontains=query)|Q(znacka__name__icontains=query)).exclude(id__in=name_qs)
+    extra_qs = Poi.visible.filter(
+        Q(desc__icontains=query)
+        | Q(address__icontains=query)
+        | Q(znacka__name__icontains=query)).exclude(id__in=name_qs)
     # union qs nezachova poradi, tak je prevedeme na listy a spojime
     points = list(name_qs.kml()) + list(extra_qs.kml())
     return render_to_kml("gis/kml/vrstva.kml", {
-        'places' : points,
-        'ikona': ikona})
+                         'places': points,
+                         'ikona': ikona})
+
 
 # pro danou vrstvu vrati seznam bodu ve formatu txt
 def txt_view(request, name_vrstvy):
     # najdeme vrstvu podle slugu. pokud neexistuje, vyhodime chybu
-    v = Vrstva.objects.get(slug=name_vrstvy)
+    v = Layer.objects.get(slug=name_vrstvy)
     # vsechny body co jsou v teto vrstve
     points = Poi.objects.filter(znacka__vrstva=v)
-    return render_to_response('txtlayer.txt', { 'points': points})
+    return render_to_response('txtlayer.txt', {'points': points})
+
 
 class UpresneniForm(forms.ModelForm):
     class Meta:
         model = Upresneni
         fields = ('email', 'desc', 'url', 'address')
+
 
 # View pro formular na uzivatelske vkladani oprav a doplnku
 def addpoi_view(request, poi_id=None):
@@ -155,111 +161,133 @@ def addpoi_view(request, poi_id=None):
             form.save()
             # http://docs.djangoproject.com/en/dev/topics/email/
             from_email = 'form@zelenamapa.cz'
-            to_email   = obj.email
-            subject    = 'Doplneni Zelene mapy - ' + poi_desc
-            message    = "Z Vaseho mailu (" + to_email + ") bylo zaslano doplneni Zelene mapy Prahy." + \
-                         "Dekujeme za Vas prispevek!\n\n" +                                        \
-                         "Obsah doplneni:\n" +                                                     \
-                         "Misto         :"   + poi_desc + "\n" +                                   \
-                         "Popis doplneni:\n" + obj.desc  + "\n\n" +                                \
-                         "URL           :"   + obj.url  + "\n" +                                   \
-                         "Adresa        :"   + obj.address  + "\n\n" +                             \
-                         "Dekujeme za Vas doplnek, ozveme se vam po jeho vyhodnoceni\n\n" +        \
-                         "V pripade nejasnosti nas kontaktujte na adrese doplneni@zelenamapa.cz .\n"
+            to_email = obj.email
+            subject = 'Doplneni Zelene mapy - ' + poi_desc
+            message = "Z Vaseho mailu (" + to_email + ") bylo zaslano doplneni Zelene mapy Prahy." + \
+                      "Dekujeme za Vas prispevek!\n\n" +                                        \
+                      "Obsah doplneni:\n" +                                                     \
+                      "Misto         :" + poi_desc + "\n" +                                   \
+                      "Popis doplneni:\n" + obj.desc + "\n\n" +                                \
+                      "URL           :" + obj.url + "\n" +                                   \
+                      "Adresa        :" + obj.address + "\n\n" +                             \
+                      "Dekujeme za Vas doplnek, ozveme se vam po jeho vyhodnoceni\n\n" +        \
+                      "V pripade nejasnosti nas kontaktujte na adrese doplneni@zelenamapa.cz .\n"
             # try:
-            send_mail(subject, message, from_email, [to_email,'kontakt@zelenamapa.cz'])
+            send_mail(subject, message, from_email, [to_email, 'kontakt@zelenamapa.cz'])
             # except:
             #    return http.HttpResponse('Mail problem.')
-        
+
             return http.HttpResponseRedirect(reverse(static_view, args=["dekujeme"]))
     else:
-        form = UpresneniForm() # An unbound form
+        form = UpresneniForm()  # An unbound form
 
     return render_to_response('addpoi.html',
-        context_instance=RequestContext(request, { 'poi': poi, 'form': form, 'static_vkladani' : static_vkladani }))
+                              context_instance=RequestContext(request, {
+                                  'poi': poi,
+                                  'form': form,
+                                  'static_vkladani': static_vkladani
+                                  }))
+
 
 # View pro podrobny vypis mista
-@cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
+@cache_page(24 * 60 * 60)  # cachujeme view v memcached s platnosti 24h
 def detail_view(request, poi_id):
     poi = Poi.objects.get(id=poi_id)
     return render_to_response('misto.html',
-        context_instance=RequestContext(request, {
-            'poi': poi,
-            'fotky': Photo.objects.filter(poi = poi).order_by('order'),
-            'config'      : config,
-            'site': get_current_site(request).domain,
-        }))
+                              context_instance=RequestContext(request, {
+                                  'poi': poi,
+                                  'fotky': Photo.objects.filter(poi=poi).order_by('order'),
+                                  'config': config,
+                                  'site': get_current_site(request).domain,
+                                  }))
+
 
 # View pro podrobny vypis seznamu vlastnosti
-@cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
+@cache_page(24 * 60 * 60)  # cachujeme view v memcached s platnosti 24h
 def vlastnosti_view(request):
     static_filtry = Staticpage.objects.get(slug='filtry')
     vlastnosti = Property.objects.filter(status__show='True')
     return render_to_response('vlastnosti.html',
-        context_instance=RequestContext(request, { 'vlastnosti': vlastnosti, 'static_filtry' : static_filtry }))
+                              context_instance=RequestContext(request, {
+                                  'vlastnosti': vlastnosti,
+                                  'static_filtry': static_filtry
+                                  }))
+
 
 # View pro podrobny vypis vrstev
-@cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
+@cache_page(24 * 60 * 60)  # cachujeme view v memcached s platnosti 24h
 def vrstvy_view(request):
     static_vrstvy = Staticpage.objects.get(slug='vrstvy')
-    vrstvy = Vrstva.objects.filter(status__show=True)
-    # vrstvy = Vrstva.objects.all()
+    vrstvy = Layer.objects.filter(status__show=True)
+    # vrstvy = Layer.objects.all()
     return render_to_response('vrstvy.html',
-        context_instance=RequestContext(request, { 'vrstvy': vrstvy, 'static_vrstvy' : static_vrstvy }))
-        
+                              context_instance=RequestContext(request, {
+                                  'vrstvy': vrstvy,
+                                  'static_vrstvy': static_vrstvy
+                                  }))
+
+
 # View pro podrobny vypis znacek
-@cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
+@cache_page(24 * 60 * 60)  # cachujeme view v memcached s platnosti 24h
 def znacky_view(request):
     static_znacky = Staticpage.objects.get(slug='znacky')
-    vrstvy = Vrstva.objects.filter(status__show=True)
-    znacky = Znacka.objects.filter(status__show=True)
+    vrstvy = Layer.objects.filter(status__show=True)
+    znacky = Marker.objects.filter(status__show=True)
     return render_to_response('znacky.html',
-        context_instance=RequestContext(request, { 'vrstvy': vrstvy, 'znacky': znacky, 'static_znacky' : static_znacky }))
-        
+                              context_instance=RequestContext(request, {
+                                  'vrstvy': vrstvy,
+                                  'znacky': znacky,
+                                  'static_znacky': static_znacky
+                                  }))
+
+
 # View pro podrobny vypis statickych objektu
 @never_cache
-@cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
+@cache_page(24 * 60 * 60)  # cachujeme view v memcached s platnosti 24h
 def static_view(request, static_slug):
     static = get_object_or_404(Staticpage, slug=static_slug)
     return render_to_response('static.html',
-        context_instance=RequestContext(request, { 'static': static }))
+                              context_instance=RequestContext(request, {'static': static}))
+
 
 # View pro vypis ZMJ a jinych festivalu
 @never_cache
-def festival_view(request,akce_slug):
+def festival_view(request, akce_slug):
     # General settings (should be moved into DB based on akce_slug )
-    vlastnost='zmj' # melo by se menit jinde, asi pres parametry ci nejak podobne...
-    clanek   ='zmj'
-    wp_incURL='' # "http://wp.zelenamapa.cz/?page_id=442" nefunguje, ma linky na jsfunkci a ne primo.
-    wp_link  ='http://wp.zelenamapa.cz/?cat=8' 
-    
+    vlastnost = 'zmj'  # melo by se menit jinde, asi pres parametry ci nejak podobne...
+    clanek = 'zmj'
+    wp_incURL = ''  # "http://wp.zelenamapa.cz/?page_id=442" nefunguje, ma linky na jsfunkci a ne primo.
+    wp_link = 'http://wp.zelenamapa.cz/?cat=8'
+
     # integrace Wordpress kategorie
-    wpcat = '';
+    wpcat = ''
     try:
         f = urllib.urlopen(wp_incURL)
         wpcat = f.read()
         f.close()
     except:
         pass
-       
+
     pois_vlastnost = Poi.visible.filter(vlastnosti__slug=vlastnost)
     static_page = Staticpage.objects.get(slug=clanek)
-        
+
     return render_to_response('festival.html',
-        context_instance=RequestContext(request, { 
-        'pois'         : pois_vlastnost,
-        'wordpresscat' : wpcat,
-        'wordpresslink': wp_link,
-        'static'       : static_page
-         }))
-      
+                              context_instance=RequestContext(request, {
+                                  'pois': pois_vlastnost,
+                                  'wordpresscat': wpcat,
+                                  'wordpresslink': wp_link,
+                                  'static': static_page
+                                  }))
+
+
 def m_hledani(request):
     vlastnosti = Property.objects.filter(status__show=True, filtr=True)
     return render_to_response('mobil/hledani.html',
-        context_instance=RequestContext(request, {
-                'vlastnosti': vlastnosti,
-                }))
-        
+                              context_instance=RequestContext(request, {
+                                  'vlastnosti': vlastnosti,
+                                  }))
+
+
 def m_vypis(request):
     qs = Poi.visible.all()
     vlastnosti = Property.objects.filter(status__show=True)
@@ -272,13 +300,14 @@ def m_vypis(request):
         poloha = Point(float(lon), float(lat))
         qs = qs.distance(poloha).order_by('distance')
     return render_to_response('mobil/vypis.html',
-        context_instance=RequestContext(request, {
-                'pois': qs[0:100]
-                }))
+                              context_instance=RequestContext(request, {
+                                  'pois': qs[0:100]
+                                  }))
+
 
 def m_detail(request, poi_id):
     # najdeme vrstvu podle slugu. pokud neexistuje, vyhodime chybu
     poi = get_object_or_404(Poi, id=poi_id)
 
     return render_to_response("mobil/detail.html",
-        context_instance=RequestContext(request, { 'poi' : poi }))
+                              context_instance=RequestContext(request, {'poi': poi}))

@@ -2,6 +2,7 @@ from django import template
 
 register = template.Library()
 
+
 @register.simple_tag
 def geturl(url, timeout=None):
     """
@@ -9,7 +10,7 @@ def geturl(url, timeout=None):
 
     Examples:
     {% geturl "http://example.com/path/to/content/" %}
-    {% geturl object.urlfield 1 %} 
+    {% geturl object.urlfield 1 %}
     """
     import socket
     from urllib2 import urlopen
@@ -24,11 +25,11 @@ def geturl(url, timeout=None):
         except ValueError:
             raise template.TemplateSyntaxError, "timeout argument of geturl tag, if provided, cannot be less than zero"
     try:
-        try: 
+        try:
             content = urlopen(url).read()
-        finally: # reset socket timeout
+        finally:  # reset socket timeout
             if timeout is not None:
-                socket.setdefaulttimeout(socket_default_timeout) 
+                socket.setdefaulttimeout(socket_default_timeout)
     except:
-        content = ''        
+        content = ''
     return content
