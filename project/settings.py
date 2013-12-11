@@ -101,6 +101,7 @@ INSTALLED_APPS = (
     'django.contrib.gis',
     'constance.backends.database',
     'constance',
+    'import_export',
     'webmap',
 
     'easy_thumbnails',
