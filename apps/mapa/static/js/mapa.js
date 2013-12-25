@@ -1,10 +1,10 @@
-var map, base_layer, kml, filter_rule, nofilter_rule, zoomFilter;
+var map, base_layer, kml, filter_rule, nofilter_rule, markerFilter, propertyFilter, zoomFilter;
 var vectors = [];
 var searchLayer;
 var searchLayerIdx;
 var lastSelectedFeature;
 var criteria = {};
-var criteriaCnt = 0;
+var marker_criteria = {};
 
 var EPSG4326 = new OpenLayers.Projection("EPSG:4326");
 var EPSG900913 = new OpenLayers.Projection("EPSG:900913"); 
@@ -97,6 +97,13 @@ function init(mapconfig)
         value: mapconfig.zoom
     });
     mainFilter.filters.push(zoomFilter);
+    markerFilter = new OpenLayers.Filter.Logical({
+        type: OpenLayers.Filter.Logical.OR
+    });
+    propertyFilter = new OpenLayers.Filter.Logical({
+        type: OpenLayers.Filter.Logical.AND
+    });
+    mainFilter.filters.push(propertyFilter);
     if(mapconfig.mobilni) {
       controls = [
            new OpenLayers.Control.ArgParser(),
@@ -405,19 +412,19 @@ function onFeatureUnselect(feature) {
         removePopup(feature.popup)
 };
 
-function toggleFilter(obj) {
+function toggleMarker(obj) {
     str = obj.id;
     // alert( 'str:.' . str );
-    if (criteria[str]) {
-        unsetFilter(str);
+    if (marker_criteria[str]) {
+        unsetMarkerFilter(str);
         obj.className='inactive';
     } else {
-        setFilter(str);
+        setMarkerFilter(str);
         obj.className='active';
     }
     // Filtr podle zoom levelu plati jen kdyz neni aktivni
     // zadny filtr dle vlastnosti.
-    if (criteriaCnt == 0) {
+    if (markerFilter.filters.length == 0) {
         zoomFilter.value = map.getZoom();
     } else {
         zoomFilter.value = 999;
@@ -426,26 +433,89 @@ function toggleFilter(obj) {
         vectors[i].redraw();
 };
 
-function setFilter(str) {
+function togglePropertyFilter(obj) {
+    str = obj.id;
+    // alert( 'str:.' . str );
+    if (criteria[str]) {
+        unsetPropertyFilter(str);
+        obj.className='inactive';
+    } else {
+        setPropertyFilter(str);
+        obj.className='active';
+    }
+    // Filtr podle zoom levelu plati jen kdyz neni aktivni
+    // zadny filtr dle vlastnosti.
+    if (propertyFilter.filters.length == 0) {
+        zoomFilter.value = map.getZoom();
+    } else {
+        zoomFilter.value = 999;
+    };
+    for (var i in vectors)
+        vectors[i].redraw();
+};
+
+function setPropertyFilter(str) {
     var filter = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         property: "tag",
         value: str
     });
     criteria[str] = filter;
-    mainFilter.filters.push(filter);
-    criteriaCnt += 1;
-    _gaq.push(['_trackEvent', 'Filtry', str, '', criteriaCnt]);
+    propertyFilter.filters.push(filter);
+    _gaq.push(['_trackEvent', 'Filtry', str, '', propertyFilter.filters.length]);
 };
 
-function unsetFilter(str) {
+function unsetPropertyFilter(str) {
     var filter = criteria[str];
+    index = propertyFilter.filters.indexOf(filter);
+    propertyFilter.filters.splice(index, 1);
     filter.destroy();
     delete criteria[str];
-    criteriaCnt -= 1;
-    mainFilter.filters.splice(1, mainFilter.filters.length);
-    for (var i in criteria)
-        mainFilter.filters.push(criteria[i])
+};
+
+function toggleMarkerFilter(obj) {
+    str = obj.id;
+    // alert( 'str:.' . str );
+    if (marker_criteria[str]) {
+        unsetMarkerFilter(str);
+        obj.className='inactive';
+    } else {
+        setMarkerFilter(str);
+        obj.className='active';
+    }
+    // Filtr podle zoom levelu plati jen kdyz neni aktivni
+    // zadny filtr dle vlastnosti.
+    if (markerFilter.filters.length == 0) {
+        zoomFilter.value = map.getZoom();
+        index = mainFilter.filters.indexOf(markerFilter);
+        mainFilter.filters.splice(index, 1);
+    } else {
+        zoomFilter.value = 999;
+        if(mainFilter.filters.indexOf(markerFilter) == -1)
+           mainFilter.filters.push(markerFilter);
+    };
+    for (var i in vectors)
+        vectors[i].redraw();
+};
+
+
+function setMarkerFilter(str) {
+    var filter = new OpenLayers.Filter.Comparison({
+        type: OpenLayers.Filter.Comparison.LIKE,
+        property: "markerId",
+        value: str
+    });
+    marker_criteria[str] = filter;
+    markerFilter.filters.push(filter);
+    _gaq.push(['_trackEvent', 'Filtry', str, '', markerFilter.filters.length]);
+};
+
+function unsetMarkerFilter(str) {
+    var filter = marker_criteria[str];
+    index = markerFilter.filters.indexOf(filter);
+    markerFilter.filters.splice(index, 1);
+    filter.destroy();
+    delete marker_criteria[str];
 };
 
 function toggleFiltry_add(obj) 

@@ -37,6 +37,7 @@ def is_mobilni(request):
 def mapa_view(request, poi_id=None):
     vrstvy = Layer.objects.filter(status__show=True)
     vlastnosti = Property.objects.filter(status__show=True)
+    znacky = Marker.objects.filter(status__show=True, layer__status__show=True)
 
     select_poi = None
     select_poi_header = 'Zajimave misto'  # jak s diaktritikou???
@@ -84,6 +85,7 @@ def mapa_view(request, poi_id=None):
     context = RequestContext(request, {
         'vrstvy': vrstvy,
         'vlastnosti': vlastnosti,
+        'znacky': znacky,
         'select_poi': select_poi,
         'select2_pois': select2_pois,
         'poi_count': Poi.visible.count(),

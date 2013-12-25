@@ -176,29 +176,31 @@
                 </div>
                 <div class="filtry">
                     <h4>Ukaž výběr</h4>
-                    {% for v in vlastnosti %}
-                        {% if v.as_filter  %}
-                            <a id="{{v.slug}}" class="inactive" onclick="toggleFilter(this); return false;" title="{{v.desc}}">
-                            {% if v.default_icon %}
-                               <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>
-                            {% endif %}
-                            {{v.name}}
-                            </a><br />
+                    <ul>
+                    {% for z in znacky %}
+                        <li>
+                        <a id="{{z.id}}" class="inactive" onclick="toggleMarkerFilter(this); return false;" title="{{z.desc}}">
+                        {% if z.default_icon %}
+                           <img src="{{z.default_icon.url}}" alt="{{z.name}}"/>
                         {% endif %}
-                    {% endfor %}
-                    <a id="filtr_toggle" href="javascript:void(0);" onclick="toggleFiltry_add(this); return false;" >Další filtry</a>
-                    <div id="filtry_add" style="display:none;">
-                    {% for v in vlastnosti %}
-                        {% if not v.as_filter  %}
-                            <a id="{{v.slug}}" class="inactive" onclick="toggleFilter(this); return false;" title="{{v.desc}}">
-                            {% if v.default_icon %}
-                               <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>
+                        {{ z.name }}
+                        </a>
+                        <ul>
+                        {% for v in vlastnosti %}
+                            {% if v.as_filter  %}
+                                <li>
+                                <a id="{{v.slug}}" class="inactive" onclick="togglePropertyFilter(this); return false;" title="{{v.desc}}">
+                                {% if v.default_icon %}
+                                   <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>
+                                {% endif %}
+                                {{v.name}}
+                                </a></li>
                             {% endif %}
-                            {{v.name}}
-                            </a><br />
-                        {% endif %}
+                        {% endfor %}
+                        </ul>
+                        </li>
                     {% endfor %}
-                    </div>
+                    </ul>
                     <a id="fitr_help" href="#vlastnosti" title="Napoveda">Nápověda</a>
                     <br />
                 </div>
