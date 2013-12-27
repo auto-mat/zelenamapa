@@ -417,10 +417,10 @@ function toggleMarker(obj) {
     // alert( 'str:.' . str );
     if (marker_criteria[str]) {
         unsetMarkerFilter(str);
-        obj.className='inactive';
+        obj.parentNode.className='inactive';
     } else {
         setMarkerFilter(str);
-        obj.className='active';
+        obj.parentNode.className='active';
     }
     // Filtr podle zoom levelu plati jen kdyz neni aktivni
     // zadny filtr dle vlastnosti.
@@ -438,10 +438,10 @@ function togglePropertyFilter(obj) {
     // alert( 'str:.' . str );
     if (criteria[str]) {
         unsetPropertyFilter(str);
-        obj.className='inactive';
+        obj.parentNode.className='inactive';
     } else {
         setPropertyFilter(str);
-        obj.className='active';
+        obj.parentNode.className='active';
     }
     // Filtr podle zoom levelu plati jen kdyz neni aktivni
     // zadny filtr dle vlastnosti.
@@ -478,10 +478,10 @@ function toggleMarkerFilter(obj) {
     // alert( 'str:.' . str );
     if (marker_criteria[str]) {
         unsetMarkerFilter(str);
-        obj.className='inactive';
+        obj.parentNode.className='inactive';
     } else {
         setMarkerFilter(str);
-        obj.className='active';
+        obj.parentNode.className='active';
     }
     // Filtr podle zoom levelu plati jen kdyz neni aktivni
     // zadny filtr dle vlastnosti.

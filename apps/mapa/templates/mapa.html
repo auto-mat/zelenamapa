@@ -178,24 +178,22 @@
                     <h4>Ukaž výběr</h4>
                     <ul>
                     {% for z in znacky %}
-                        <li>
-                        <a id="{{z.id}}" class="inactive" onclick="toggleMarkerFilter(this); return false;" title="{{z.desc}}">
+                        <li class="inactive">
+                        <a id="{{z.id}}" onclick="toggleMarkerFilter(this); return false;" title="{{z.desc}}">
                         {% if z.default_icon %}
                            <img src="{{z.default_icon.url}}" alt="{{z.name}}"/>
                         {% endif %}
                         {{ z.name }}
                         </a>
                         <ul>
-                        {% for v in vlastnosti %}
-                            {% if v.as_filter  %}
-                                <li>
+                        {% for v in z.vlastnosti %}
+                                <li class="inactive">
                                 <a id="{{v.slug}}" class="inactive" onclick="togglePropertyFilter(this); return false;" title="{{v.desc}}">
                                 {% if v.default_icon %}
                                    <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>
                                 {% endif %}
-                                {{v.name}}
+                                {{v.name}} ({{v.poi_count}})
                                 </a></li>
-                            {% endif %}
                         {% endfor %}
                         </ul>
                         </li>

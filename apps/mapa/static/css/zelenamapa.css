@@ -63,8 +63,10 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
 .filtry a { padding: 4px;}
 #filtr_toggle {  line-height:22px; padding-left:27px;}
 #filtr_help   {  line-height:22px; }
-.filtry a.inactive{ color: black; cursor: default; }
-.filtry a.active{ background-color: #dfd; color:black; cursor: default; } 
+.filtry .inactive>a{ color: black; cursor: default; }
+.filtry .inactive>ul{ display:none; }
+.filtry .active>a{ background-color: #dfd; color:black; cursor: default; } 
+.filtry .active>ul{ display:block; }
 .filtry img{position:relative;top: 5px; margin-right:10px; }
 .filtry h4{ margin:7px 0 3px 2px;}
 
