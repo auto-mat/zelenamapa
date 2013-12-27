@@ -424,7 +424,7 @@ function toggleMarker(obj) {
     }
     // Filtr podle zoom levelu plati jen kdyz neni aktivni
     // zadny filtr dle vlastnosti.
-    if (markerFilter.filters.length == 0) {
+    if (markerFilter.filters.length == 0 && propertyFilter.filters.length == 0) {
         zoomFilter.value = map.getZoom();
     } else {
         zoomFilter.value = 999;
@@ -445,7 +445,7 @@ function togglePropertyFilter(obj) {
     }
     // Filtr podle zoom levelu plati jen kdyz neni aktivni
     // zadny filtr dle vlastnosti.
-    if (propertyFilter.filters.length == 0) {
+    if (markerFilter.filters.length == 0 && propertyFilter.filters.length == 0) {
         zoomFilter.value = map.getZoom();
     } else {
         zoomFilter.value = 999;
@@ -485,12 +485,16 @@ function toggleMarkerFilter(obj) {
     }
     // Filtr podle zoom levelu plati jen kdyz neni aktivni
     // zadny filtr dle vlastnosti.
-    if (markerFilter.filters.length == 0) {
+    if (markerFilter.filters.length == 0 && propertyFilter.filters.length == 0) {
         zoomFilter.value = map.getZoom();
+    } else {
+        zoomFilter.value = 999;
+    };
+
+    if (markerFilter.filters.length == 0) {
         index = mainFilter.filters.indexOf(markerFilter);
         mainFilter.filters.splice(index, 1);
     } else {
-        zoomFilter.value = 999;
         if(mainFilter.filters.indexOf(markerFilter) == -1)
            mainFilter.filters.push(markerFilter);
     };
