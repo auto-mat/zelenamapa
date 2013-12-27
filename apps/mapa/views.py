@@ -16,7 +16,7 @@ from django.views.decorators.cache import cache_page
 from django.views.decorators.cache import never_cache
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
-from django.db.models import Q
+from django.db.models import Q, Count
 
 from mapa.models import Upresneni
 from webmap.models import Poi, Layer, Property, Photo, Marker
@@ -36,8 +36,13 @@ def is_mobilni(request):
 
 def mapa_view(request, poi_id=None):
     vrstvy = Layer.objects.filter(status__show=True)
-    vlastnosti = Property.objects.filter(status__show=True)
     znacky = Marker.objects.filter(status__show=True, layer__status__show=True)
+    for znacka in znacky:
+        znacka.vlastnosti = Property.objects.filter(status__show=True).all()
+        for vlastnost in znacka.vlastnosti:
+            vlastnost.poi_count = vlastnost.poi_set.filter(marker = znacka).count()
+        znacka.vlastnosti = sorted(znacka.vlastnosti, key = lambda a: a.poi_count, reverse = True)
+        znacka.vlastnosti = filter(lambda a: a.poi_count != 0, znacka.vlastnosti)
 
     select_poi = None
     select_poi_header = 'Zajimave misto'  # jak s diaktritikou???
@@ -84,7 +89,6 @@ def mapa_view(request, poi_id=None):
 
     context = RequestContext(request, {
         'vrstvy': vrstvy,
-        'vlastnosti': vlastnosti,
         'znacky': znacky,
         'select_poi': select_poi,
         'select2_pois': select2_pois,
