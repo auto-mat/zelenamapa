@@ -66,6 +66,7 @@
    {% else %}
 <form action="{% url 'mapa.views.addpoi_view' %}" method="post">
    {% endif %}
+    {% csrf_token %}
     {% for field in form %}
         <div class="fieldWrapper">
             {{ field.errors }}
