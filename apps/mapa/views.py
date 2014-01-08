@@ -18,7 +18,7 @@ from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.db.models import Q, Count
 
-from mapa.models import Upresneni
+from mapa.models import Upresneni, Staticpage
 from webmap.models import Poi, Layer, Property, Photo, Marker
 
 from constance import config
@@ -316,4 +316,7 @@ def m_detail(request, poi_id):
     poi = get_object_or_404(Poi, id=poi_id)
 
     return render_to_response("mobil/detail.html",
-                              context_instance=RequestContext(request, {'poi': poi}))
+                              context_instance=RequestContext(request, {
+                                  'poi': poi,
+                                  'fotky': Photo.objects.filter(poi=poi).order_by('order'),
+                              }))

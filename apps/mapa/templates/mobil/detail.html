@@ -1,3 +1,4 @@
+{% load thumbnail %}
 <!DOCTYPE html> 
 <html> 
 	<head> 
@@ -31,6 +32,12 @@
 {% endif %}    
 {% endfor %}
 </div>
+
+{% for fotka in fotky %}
+  {% thumbnail fotka.photo "250x250" as foto_thumb %}
+  <a href="{{ fotka.photo.url }}">
+  <img src="{{ foto_thumb.url }}" title="{{ fotka.name }}" width="{{ foto_thumb.width }}" height="{{ foto_thumb.height }}"></a>
+{% endfor %}
 
 {% if poi.desc %}
     <p>{{ poi.desc|safe }}</p>
