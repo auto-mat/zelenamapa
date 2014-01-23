@@ -33,9 +33,7 @@ def is_mobilni(request):
         explicit_mobile = False
     return ('m' in subdomain) or (explicit_mobile)
 
-
-def mapa_view(request, poi_id=None):
-    vrstvy = Layer.objects.filter(status__show=True)
+def get_znacky():
     znacky = Marker.objects.filter(status__show=True, layer__status__show=True)
     for znacka in znacky:
         znacka.vlastnosti = Property.objects.filter(status__show=True).all()
@@ -43,6 +41,10 @@ def mapa_view(request, poi_id=None):
             vlastnost.poi_count = vlastnost.poi_set.filter(marker = znacka).count()
         znacka.vlastnosti = sorted(znacka.vlastnosti, key = lambda a: a.poi_count, reverse = True)
         znacka.vlastnosti = filter(lambda a: a.poi_count != 0, znacka.vlastnosti)
+    return znacky
+
+def mapa_view(request, poi_id=None):
+    vrstvy = Layer.objects.filter(status__show=True)
 
     select_poi = None
     select_poi_header = 'Zajimave misto'  # jak s diaktritikou???
@@ -89,7 +91,7 @@ def mapa_view(request, poi_id=None):
 
     context = RequestContext(request, {
         'vrstvy': vrstvy,
-        'znacky': znacky,
+        'znacky': get_znacky,
         'select_poi': select_poi,
         'select2_pois': select2_pois,
         'poi_count': Poi.visible.count(),

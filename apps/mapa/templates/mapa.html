@@ -177,6 +177,7 @@
                 <div class="filtry">
                     <h4>Ukaž výběr</h4>
                     <ul>
+                    {% cache 86400 sidebar %}
                     {% for z in znacky %}
                         <li class="inactive">
                         <a id="{{z.id}}" onclick="toggleMarkerFilter(this); return false;" title="{{z.desc}}">
@@ -198,6 +199,7 @@
                         </ul>
                         </li>
                     {% endfor %}
+                    {% endcache %}
                     </ul>
                     <a id="fitr_help" href="#vlastnosti" title="Napoveda">Nápověda</a>
                     <br />
