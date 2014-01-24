@@ -412,27 +412,6 @@ function onFeatureUnselect(feature) {
         removePopup(feature.popup)
 };
 
-function toggleMarker(obj) {
-    str = obj.id;
-    // alert( 'str:.' . str );
-    if (marker_criteria[str]) {
-        unsetMarkerFilter(str);
-        obj.parentNode.className='inactive';
-    } else {
-        setMarkerFilter(str);
-        obj.parentNode.className='active';
-    }
-    // Filtr podle zoom levelu plati jen kdyz neni aktivni
-    // zadny filtr dle vlastnosti.
-    if (markerFilter.filters.length == 0 && propertyFilter.filters.length == 0) {
-        zoomFilter.value = map.getZoom();
-    } else {
-        zoomFilter.value = 999;
-    };
-    for (var i in vectors)
-        vectors[i].redraw();
-};
-
 function togglePropertyFilter(obj) {
     str = obj.id;
     // alert( 'str:.' . str );
@@ -458,7 +437,7 @@ function setPropertyFilter(str) {
     var filter = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         property: "tag",
-        value: str
+        value: str.split("_")[1]
     });
     criteria[str] = filter;
     propertyFilter.filters.push(filter);
@@ -473,14 +452,25 @@ function unsetPropertyFilter(str) {
     delete criteria[str];
 };
 
-function toggleMarkerFilter(obj) {
-    str = obj.id;
-    // alert( 'str:.' . str );
-    if (marker_criteria[str]) {
-        unsetMarkerFilter(str);
+function toggleMarkerFilter(obj, inactivateOther) {
+    marker_id = obj.id;
+    if(inactivateOther) {
+       for(var str in marker_criteria){
+          if(str == marker_id) continue;
+          unsetMarkerFilter(str);
+          document.getElementById(str).parentNode.className='inactive';
+       }
+       for(var str in criteria){
+          unsetPropertyFilter(str);
+          document.getElementById(str).parentNode.className='inactive';
+       }
+    }
+
+    if (marker_criteria[marker_id]) {
+        unsetMarkerFilter(marker_id);
         obj.parentNode.className='inactive';
     } else {
-        setMarkerFilter(str);
+        setMarkerFilter(marker_id);
         obj.parentNode.className='active';
     }
     // Filtr podle zoom levelu plati jen kdyz neni aktivni

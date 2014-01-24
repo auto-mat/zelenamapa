@@ -180,7 +180,7 @@
                     {% cache 86400 sidebar %}
                     {% for z in znacky %}
                         <li class="inactive">
-                        <a id="{{z.id}}" onclick="toggleMarkerFilter(this); return false;" title="{{z.desc}}">
+                        <a id="{{z.id}}" onclick="toggleMarkerFilter(this, true); return false;" title="{{z.desc}}">
                         {% if z.default_icon %}
                            <img src="{{z.default_icon.url}}" alt="{{z.name}}"/>
                         {% endif %}
@@ -189,7 +189,7 @@
                         <ul>
                         {% for v in z.vlastnosti %}
                                 <li class="inactive">
-                                <a id="{{v.slug}}" class="inactive" onclick="togglePropertyFilter(this); return false;" title="{{v.desc}}">
+                                <a id="{{z.id}}_{{v.slug}}" class="inactive" onclick="togglePropertyFilter(this); return false;" title="{{v.desc}}">
                                 {% if v.default_icon %}
                                    <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>
                                 {% endif %}
