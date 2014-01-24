@@ -181,8 +181,8 @@
                     {% for z in znacky %}
                         <li class="inactive">
                         <a id="{{z.id}}" onclick="toggleMarkerFilter(this, true); return false;" title="{{z.desc}}">
-                        {% if z.default_icon %}
-                           <img src="{{z.default_icon.url}}" alt="{{z.name}}"/>
+                        {% if z.menu_icon %}
+                           <img src="{{z.menu_icon.url}}" alt="{{z.name}}"/>
                         {% endif %}
                         {{ z.name }}
                         </a>
