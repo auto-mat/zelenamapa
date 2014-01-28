@@ -244,3 +244,5 @@ url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWH
 body.static { text-align:justify; margin:15px 4px 0 0; }
 
 .zmj-menu a{/*color: #008000!important;*/ font-weight: bold;}
+
+.baseLayersDiv {display: none;}
