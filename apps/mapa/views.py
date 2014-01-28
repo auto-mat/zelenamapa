@@ -118,25 +118,6 @@ def popup_view(request, poi_id):
                              }))
 
 
-def search_view(request, query):
-    if len(query) < 3:
-        return http.HttpResponseBadRequest('Insufficient query lenght')
-    ikona = None
-
-    #  nejdriv podle nazvu
-    name_qs = Poi.visible.filter(Q(name__icontains=query))
-    # pak podle popisu, adresy a nazvu znacky, pokud uz nejsou vyse
-    extra_qs = Poi.visible.filter(
-        Q(desc__icontains=query)
-        | Q(address__icontains=query)
-        | Q(znacka__name__icontains=query)).exclude(id__in=name_qs)
-    # union qs nezachova poradi, tak je prevedeme na listy a spojime
-    points = list(name_qs.kml()) + list(extra_qs.kml())
-    return render_to_kml("gis/kml/vrstva.kml", {
-                         'places': points,
-                         'ikona': ikona})
-
-
 # pro danou vrstvu vrati seznam bodu ve formatu txt
 def txt_view(request, name_vrstvy):
     # najdeme vrstvu podle slugu. pokud neexistuje, vyhodime chybu

@@ -1,7 +1,7 @@
 from django.conf.urls import patterns
 
 from mapa.views import mapa_view, popup_view, detail_view, vlastnosti_view, \
-    znacky_view, festival_view, search_view, static_view, m_hledani, m_vypis, \
+    znacky_view, festival_view, static_view, m_hledani, m_vypis, \
     m_detail, vrstvy_view
 
 urlpatterns = patterns('',
@@ -15,7 +15,6 @@ urlpatterns = patterns('',
                        (r'^vrstvy/', vrstvy_view),
                        (r'^znacky/', znacky_view),
                        (r'^festival/(.*)', festival_view),
-                       (r'^search/([- \w]+)/$', search_view),
                        (r'^clanky/(.*)', static_view),
                        # mobilni verze
                        (r'^hledani/$', m_hledani),

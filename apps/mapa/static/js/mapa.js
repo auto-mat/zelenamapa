@@ -536,7 +536,7 @@ function doSearch(obj) {
     if (searchLayer) {
         destroySearchLayer();
     } 
-    searchLayerIdx = addMapLayer("Hledání", '/search/' + encodeURIComponent(searchField.value) + '/', vectors);
+    searchLayerIdx = addMapLayer("Hledání", '/webmap/search/' + encodeURIComponent(searchField.value) + '/', vectors);
     searchLayer = vectors[searchLayerIdx];
     searchLayer.styleMap.styles["default"].addRules([nofilter_rule]);
     ;
@@ -559,8 +559,8 @@ function doSearch(obj) {
                 content.appendTo(sr_div);
                 sr_div.append('<br />');
             }
-            var sr_height = $('.filtry').height() - 25;
-            $('#sr_inner').height(sr_height);
+            //var sr_height = $('.filtry').height() - 25;
+            //$('#sr_inner').height(sr_height);
 		       
             var offset = $('.filtry').offset();
             $('#search_results').overlay({
