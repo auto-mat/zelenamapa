@@ -21,6 +21,9 @@
    <script type="text/javascript" src="{% static "js/MyFramedCloud.js" %}"></script>
    <script type="text/javascript" src="{% static "js/jquery.tools.min.js" %}"></script>
    <script type="text/javascript" src="{% static "js/jquery.ba-hashchange.min.js" %}"></script>
+   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css"/>
+   <script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.js"></script>
+   <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
    <script type="text/javascript" src="{% static "js/mapa.js" %}"></script>
 
    {% if not mobilni %}
@@ -51,6 +54,9 @@
 	   }
 	});
         /*]]> */
+        $(function() {
+          $( "#tabs" ).tabs();
+        });
     </script>
    {% endif %}
     {% endcompress %}
@@ -123,50 +129,20 @@
   <body onload="init(mapconfig)">
 {# cele body nemuzeme cachovat, protoze obsahuje nahodne misto #}
 {# stranka je proto rozdelena na horni-cast a dolni-cast #}
-{% cache 600 horni-cast mobilni %}
     <div class="page">
         <div class="content">
             {% if not mobilni %}
-            <div class="head">
-                <div id="overlay_left">
-	            <img src="{% static "js/img/close_18.png" %}"class="close" />
-                    <div class="blog_logo"><a href="#blog=0"><img src="{% static "img/zm_logo_300c.png" %}" alt="logo" /></a></div>
-                    <div class="center_wrapper"><div class="blog_ad"></div></div>
-                    <div id="left_iframe" class="overlay_iframe" scrolling="auto" frameborder="0"></div>
-                </div>
+            <div class="panel" id="tabs">
+               <ul>
+                  <li><a href="#zelena_mapa">Zelená mapa</a></li>
+                  <li><a href="#ostatni_projekty">Ostatní projekty</a></li>
+                  <li><a href="#nastroje">Nástroje</a></li>
+               </ul>
 
-                <div class="right_top_panel">
-                   <div class="right_top_ad">
-                {% get_staticpage "box-A" as f %}
-				{{ f.content|safe }}
-                   </div>
-                </div>
-		<div class="middle_top_panel">
-                  <div class="left_top_ad">
-                  {# maly box nad menu pro kratke dulezite sdeleni - moc nepouzivat, nabourava design #}
-                  </div>
-                  <div class="top-menu">
-                      <a href="#clanek=intro" title="Základní informace">Co je Zelená mapa?</a>
-                      <a href="#clanek=faq" title="Často kladené dotazy">Časté dotazy</a>
-      	    	      <a href="#clanek=manual" title="Návod k použití mapy">Manuál</a>
-     	    	      <a href="#blog=0" title="Blog Zelené mapy">Novinky</a>
-    		      <strong><a href="#doplnit" title="Doporučit nové místo nebo podnik, který v mapě chybí.">Přidejte nové místo</a></strong>
-                  </div>
-  
-                </div>
-                <div class="logo">
-                    <a href="http://{{ site }}"><img src="{% static "img/zm_logo_300b.png" %}" alt="logo" /></a>
-                    {# <!--<div class="description">Podniky, město, šetrná doprava, problémy</div>--> #}
-                </div>
-                
-            </div>
-            {% endif %} {# mobilni #}
+               <div id="ostatni_projekty">Ostatní projekty</div>
 
-{% endcache %}
-
-
-            {% if not mobilni %}
-            <div class="panel">
+               <div id="nastroje">
+                <h4>Vyhledávání</h4>
                 <form id="search_form" class="rounded" onsubmit="doSearch(this); return false;">
                     <input id="search_input" type="text" name="query"></input><input id="search_submit" type="submit" value=""></input>
                 </form>
@@ -174,8 +150,11 @@
 		       <img src="{% static "js/img/close_18.png" %}" alt="zavřít" class="close"/><h4>Výsledky hledání</h4>
 		       <div id="sr_inner"></div>
                 </div>
+               </div>
+
+                <div id="zelena_mapa">
                 <div class="filtry">
-                    <h4>Ukaž výběr</h4>
+                    <h4>Chci najít</h4>
                     <ul>
                     {% cache 86400 sidebar %}
                     {% for z in znacky %}
@@ -204,50 +183,8 @@
                     <a id="fitr_help" href="#vlastnosti" title="Napoveda">Nápověda</a>
                     <br />
                 </div>
-
-                <div class="reklama1">
-				  {% get_staticpage "box-B" as f %}
-				  {{ f.content|safe }}
-                </div>
-		
-                <div class="reklama1">
-		  {% if config.ENABLE_FEATURE_TIPY_ZM %}{% if select2_pois %}
-		 <h4>{{ select2_pois_header }}<!--Tipy Zelené mapy:--></h4>
-		  {% endif %}
-		  {% for selected_poi in select2_pois %}
-		     <p><a href="{% url 'mapa.views.mapa_view' selected_poi.id %}" title="Najet v mapě na místo" >
-		     {{ selected_poi }}</a>:<br/>
-		       {% for vl in selected_poi.properties.all %}
-		       {% if vl.status.show %}
-		       <img src="{{ vl.default_icon.url }}" title="{{ vl.name }}" alt="{{ vl.name }}"/>
-		       {% endif %}
-		       {% endfor %}
-		     </p>
-
-		 {% endfor %}
-		 {% endif %}
-		</div>
-		
-
-                <div class="obj_count" style="margin-left:10px; margin-bottom:10px;">
-                    <p>V zelené mapě je nyní <span style="font-size:150%; font-weight:bold;">{{ poi_count }}</span> míst.</p>
-                </div>
-    
-                <div class="reklama1">
-
-                         {% get_staticpage "box-C" as f %}
-			 {{ f.content|safe }}
- 			 {% get_staticpage "partneri" as f %}
-                         {{ f.content|safe }}
-                         <iframe src="http://chodcisobe.cz/?widget=praha&limit=4&width=200" style="border:none;width:200px;height:360px;margin-top: 22px" frameborder="0" /></iframe>
-			 {% get_staticpage "bottomright" as f %}
-                         {{ f.content|safe }}
                 </div>
 
-
-                <div class="pan-001">
-                    <a href="http://www.toplist.cz/stat/1158957" target="_top"><img src="http://toplist.cz/count.asp?id=1158957&amp;logo=mc" border="0" alt="TOPlist" width="1" height="1" style="display:none"/></a>
-                </div>
             </div>
             {% endif %} {# mobilni #}
 	    
@@ -261,74 +198,9 @@
                 </div>
 
                 <div class="secondary">
-                    {% if not mobilni %}
-                    <div class="first raw">
-
-                        <h3>{{ select_poi_header }}<!--Zajímavé místo--></h3>
-                        {% if select_poi %}
-                            <h4><a href="{% url 'mapa.views.mapa_view' select_poi.id %}" title="Najet v mapě na místo" >{{ select_poi }}</a></h4>
-                            {% if select_poi.foto_thumb %}
-                                <a href="#detail={{ select_poi.id }}" title="Podrobné informace o místě">
-                                  <img src="{{ select_poi.foto_thumb.url }}" title="{{ select_poi }}" class="foto_segment" /></a>
-                            {% endif %}
-                            <p>
-                                {% for vl in select_poi.properties.all %}
-				{% if vl.status.show %}
-                                    <img src="{{ vl.default_icon.url }}" title="{{ vl.name }}" alt="{{ vl.name }}"/>
-				{% endif %}
-                                {% endfor %}
-                            </p>
-
-                            {% if select_poi.desc %}
-                                <p>{{ select_poi.desc|safe }}</p>
-                            {% else %}
-                                <p>{{ select_poi.znacka }}</p>
-                            {% endif %}
-                            {% if select_poi.address %}
-                                <p>Adresa:<br />{{ select_poi.address|safe }}</p>
-                            {% endif %}
-                            <p>
-                            {% if select_poi.url %}
-                                  <a target="_blank" href="{{ select_poi.url|safe }}" title="{{ select_poi.url|safe }}">web</a>,
-                            {% endif %}
-
-
-
-                            <a href="{% url 'mapa.views.mapa_view' select_poi.id %}" title="Najet v mapě na místo" >ukázat v mapě</a>,
-                            <a href="#detail={{ select_poi.id }}" title="Podrobné informace o místě">detail místa</a>,
-                            <a href="#doplnit={{ select_poi.id }}" title="Doplnit informace o místě, opravit chybu">doplň-oprav</a>
-                            </p>
-                        {% endif %} {# select_poi #}
-                    </div>
-                    {% endif %} {# mobilni #}
 
 {% cache 600 dolni-cast mobilni %}
-                    {% if not mobilni %}
-                    <!--<div class="second raw">
-                    </div>-->
-
-                    <div class="third raw">
-                        <h3><a href="#blog=0">Novinky</a></h3>
-                        {% geturl "http://wp.{{ site }}/?page_id=373" 1 %}
-                    </div>
-                    {% endif %} {# mobilni #}
-                </div>
-
-                {% if not mobilni %}
-                <div class="bottom">
-                    <div class="gallery">
-                        <div class="reklama2">
-                          {% get_staticpage "box-E" as f %}
-                          {{ f.content|safe }}
-                        </div>
-                    </div>
-                    <div class="add segment middle_ad">
-                          {% get_staticpage "box-F" as f %}
-                          {{ f.content|safe }}
-     
-                    </div>
-                </div>
-                {% else %}
+                {% if mobilni %}
                 <a href="/hledani/">
                    <div class="hledani">
                       Hledat nejbližší místa v okolí
@@ -336,24 +208,9 @@
                 </a>
                 {% endif %} {# mobilni #}
             </div>
-
-	    
-	    
         </div>
-
-        {% if not mobilni %}
-        <div class="footer">
-           {% get_staticpage "about" as s %}
-           {{ s.short|safe }}
-           {% get_staticpage "odkazy" as s %}
-           <p>{{ s.short|safe }} | 
-           {% get_staticpage "ga" as s %}
-           <a href="#clanek={{ s.slug }}">{{ s.short|safe }}</a></p>
-     
-        </div>
-        {% endif %} {# mobilni #}
-
     </div>
+ </div>
 {% endcache %}
   </body>
 </html>
