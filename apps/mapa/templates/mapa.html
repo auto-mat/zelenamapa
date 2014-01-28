@@ -1,7 +1,7 @@
 {% load static cache compress staticpage geturl %}
 {% load url from future %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/">
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -143,7 +143,7 @@
 
                <div id="nastroje">
                 <h4>Vyhledávání</h4>
-                <form id="search_form" class="rounded" onsubmit="doSearch(this); return false;">
+                <form id="search_form" class="rounded" onsubmit="doSearch(this); return false;" action="">
                     <input id="search_input" type="text" name="query"></input><input id="search_submit" type="submit" value=""></input>
                 </form>
                 <div id="search_results">
@@ -154,21 +154,22 @@
 
                 <div id="zelena_mapa">
                 <div class="filtry">
+                    {% cache 86400 sidebar %}
                     <h4>Chci najít</h4>
                     <ul>
-                    {% cache 86400 sidebar %}
                     {% for z in znacky %}
                         <li class="inactive">
-                        <a id="{{z.id}}" onclick="toggleMarkerFilter(this, true); return false;" title="{{z.desc}}">
+                        <a id="znacka_{{z.id}}" onclick="toggleMarkerFilter(this, true); return false;" title="{{z.desc}}">
                         {% if z.menu_icon %}
                            <img src="{{z.menu_icon.url}}" alt="{{z.name}}"/>
                         {% endif %}
                         {{ z.name }}
                         </a>
+                        {% if z.vlastnosti %}
                         <ul>
                         {% for v in z.vlastnosti %}
                                 <li class="inactive">
-                                <a id="{{z.id}}_{{v.slug}}" class="inactive" onclick="togglePropertyFilter(this); return false;" title="{{v.desc}}">
+                                <a id="znacka_{{z.id}}_vlastnost_{{v.slug}}" class="inactive" onclick="togglePropertyFilter(this); return false;" title="{{v.desc}}">
                                 {% if v.default_icon %}
                                    <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>
                                 {% endif %}
@@ -176,10 +177,11 @@
                                 </a></li>
                         {% endfor %}
                         </ul>
+                        {% endif %}
                         </li>
                     {% endfor %}
-                    {% endcache %}
                     </ul>
+                    {% endcache %}
                     <a id="fitr_help" href="#vlastnosti" title="Napoveda">Nápověda</a>
                     <br />
                 </div>
