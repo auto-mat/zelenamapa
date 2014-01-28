@@ -289,7 +289,7 @@ def festival_view(request, akce_slug):
 
 
 def m_hledani(request):
-    vlastnosti = Property.objects.filter(status__show=True, filtr=True)
+    vlastnosti = Property.objects.filter(status__show=True, as_filter=True)
     return render_to_response('mobil/hledani.html',
                               context_instance=RequestContext(request, {
                                   'vlastnosti': vlastnosti,
@@ -301,7 +301,7 @@ def m_vypis(request):
     vlastnosti = Property.objects.filter(status__show=True)
     for v in vlastnosti:
         if v.slug in request.GET:
-            qs = qs.filter(vlastnosti_cache__icontains=v.slug)
+            qs = qs.filter(properties_cache__icontains=v.slug)
     lon = request.GET.get('lon', None)
     lat = request.GET.get('lat', None)
     if lon and lat:
