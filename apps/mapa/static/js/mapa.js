@@ -122,7 +122,7 @@ function init(mapconfig)
                     controls = [
                     new OpenLayers.Control.ArgParser(),
                     new OpenLayers.Control.Attribution(),
-                    new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff'}),
+                    new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff', 'div':OpenLayers.Util.getElement('layerswitcher')}),
                     new OpenLayers.Control.Navigation(),
                     new OpenLayers.Control.Permalink(),
                     defaultPanZoom()
