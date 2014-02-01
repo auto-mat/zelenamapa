@@ -301,7 +301,8 @@
 
                     <div class="third raw">
                         <h3><a href="#blog=0">Novinky</a></h3>
-                        {% geturl "http://wp.{{ site }}/?page_id=373" 1 %}
+                        {# osklivy hack nahrazujici http://wp.{site}//?page_id=373 #}
+                        {% geturl "http://wp."|add:site|add:"/?page_id=373" 1 %}
                     </div>
                     {% endif %} {# mobilni #}
                 </div>
