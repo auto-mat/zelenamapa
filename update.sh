@@ -1,14 +1,15 @@
 #!/bin/bash
+#version 0.1
 
 git pull
 source env/bin/activate
-pip install -r requirements.txt
+env/bin/python env/binpip install -r requirements.txt
 if [ "$1" = "migrate" ]; then
    echo "Backuping db..."
    mkdir db_backup
-   ./manage.py dumpdata > db_backup/`date +"%y%m%d-%H:%M:%S"`-zmapa.json
+   sudo -u postgres pg_dump  > db_backup/`date +"%y%m%d-%H:%M:%S"`-zmapa.sql
    echo "Migrating..."
-   ./manage.py migrate
+   env/bin/python ./manage.py migrate
 fi
-./manage.py collectstatic --noinput
+env/bin/python ./manage.py collectstatic --noinput
 touch wsgi.py
