@@ -97,7 +97,7 @@ INSTALLED_APPS = (
     #for django_webmap_corpus:
     'author',
     'colorful',
-    'positions',
+    'adminsortable',
     'django.contrib.gis',
     'constance.backends.database',
     'constance',
