@@ -12,5 +12,6 @@ django-picklefield
 #importlib
 django-finegrained-permissions==0.0.1
 django-import-export==0.1.4
--e git+https://github.com/PetrDlouhy/django-comments-moderation.git#egg=django-comments-moderation
--e git+https://github.com/PetrDlouhy/django-webmap-corpus.git#egg=webmap
+django-comments-moderation
+django-webmap-corpus
+-e git+https://github.com/PetrDlouhy/django-author.git#egg=django-author
