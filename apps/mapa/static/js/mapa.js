@@ -438,7 +438,7 @@ function setPropertyFilter(str) {
     var filter = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         property: "tag",
-        value: str.split("_")[1]
+        value: str.split("_")[3]
     });
     criteria[str] = filter;
     propertyFilter.filters.push(filter);
@@ -498,7 +498,7 @@ function setMarkerFilter(str) {
     var filter = new OpenLayers.Filter.Comparison({
         type: OpenLayers.Filter.Comparison.LIKE,
         property: "markerId",
-        value: str
+        value: str.split("_")[1]
     });
     marker_criteria[str] = filter;
     markerFilter.filters.push(filter);
