@@ -45,14 +45,51 @@ text-align:center; border:solid 1px lightgray; }
 .first, .second{margin:0 22px 0 0;}
 .gallery{min-width:520px;float:left;clear:none; margin-right:28px;}
 .add{min-width:250px;float:left;}
-#tabs{position:absolute; right: 15px; bottom: 15px; top: 15px; }
+#tabs{
+  position:absolute;
+  right: 15px;
+  bottom: 15px;
+  top: 15px;
+  padding: 0px;
+  border-width: 0;
+}
+#tabs .ui-corner-all {
+  border-width: 0;
+}
+#tabs .ui-tabs-nav {
+  background: transparent;
+  padding: 0;
+  border-width: 0px;
+}
+#tabs :focus {
+   outline: 0;
+}
+#tabs .ui-state-default,.ui-state-active {
+  margin: 0px 0px 0px 0px;
+  border-width: 0px;
+}
+#tabs .ui-tabs-anchor {
+  margin: 0px 0px 0px 0px;
+  padding: 3px 10px 3px 10px;
+  border-width: 0px;
+  height: 19px;
+}
+#tabs .ui-state-default a {
+   background: white;
+   color: #ff6e00;
+}
+#tabs .ui-state-active a {
+   background: #ff6e00;
+   color: white;
+}
+
 #tabs > div{
-    position: absolute;
-    bottom: 0px;
-    top: 40px;
-    right: 0px;
-    left: 0px;
-    overflow: auto;
+  position: absolute;
+  bottom: 0px;
+  top: 25px;
+  right: 0px;
+  left: 0px;
+  overflow: auto;
 }
 .right_top_panel{min-width:162px;width:20%; float:right;margin-right:10px max-height:70px;}
 input#subscribe_submit{background:url();border:none;width:100%;text-align:right;color:#008000;}
