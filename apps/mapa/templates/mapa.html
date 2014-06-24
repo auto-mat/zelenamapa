@@ -146,7 +146,7 @@
                <div id="nastroje">
                 <h4>Vyhledávání</h4>
                 <form id="search_form" class="rounded" onsubmit="doSearch(this); return false;" action="">
-                    <input id="search_input" type="text" name="query"></input><input id="search_submit" type="submit" value=""></input>
+                    <input id="search_input" type="search" name="query"></input><input id="search_submit" type="submit" value=""></input>
                 </form>
                 <div id="search_results">
 		       <img src="{% static "js/img/close_18.png" %}" alt="zavřít" class="close"/><h4>Výsledky hledání</h4>
@@ -156,6 +156,7 @@
 
                 <div id="zelena_mapa">
                 <div id="layerswitcher"></div>
+                <hr/>
                 <div class="filtry">
                     {% cache 86400 sidebar %}
                     <h4>Chci najít</h4>
@@ -196,26 +197,9 @@
 	                <div class="core">
                 <div class="mapbox">
                     <div id="map"></div>
-                    <div id="m_top"></div>
-                    <div id="m_left"></div>
-                    <div id="m_right"></div>
-                    <div id="m_bottom"></div>
                 </div>
-
-                <div class="secondary">
-
-{% cache 600 dolni-cast mobilni %}
-                {% if mobilni %}
-                <a href="/hledani/">
-                   <div class="hledani">
-                      Hledat nejbližší místa v okolí
-                   </div>
-                </a>
-                {% endif %} {# mobilni #}
-            </div>
         </div>
     </div>
  </div>
-{% endcache %}
   </body>
 </html>
