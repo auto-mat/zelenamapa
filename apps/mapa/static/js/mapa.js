@@ -70,8 +70,8 @@ function init(mapconfig)
             'externalGraphic': '${ikona}', 
             'graphicWidth': '${width}', 
             'graphicHeight': '${height}',
-            graphicXOffset: -8, 
-            graphicYOffset: -8, 
+            graphicXOffset: -28,
+            graphicYOffset: -28,
             'graphicOpacity': 1, 
             'graphicTitle': '${name}'
         }
@@ -81,8 +81,8 @@ function init(mapconfig)
             'externalGraphic': '${ikona}', 
             'graphicWidth': '${width}', 
             'graphicHeight': '${height}', 
-            graphicXOffset: -8, 
-            graphicYOffset: -8, 
+            graphicXOffset: -28,
+            graphicYOffset: -28,
             'graphicOpacity': 1, 
             'graphicTitle': '${name}'
         }
@@ -393,15 +393,17 @@ var createPopup = function(response) {
         // jineho POI. V tom pripade popup vyrabet nebudeme.
         return false;
     }
+    var anchor = {'size': new OpenLayers.Size(18,0), 'offset': new OpenLayers.Pixel(9, 0)}
+
     popup = new OpenLayers.Popup.MyFramedCloud(
         "chicken", 
         this.geometry.getBounds().getCenterLonLat(),
         new OpenLayers.Size(300,300),
         response.responseText,
-        null, true, null
+        anchor, true, null
         );
     popup.calculateRelativePosition = function() {
-        return 'tr';
+        return 'br';
     }
     popup.maxSize = new OpenLayers.Size(300,300);
     this.popup = popup;
