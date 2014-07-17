@@ -126,7 +126,7 @@ function init(mapconfig)
                     new SimpleLayerSwitcher(),
                     new OpenLayers.Control.Navigation(),
                     new OpenLayers.Control.Permalink(),
-                    defaultPanZoom()
+                    //defaultPanZoom()
                     //  new OpenLayers.Control.PanZoomBar(),
                     //  new OpenLayers.Control.MousePosition() 
                 ]
