@@ -31,10 +31,9 @@
 </div>
 <p class="addinfo">
     {% if perms.mapa.change_poi %}
-       <a href="{% url 'admin:webmap_poi_change' poi.id %}">upravit</a>,
+       <a href="{% url 'admin:webmap_poi_change' poi.id %}">upravit</a>
     {% endif %}
-    <a href="#detail={{ poi.id }}" title="Podrobné informace o místě">detail místa</a>,
+    <a href="#detail={{ poi.id }}" title="Podrobné informace o místě">více</a>
     <a href="javascript:void(0);" onclick="ZoomToLonLat(this, {{ poi.geom.x }}, {{ poi.geom.y }}, 17);"
-      title="Najet v mapě na místo" >na střed</a>,
-    <a href="#doplnit={{ poi.id }}" title="Doplnit informace o místě, opravit chybu">doplň-oprav</a>
+      title="Najet v mapě na místo" >na střed</a>
 </p>
