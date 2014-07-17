@@ -1,12 +1,4 @@
 {% load thumbnail %}
-<div class="lc">
-{% for vl in poi.properties.all %}
-{% if vl.status.show %}
-    <img src="{{ vl.default_icon.url }}" title="{{ vl.name }}">
-{% endif %}    
-{% endfor %}
-</div>
-
 <div class="trc">
    {% if poi.url %}<h4><a href="{{ poi.url|safe }}" title="{{ poi.url|safe }}"  target="_blank">{{ poi }}</a></h4>
    {% else %}<h4>{{ poi }}</h4>
