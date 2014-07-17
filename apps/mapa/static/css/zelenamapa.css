@@ -163,13 +163,13 @@ img.sr_img {  width:17px; height:18px; position:relative; top: 3px; margin-right
 
 /* Popup */
 .lc { float:left; bottom:0px;  width: 22px;  }
-.trc { margin-left: 24px; padding-right:20px; width:160px;}
+.trc { position:relative; left: -8px; padding: 12px 1000px 12px 12px; top: -8px; width:100%; background: #ff6e00; }
 .trc h4{ margin-bottom: 0;}
 /* .rc { margin-left: 24px; padding-right:2px; overflow-y: scroll; max-height:240px; } */
-.rc { margin-left: 24px; padding-right:2px; max-height:240px; overflow-y: auto; }
-.rc_noscroll { margin-left: 24px; padding-right:2px;  }
+.rc { margin-left: 5px; padding-right:2px; max-height:240px; overflow-y: auto; }
+.rc_noscroll { margin-left: 5px; padding-right:2px;  }
 .addinfo { text-align:right; margin-right:5px;}
-.olPopupCloseBox { float:right !important; right:17px  !important;}
+.olPopupCloseBox { float:right !important; width: 26px !important; height: 24px !important; top: 34px !important; right: 2px !important;}
 .foto_thumb { border:none; max-width:230px; max-height:230px; margin-top:4px; }
 .foto_segment { border:none; width:50%; margin-bottom: 14px; float:left; margin-right:10px; }
 		 
