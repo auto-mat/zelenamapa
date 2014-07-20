@@ -151,10 +151,14 @@ function init(mapconfig)
     });
 	   
 	    var layerZM = new OpenLayers.Layer.OSM( 
-		  "Zelena mapa",
+		  "Zelená mapa",
 	          "http://zelenamapa.cz/media/tiles_ZM/", 
 		  { type: 'png', numZoomLevels: 19, getURL: getTileURL, tileOptions : {crossOriginKeyword: null}  } );
-	    map.addLayers([layerZM,base_layer]);
+	    var layerZMP = new OpenLayers.Layer.OSM(
+		  "Zelená mapa Plzeň",
+	          "http://zelenamapa.cz/media/tiles_ZMP/",
+		  { type: 'png', numZoomLevels: 19, getURL: getTileURL, tileOptions : {crossOriginKeyword: null}  } );
+	    map.addLayers([layerZMP, layerZM, base_layer]);
 
     kmlvrstvy = mapconfig.vrstvy;
     for (i in kmlvrstvy) {
