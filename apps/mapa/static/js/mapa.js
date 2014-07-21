@@ -222,29 +222,8 @@ function init(mapconfig)
         }
     };
 
-    $.tools.overlay.addEffect('namiste',
-        // vlastni overlay efekt, ktery narozdil od 'default'
-        // nepridava k pozici scrollTop, cili neni zarovnany vuci oknu, ale cele strance
-        function(pos, onLoad) {
-            var conf = this.getConf();
-            pos.position = 'absolute';
-            this.getOverlay().css(pos).fadeIn(conf.speed, onLoad); 
-        }, function(onClose) {
-            this.getOverlay().fadeOut(this.getConf().closeSpeed, onClose);                  
-        }
-        );
-
     if(mapconfig.mapwidget ==  undefined || mapconfig.mapwidget.hide_controls ==  undefined || mapconfig.mapwidget.hide_controls == false) {
        var offset = $('.core').offset();
-       $('#overlay_left').overlay({
-           effect: 'namiste',
-           top: 0,
-           left: offset.left,
-           fixed: false,
-           oneInstance: false, 
-           closeOnClick: false,
-           onClose: onLeftOverlayClosed
-       });
        $(window).hashchange(onHashChange);
        $(window).hashchange();
     }
@@ -254,7 +233,7 @@ function onHashChange() {
     var hash = location.hash;
     hash = hash.replace(/^#/, '');
     if (hash == '') {
-        $('#overlay_left').overlay().close();
+        $( "#tabs" ).tabs({ active: 1 });
         return;
     }
     if (hash == 'doplnit') {
@@ -615,7 +594,7 @@ function OverlayLeft(obj, pageURL)
     var overlay_left = $('#overlay_left');
     var iframe = $('#left_iframe');
     iframe.html('<iframe id="overlay_src" class="overlay_iframe"  scrolling="auto" frameborder="0" src="'+ pageURL +'">');
-    overlay_left.overlay().load();
+    $( "#tabs" ).tabs({ active: 3 });
     window.scrollTo(0,0);
     var offset = $('.core').offset();
     overlay_left.css('left', offset.left);
