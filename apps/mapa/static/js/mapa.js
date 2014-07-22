@@ -231,7 +231,7 @@ function onHashChange() {
     var hash = location.hash;
     hash = hash.replace(/^#/, '');
     if (hash == '') {
-        $( "#tabs" ).tabs({ active: 1 });
+        $( "#tabs" ).tabs({ active: 0 });
         return;
     }
     if (hash == 'doplnit') {
