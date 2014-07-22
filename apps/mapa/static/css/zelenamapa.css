@@ -267,3 +267,13 @@ body.static { text-align:justify; margin:15px 4px 0 0; }
 .zmj-menu a{/*color: #008000!important;*/ font-weight: bold;}
 
 .baseLayersDiv {display: none;}
+
+#permalink{
+        background: url('/static/img/link.png') no-repeat left top;
+        padding-left: 20px;
+        padding-right: 5px;
+        background-color: #333333;
+        color: white;
+        padding-top: 2px;
+        padding-bottom: 2px;
+}

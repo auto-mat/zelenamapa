@@ -107,10 +107,9 @@ function init(mapconfig)
     if(mapconfig.mobilni) {
       controls = [
            new OpenLayers.Control.ArgParser(),
-           new OpenLayers.Control.Attribution(),
            new OpenLayers.Control.LayerSwitcher(),
            new OpenLayers.Control.Navigation(),
-           new OpenLayers.Control.Permalink(),
+           new OpenLayers.Control.Permalink('permalink'),
            new OpenLayers.Control.ZoomPanel()
       ] 
     } else if (( mapconfig.mapwidget !=  undefined ) && ( mapconfig.mapwidget.hide_controls !=  undefined ) && (mapconfig.mapwidget.hide_controls ==  true ))
@@ -121,11 +120,10 @@ function init(mapconfig)
             else {
                     controls = [
                     new OpenLayers.Control.ArgParser(),
-                    new OpenLayers.Control.Attribution(),
                     new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff', 'div':OpenLayers.Util.getElement('layerswitcher')}),
                     new SimpleLayerSwitcher(),
                     new OpenLayers.Control.Navigation(),
-                    new OpenLayers.Control.Permalink(),
+                    new OpenLayers.Control.Permalink('permalink'),
                     //defaultPanZoom()
                     //  new OpenLayers.Control.PanZoomBar(),
                     //  new OpenLayers.Control.MousePosition() 
