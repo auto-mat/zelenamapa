@@ -201,6 +201,20 @@
                     <a id="fitr_help" href="#vlastnosti" title="Napoveda">Nápověda</a>
                     <br />
                 </div>
+                <div id="panel-legenda">
+                  <div class="filtry">
+                  <h4>Legenda barev</h4>
+                  <ul>
+                    {% cache 3600 legenda %}
+                    {% for l in legenda %}
+                    <li>
+                    <img src="{{ l.image.url }}"> &nbsp; {{ l.name }}
+                    </li>
+                    {% endfor %}
+                    {% endcache %}
+                  </ul>
+                  </div>
+                </div>
                 </div>
 
             </div>

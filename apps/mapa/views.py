@@ -19,7 +19,7 @@ from django.core.urlresolvers import reverse
 from django.db.models import Q, Count
 
 from mapa.models import Upresneni, Staticpage
-from webmap.models import Poi, Layer, Property, Photo, Marker
+from webmap.models import Poi, Layer, Property, Photo, Marker, Legend
 
 from constance import config
 
@@ -94,6 +94,7 @@ def mapa_view(request, poi_id=None):
         'znacky': get_znacky,
         'select_poi': select_poi,
         'select2_pois': select2_pois,
+        'legenda': Legend.objects.all(),
         'poi_count': Poi.visible.count(),
         'center_poi': center_poi,
         'titulni_stranka': titulni_stranka,
