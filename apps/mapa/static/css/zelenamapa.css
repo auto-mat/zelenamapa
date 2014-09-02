@@ -48,18 +48,24 @@ text-align:center; border:solid 1px lightgray; }
 #tabs{
   position:absolute;
   right: 15px;
-  bottom: 15px;
-  top: 50px;
+  top: 75px;
+  max-height: 70%;
+  max-height: calc(100% - 85px);
   padding: 0px;
   border-width: 0;
+  overflow-y: auto;
+  min-width: 400px;
 }
 #tabs .ui-corner-all {
   border-width: 0;
 }
 #tabs .ui-tabs-nav {
-  background: transparent;
+  position: fixed;
+  background: white;
   padding: 0;
   border-width: 0px;
+  top: 50px;
+  min-width: 400px;
 }
 #tabs :focus {
    outline: 0;
@@ -83,13 +89,17 @@ text-align:center; border:solid 1px lightgray; }
    color: white;
 }
 
+#tabs > .ui-corner-all, #tabs {
+   border-top-left-radius: 0px;
+   border-top-right-radius: 0px;
+   border-bottom-left-radius: 0px;
+   border-bottom-right-radius: 0px;
+}
+
 #tabs > div{
-  position: absolute;
-  bottom: 0px;
   top: 25px;
   right: 0px;
   left: 0px;
-  overflow: auto;
 }
 .right_top_panel{min-width:162px;width:20%; float:right;margin-right:10px max-height:70px;}
 input#subscribe_submit{background:url();border:none;width:100%;text-align:right;color:#008000;}
