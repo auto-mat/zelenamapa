@@ -276,12 +276,21 @@ body.static { text-align:justify; margin:15px 4px 0 0; }
 
 .baseLayersDiv {display: none;}
 
-#permalink{
-        background: url('/static/img/link.png') no-repeat left top;
-        padding-left: 20px;
+.icon_button{
+        padding-left: 22px;
         padding-right: 5px;
-        background-color: #333333;
-        color: white;
         padding-top: 2px;
         padding-bottom: 2px;
+}
+
+#permalink{
+        background: url('/static/img/link.png') no-repeat left top;
+        background-color: #333333;
+        color: white;
+}
+
+#print{
+        background: url('/static/img/print.png') no-repeat left top;
+        background-color: #333333;
+        color: white;
 }
