@@ -32,6 +32,9 @@
 
    {% if not mobilni %}
    <script type="text/javascript">
+        function resizeIframe(obj) {
+         obj.style.height = obj.contentWindow.document.body.scrollHeight + 30 + 'px';
+        }
     
         /* <![CDATA[ */
         // CSS for narrow window (when less than 1100 detected, then we use 1024 layout)

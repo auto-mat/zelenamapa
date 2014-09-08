@@ -591,7 +591,7 @@ function OverlayLeft(obj, pageURL)
 {
     var overlay_left = $('#overlay_left');
     var iframe = $('#left_iframe');
-    iframe.html('<iframe id="overlay_src" class="overlay_iframe"  scrolling="auto" frameborder="0" src="'+ pageURL +'">');
+    iframe.html('<iframe id="overlay_src" class="overlay_iframe"  scrolling="auto" frameborder="0" src="'+ pageURL +'" onload="javascript:resizeIframe(this);">');
     $( "#tabs" ).tabs({ active: 3 });
     window.scrollTo(0,0);
     var offset = $('.core').offset();
