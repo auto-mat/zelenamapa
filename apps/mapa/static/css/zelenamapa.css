@@ -175,7 +175,7 @@ img.sr_img {  width:17px; height:18px; position:relative; top: 3px; margin-right
 .trc { position:relative; left: -8px; padding: 12px 1000px 12px 12px; top: -8px; width:100%; background: #ff6e00; }
 .trc h4{ margin-bottom: 0;}
 /* .rc { margin-left: 24px; padding-right:2px; overflow-y: scroll; max-height:240px; } */
-.rc { margin-left: 5px; padding-right:0px; max-height:170px; overflow-y: auto; top: -8px; position: relative;}
+.rc { margin-left: 5px; padding-right:0px; max-height:770px; height: calc(100% - 69px); overflow-y: auto; top: -8px; position: relative;}
 .rc_noscroll { margin-left: 5px; padding-right:2px;  }
 .addinfo { text-align:left; margin-left:5px;}
 .addinfo a { background: #ff6e00; color: white; padding: 3px 3px 3px 3px; text-transform: uppercase;}

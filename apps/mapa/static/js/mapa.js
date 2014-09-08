@@ -386,7 +386,7 @@ var createPopup = function(response) {
     popup.calculateRelativePosition = function() {
         return 'br';
     }
-    popup.maxSize = new OpenLayers.Size(300,300);
+    popup.maxSize = new OpenLayers.Size(300,900);
     this.popup = popup;
     map.addPopup(popup);
 };
