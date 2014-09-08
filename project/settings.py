@@ -107,7 +107,6 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'compressor',
     'mapwidget',
-    'south',
     'django.contrib.sites',
     'fluent_comments',
     'crispy_forms',
