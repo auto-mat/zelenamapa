@@ -48,9 +48,9 @@ text-align:center; border:solid 1px lightgray; }
 #tabs{
   position:absolute;
   right: 15px;
-  top: 75px;
+  top: 100px;
   max-height: 70%;
-  max-height: calc(100% - 85px);
+  max-height: calc(100% - 110px);
   padding: 0px;
   border-width: 0;
   overflow-y: auto;
@@ -64,7 +64,7 @@ text-align:center; border:solid 1px lightgray; }
   background: white;
   padding: 0;
   border-width: 0px;
-  top: 50px;
+  top: 75px;
   min-width: 400px;
 }
 #tabs :focus {
