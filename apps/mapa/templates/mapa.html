@@ -55,11 +55,6 @@
 	      var offset = $('.core').offset();
 	      overlay_left.css('left', offset.left);
 	   }
-	   var search_results = $('#search_results');
-	   if(search_results.css('display') != 'none') {
-	      var offset = $('.filtry').offset();
-	      search_results.css('left', offset.left);
-	   }
 	});
         /*]]> */
         $(function() {
@@ -162,7 +157,7 @@
                     <input id="search_input" type="search" name="query"></input><input id="search_submit" type="submit" value=""></input>
                 </form>
                 <div id="search_results">
-		       <img src="{% static "js/img/close_18.png" %}" alt="zavřít" class="close"/><h4>Výsledky hledání</h4>
+		       <h4>Výsledky hledání</h4>
 		       <div id="sr_inner"></div>
                 </div>
                 <hr/>

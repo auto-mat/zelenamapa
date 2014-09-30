@@ -131,9 +131,6 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
 #search_submit { border-style: none; display:inline; line-height:14px; padding:0px 0px 6px 0px; margin:0; width: 25px; background: url(/static/img/search.png) no-repeat;}
 .widget_input { display:inline; width:auto; border:solid 1px grey; margin:0 0 10px 0;}
 
-#search_results   { display:none;  width:202px;  background-color: white;  z-index: 9999;  border:none; }
-#search_results h3{ margin: 0 0 5px 15px; }
-#search_results h4{ margin: 0 0 0 15px; line-height:20px; }
 #sr_inner         {  max-height: 400px;   margin: 0 0 5px 0; }	  
 #sr_inner         { overflow-x: hidden; overflow-y: auto; max-height:570px; background-color:white; padding-left: 15px; line-height:19px; font-size:9px; }
 #sr_inner a { color: black; padding: 4px; }
