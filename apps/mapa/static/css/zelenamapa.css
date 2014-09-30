@@ -3,10 +3,10 @@ div{padding:0;margin:0;}
 a{color:#008000;text-decoration:none;}
 a:hover{text-decoration:underline;}
 img{border:0;}
-h1, h2, h3, h4, h5{font-family:Tahoma, Geneva, sans-serif;color:#999;}
+h1, h2, h3, h4, h5, .dataLbl {font-family:Tahoma, Geneva, sans-serif;color:#999;}
 h2{font-size:16px; font-style:italic;}
 h3{font-size:14px; color:black;}
-h4{font-size:12px; color:black; margin-top:2px;} // used inside of popup
+h4, .dataLbl {font-size:12px; color:black; margin-top:2px;} // used inside of popup
 ol{margin:0 0 10px 0;padding:0;list-style:none;}
 li{margin:0 0 8px 0;padding:0;list-style:none;}
 td{font-size:10px;}
@@ -122,7 +122,7 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
 .filtry .active>a{ background-color: #dfd; color:black; cursor: default; } 
 .filtry .active>ul{ display:block; }
 .filtry img{position:relative;top: 5px; margin-right:10px; }
-.filtry h4{ margin:0px 0 3px 2px;}
+.filtry h4, .dataLbl{ margin:0px 0 3px 2px;}
 .filtry > ul { margin: 7px 0 0 0; padding: 0; }
 
 /* Search  */
@@ -157,15 +157,19 @@ img.sr_img {  width:17px; height:18px; position:relative; top: 3px; margin-right
 .dataLayersDiv { z-index:2007;  overflow:visible; }
 .olControlLayerSwitcher { color: #555; font-family: Arial,Helvetica,sans-serif; font-size: 10px; font-weight:normal;}
 .baseLbl { display: none; }
-.labelSpan { line-height:19px; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; padding: 0 0 0 18px; }
-.baseLayersDiv input[type="radio"]{ display:none; }
-.baseLayersDiv input:checked+label { color:green; background: url(/static/img/checkbox_zm-checked.png) 0 2px no-repeat; }
-.baseLayersDiv input:unchecked+label { color:black; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; }
-.dataLayersDiv input[type="checkbox"]{ display:none; }
-.baseLayersDiv input+label:hover{text-decoration:underline;}
-.dataLayersDiv input:checked+label { color:green; background: url(/static/img/checkbox_zm-checked.png) 0 2px no-repeat; }
-.dataLayersDiv input:unchecked+label { color:black; background: url(/static/img/checkbox_zm.png) 0 2px no-repeat; }
+.labelSpan { line-height:19px; padding: 0 0 0 18px; }
+.dataLayersDiv input[type="checkbox"]{
+   position: absolute;
+   width: 15px;
+   right: 50px;
+}
+.dataLayersDiv input:checked+label { color:green; }
+.dataLayersDiv input:unchecked+label { color:black; }
 .dataLayersDiv input+label:hover{text-decoration:underline;}
+.dataLbl {
+   display: block;
+   font-weight: bold;
+}
 
 #OpenLayers_Control_MaximizeDiv_innerImage {  right: 0px; top: -5px; height:190px !important; overflow:visible;   }
 

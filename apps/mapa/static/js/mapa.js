@@ -59,6 +59,7 @@ function getTileURL(bounds)
 
 function init(mapconfig)
 {
+    OpenLayers.Lang.setCode("cs-CZ");
     var args = OpenLayers.Util.getParameters(); 
     mainFilter = new OpenLayers.Filter.Logical({
         type: OpenLayers.Filter.Logical.AND
