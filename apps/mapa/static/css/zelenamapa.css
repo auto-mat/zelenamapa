@@ -135,7 +135,7 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
 #sr_inner         { overflow-x: hidden; overflow-y: auto; max-height:570px; background-color:white; padding-left: 15px; line-height:19px; font-size:9px; }
 #sr_inner a { color: black; padding: 4px; }
 #sr_inner a:hover{ color:#008000; cursor: default; } 
-img.sr_img {  width:17px; height:18px; position:relative; top: 3px; margin-right:10px;  }
+img.sr_img, img.marker_img, img.property_img {  width:18px; height:18px; position:relative; top: 3px; margin-right:10px;  }
 .result_item      { cursor: pointer; }
 .result_item:hover { background-color:  #dfd; border: 1px; }
 .search_close     { float:right; cursor:hand;}

@@ -180,7 +180,9 @@
                         <li class="inactive">
                         <a id="znacka_{{z.id}}" onclick="toggleMarkerFilter(this, true); return false;" title="{{z.desc}}">
                         {% if z.menu_icon %}
-                           <img src="{{z.menu_icon.url}}" alt="{{z.name}}"/>
+                           <img class="marker_img" src="{{z.menu_icon.url }}" alt="{{z.name}}"/>
+                        {% else %}
+                           <img class="marker_img" src="{{z.default_icon.url }}" alt="{{z.name}}"/>
                         {% endif %}
                         {{ z.name }}
                         </a>
@@ -190,7 +192,7 @@
                                 <li class="inactive">
                                 <a id="znacka_{{z.id}}_vlastnost_{{v.slug}}" class="inactive" onclick="togglePropertyFilter(this); return false;" title="{{v.desc}}">
                                 {% if v.default_icon %}
-                                   <img src="{{v.default_icon.url}}" alt="{{v.name}}"/>
+                                   <img class="property_img" src="{{v.default_icon.url}}" alt="{{v.name}}"/>
                                 {% endif %}
                                 {{v.name}} ({{v.poi_count}})
                                 </a></li>
