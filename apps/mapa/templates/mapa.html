@@ -156,9 +156,10 @@
                 <form id="search_form" class="rounded" onsubmit="doSearch(this); return false;" action="">
                     <input id="search_input" type="search" name="query"></input><input id="search_submit" type="submit" value=""></input>
                 </form>
-                <div id="search_results">
+                <div id="search_results" style="display:none">
+                <a onclick="searchClosed()"><img src="{% static "js/img/close_18.png" %}" alt="zavřít" class="close"/></a>
 		       <h4>Výsledky hledání</h4>
-		       <div id="sr_inner"></div>
+		       <div id="sr_inner" class="pannel_items"></div>
                 </div>
                 <hr/>
                 <a href="javascript:print()" id="print" class="icon_button">VYTISKNOUT</a>
@@ -172,7 +173,7 @@
                 <div id="zelena_mapa">
                 <div id="layerswitcher"></div>
                 <hr/>
-                <div class="filtry">
+                <div class="filtry pannel_items">
                     {% cache 86400 sidebar %}
                     <h4>Chci najít</h4>
                     <ul>
@@ -207,7 +208,7 @@
                     <br />
                 </div>
                 <div id="panel-legenda">
-                  <div class="filtry">
+                  <div class="pannel_items">
                   <h4>Legenda barev</h4>
                   <ul>
                     {% cache 3600 legenda %}

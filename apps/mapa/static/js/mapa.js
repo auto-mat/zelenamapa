@@ -514,6 +514,10 @@ function toggleFiltry_add(obj)
 function doSearch(obj) {
     /* tady bychom meli vypnout submit, aby neslo pustit hledani znova */
     var searchField = document.getElementById('search_input');
+    if (! searchField.value) {
+        searchClosed();
+        return false;
+    }
     if (! searchField.value || (searchField.value.length < 3)) {
         alert("Zadejte prosím alespoň 3 znaky");
         return false;
@@ -548,17 +552,7 @@ function doSearch(obj) {
             //$('#sr_inner').height(sr_height);
 		       
             var offset = $('.filtry').offset();
-            $('#search_results').overlay({
-                effect: 'namiste',
-                top: offset.top,
-                left: offset.left,
-                fixed: false,
-                closeOnClick: false,
-                oneInstance: false, 
-                onClose: searchClosed
-            });
-            $('#search_results').overlay().load();
-            $('#search_results').css('left', offset.left);
+            $('#search_results').css("display", "block");
             map.zoomToExtent(searchLayer.getDataExtent()); 
         }
     }); 
@@ -580,8 +574,7 @@ function destroySearchLayer() {
 }
 
 function searchClosed(e) {
-    /*var sr = document.getElementById('search_results'); 
-	   sr.style.display = 'none';*/
+    $('#search_results').css("display", "none");
     destroySearchLayer();
     for (var i in vectors)
         vectors[i].setVisibility(true);

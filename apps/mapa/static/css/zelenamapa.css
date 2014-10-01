@@ -113,17 +113,17 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
          font-family:Arial,Helvetica, sans-serif;font-size:10px;}
 
 /* Filtry (inlc.zvyraznovani) */
-.filtry{ padding:0 3px 3px 11px;line-height:19px;font-size:9px;}
-.filtry a { padding: 4px;}
+.pannel_items{ padding:0 3px 3px 11px;line-height:19px;font-size:9px;}
+.pannel_items a { padding: 4px;}
 #filtr_toggle {  line-height:22px; padding-left:27px;}
 #filtr_help   {  line-height:22px; }
-.filtry .inactive>a{ color: black; cursor: default; }
-.filtry .inactive>ul{ display:none; }
-.filtry .active>a{ background-color: #dfd; color:black; cursor: default; } 
-.filtry .active>ul{ display:block; }
-.filtry img{position:relative;top: 5px; margin-right:10px; }
-.filtry h4, .dataLbl{ margin:0px 0 3px 2px;}
-.filtry > ul { margin: 7px 0 0 0; padding: 0; }
+.pannel_items .inactive>a{ color: black; cursor: default; }
+.pannel_items .inactive>ul{ display:none; }
+.pannel_items .active>a{ background-color: #dfd; color:black; cursor: default; }
+.pannel_items .active>ul{ display:block; }
+.pannel_items img{position:relative;top: 5px; margin-right:10px; }
+.pannel_items h4, .dataLbl{ margin:0px 0 3px 2px;}
+.pannel_items > ul { margin: 7px 0 0 0; padding: 0; }
 
 /* Search  */
 
@@ -131,15 +131,13 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
 #search_submit { border-style: none; display:inline; line-height:14px; padding:0px 0px 6px 0px; margin:0; width: 25px; background: url(/static/img/search.png) no-repeat;}
 .widget_input { display:inline; width:auto; border:solid 1px grey; margin:0 0 10px 0;}
 
-#sr_inner         {  max-height: 400px;   margin: 0 0 5px 0; }	  
-#sr_inner         { overflow-x: hidden; overflow-y: auto; max-height:570px; background-color:white; padding-left: 15px; line-height:19px; font-size:9px; }
 #sr_inner a { color: black; padding: 4px; }
 #sr_inner a:hover{ color:#008000; cursor: default; } 
 img.sr_img, img.marker_img, img.property_img {  width:18px; height:18px; position:relative; top: 3px; margin-right:10px;  }
 .result_item      { cursor: pointer; }
 .result_item:hover { background-color:  #dfd; border: 1px; }
 .search_close     { float:right; cursor:hand;}
-.close { position:absolute; right: 1px; top: 1px; cursor:pointer; }
+.close { position:absolute; right: 1px; cursor:pointer; }
 
 /* Seznam filtru */
 .desc_vlastnosti  img{position:relative;top: 5px; margin-right:10px; }
