@@ -37,26 +37,6 @@
          obj.style.height = obj.contentWindow.document.body.scrollHeight + 30 + 'px';
         }
     
-        /* <![CDATA[ */
-        // CSS for narrow window (when less than 1100 detected, then we use 1024 layout)
-        $(document).ready(function(){
-	   if (screen.height<=900){
-	      $('head').append('<link rel="stylesheet" href="{% static "css/zm_low.css" %}" type="text/css" />');
-	   };
-	   //if (screen.width<=1100){
-	   //   $('head').append('<link rel="stylesheet" href="{% static "css/zm_narrow.css" %}" type="text/css" />');
-	   //};
-	});
-
-        // Displayed overlay and resize handler
-        $(window).resize(function() {
-	   var overlay_left = $('#overlay_left');
-	   if(overlay_left.css('display') != 'none') {
-	      var offset = $('.core').offset();
-	      overlay_left.css('left', offset.left);
-	   }
-	});
-        /*]]> */
         $(function() {
           $( "#tabs" ).tabs({
              collapsible: true
