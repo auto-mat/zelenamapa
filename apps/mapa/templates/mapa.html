@@ -1,7 +1,7 @@
+<!DOCTYPE html>
 {% load static cache compress staticpage geturl %}
 {% load url from future %}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:og="http://opengraphprotocol.org/schema/">
+<html>
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
@@ -128,13 +128,13 @@
                <div id="ostatni_projekty">Ostatní projekty</div>
 
                <div id="overlay_left">
-                  <div id="left_iframe" class="overlay_iframe" scrolling="auto" frameborder="0"></div>
+                  <div id="left_iframe" class="overlay_iframe"></div>
                </div>
 
                <div id="nastroje">
                 <h4>Vyhledávání</h4>
-                <form id="search_form" class="rounded" onsubmit="doSearch(this); return false;" action="">
-                    <input id="search_input" type="search" name="query"></input><input id="search_submit" type="submit" value=""></input>
+                <form id="search_form" class="rounded" onsubmit="doSearch(this); return false;">
+                    <input id="search_input" type="search" name="query"/><input id="search_submit" type="submit" value=""/>
                 </form>
                 <div id="search_results" style="display:none">
                 <a onclick="searchClosed()"><img src="{% static "js/img/close_18.png" %}" alt="zavřít" class="close"/></a>
@@ -194,7 +194,7 @@
                     {% cache 3600 legenda %}
                     {% for l in legenda %}
                     <li>
-                    <img src="{{ l.image.url }}"> &nbsp; {{ l.name }}
+                    <img src="{{ l.image.url }}" alt="{{ l.name }}"/> &nbsp; {{ l.name }}
                     </li>
                     {% endfor %}
                     {% endcache %}
