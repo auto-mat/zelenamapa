@@ -16,8 +16,6 @@ Ke zprovoznění je zapotřebí následující
 
 Aplikace se nainstaluje do prostředí virtualenv pomocí následujících příkazů:
 
-* virtualenv --no-site-packages env
-* env/bin/pip install distribute --upgrade
-* env/bin/pip install -r requirements.txt
+* ./update.sh reinstall
 
 Vzorová konfigurace je v pnk/sample_settings_local.py, stačí překopírovat na settings_local.py a doplnit přístup k DB a SECRET_KEY.
