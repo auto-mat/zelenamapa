@@ -54,7 +54,7 @@ text-align:center; border:solid 1px lightgray; }
   padding: 0px;
   border-width: 0;
   overflow-y: auto;
-  min-width: 400px;
+  width: 400px;
 }
 #tabs .ui-corner-all {
   border-width: 0;
@@ -113,7 +113,7 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
          font-family:Arial,Helvetica, sans-serif;font-size:10px;}
 
 /* Filtry (inlc.zvyraznovani) */
-.pannel_items{ padding:0 3px 3px 11px;line-height:19px;font-size:9px;}
+.pannel_items{ padding:0 3px 3px 11px;line-height:19px;font-size:12px;}
 .pannel_items a { padding: 4px;}
 #filtr_toggle {  line-height:22px; padding-left:27px;}
 #filtr_help   {  line-height:22px; }
