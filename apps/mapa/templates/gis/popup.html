@@ -11,6 +11,15 @@
     <a href="#detail={{ poi.id }}" title="Podrobné informace o místě" >
     <img src="{{ foto_thumb.url }}" title="{{ fotky.0.name }}" width="{{ foto_thumb.width }}" height="{{ foto_thumb.height }}" class="foto_thumb"></a>
 {% endif %}
+
+<div>
+{% for vl in poi.properties.all %}
+   {% if vl.status.show %}
+      <img src="{{ vl.default_icon.url }}" title="{{ vl.name }}">
+   {% endif %}
+{% endfor %}
+</div>
+
 {% if poi.desc %}
     <p>{{ poi.desc|safe }}</p>
 {% else %}
@@ -33,7 +42,9 @@
     {% if perms.mapa.change_poi %}
        <a href="{% url 'admin:webmap_poi_change' poi.id %}">upravit</a>
     {% endif %}
-    <a href="#detail={{ poi.id }}" title="Podrobné informace o místě">více</a>
+    <a href="#detail={{ poi.id }}" title="Podrobné informace o místě">detail</a>
+    <!--
     <a href="javascript:void(0);" onclick="ZoomToLonLat(this, {{ poi.geom.x }}, {{ poi.geom.y }}, 17);"
       title="Najet v mapě na místo" >na střed</a>
+    -->
 </p>
