@@ -218,7 +218,7 @@ img.sr_img, img.marker_img, img.property_img {  width:18px; height:18px; positio
 .titulek { font-style:italic; }
 .misto_vlastnosti li  { margin: 2px 0 2px 0; }
 .misto_vlastnosti img{position:relative;top: 5px; margin-right:10px; }
-.foto_thumb_misto { max-width:300px; float:right;}
+.foto_thumb_misto { max-width:300px; float:none;}
 .foto_thumb_misto img { border:solid 1px grey; max-width:300px; margin:0 0 4px 5px; background-color:whitesmoke; }
 .foto_thumb_edit { border:solid 1px grey; width:200px; min-height:120px; margin:0 0 4px 4px; background-color:whitesmoke; float:none; }
 
