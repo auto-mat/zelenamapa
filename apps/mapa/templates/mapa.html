@@ -125,10 +125,11 @@
                   <li><a href="#overlay_left">Detaily</a></li>
                </ul>
 
-               <div id="ostatni_projekty">Ostatní projekty</div>
+               <div id="ostatni_projekty">
+                  {{ config.DETAILS_TEXT|safe }}
+               </div>
 
                <div id="overlay_left">
-                  {{ config.DETAILS_TEXT|safe }}
                   <div id="left_iframe" class="overlay_iframe"></div>
                </div>
 
