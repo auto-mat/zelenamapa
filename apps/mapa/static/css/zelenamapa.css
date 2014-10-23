@@ -167,6 +167,7 @@ img.sr_img, img.marker_img, img.property_img {  width:18px; height:18px; positio
 }
 
 #OpenLayers_Control_MaximizeDiv_innerImage {  right: 0px; top: -5px; height:190px !important; overflow:visible;   }
+.olControlAttribution { left: 10px; bottom: 10px; }
 
 
 /* Popup */

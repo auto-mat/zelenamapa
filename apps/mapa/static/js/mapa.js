@@ -111,7 +111,8 @@ function init(mapconfig)
            new OpenLayers.Control.LayerSwitcher(),
            new OpenLayers.Control.Navigation(),
            new OpenLayers.Control.Permalink('permalink'),
-           new OpenLayers.Control.ZoomPanel()
+           new OpenLayers.Control.ZoomPanel(),
+           new OpenLayers.Control.Attribution()
       ] 
     } else if (( mapconfig.mapwidget !=  undefined ) && ( mapconfig.mapwidget.hide_controls !=  undefined ) && (mapconfig.mapwidget.hide_controls ==  true ))
             {
@@ -125,6 +126,7 @@ function init(mapconfig)
                     new SimpleLayerSwitcher(),
                     new OpenLayers.Control.Navigation(),
                     new OpenLayers.Control.Permalink('permalink'),
+                    new OpenLayers.Control.Attribution()
                     //defaultPanZoom()
                     //  new OpenLayers.Control.PanZoomBar(),
                     //  new OpenLayers.Control.MousePosition() 
