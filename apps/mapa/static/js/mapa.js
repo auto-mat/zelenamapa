@@ -159,7 +159,14 @@ function init(mapconfig)
 		  "Zelená mapa Plzeň",
 	          "http://zelenamapa.cz/media/tiles_ZMP/",
 		  { type: 'png', numZoomLevels: 19, getURL: getTileURL, tileOptions : {crossOriginKeyword: null}  } );
-	    map.addLayers([layerZMP, layerZM, base_layer]);
+            var layerGoogle = new OpenLayers.Layer.Google(
+                  "Satelitní mapa", {
+                  displayInLayerSwitcher: false,
+                  type: google.maps.MapTypeId.SATELLITE,
+                  numZoomLevels: 22
+            });
+
+	    map.addLayers([layerZMP, layerGoogle]);
 
     kmlvrstvy = mapconfig.vrstvy;
     for (i in kmlvrstvy) {
