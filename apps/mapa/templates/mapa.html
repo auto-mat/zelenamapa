@@ -40,7 +40,6 @@
     
         $(function() {
           $( "#tabs" ).tabs({
-             collapsible: true
           });
         });
     </script>
@@ -118,6 +117,8 @@
     <div class="page">
         <div class="content">
             {% if not mobilni %}
+            Příklady ovládání:
+            <a href='javascript:$("#tabs").toggle();'>sbalit menu</a>
             <div class="panel" id="tabs">
                <ul>
                   <li><a href="#zelena_mapa">Zelená mapa</a></li>
