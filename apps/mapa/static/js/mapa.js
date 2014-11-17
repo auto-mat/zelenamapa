@@ -447,6 +447,14 @@ function unsetPropertyFilter(str) {
 };
 
 function toggleMarkerFilter(obj, inactivateOther) {
+    for(var layer_id in map.layers) {
+        layer = map.layers[layer_id];
+        if (!layer.isBaseLayer){
+            layer.setVisibility(true);
+        }
+    }
+
+
     marker_id = obj.id;
     if(inactivateOther) {
        for(var str in marker_criteria){
