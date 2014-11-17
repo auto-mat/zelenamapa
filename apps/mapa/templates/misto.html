@@ -123,7 +123,7 @@
        <p>Chcete-li odkázat na toto konkrétní místo v Zelené mapě, použijte následující HTML kód.</p>
 
        <p><a href="http://{{ site }}{% url 'mapa.views.mapa_view' poi.id %}" target="_blank" style="float:left;"><img src="{% static "img/ikonka_zm100x100.jpg" %}"></a><br>
-       <textarea rows="3" class="rounded_html_iframe" name="html" cols="40" style="width:290px;margin-left:20px;"><a href="http://{{ site }}{% url 'mapa.views.mapa_view' poi.id %}"><img src="{% static "img/ikonka_zm100x100.jpg" %}" style="width:100px; height:100px;float:left;"></a></textarea>
+       <textarea rows="3" class="rounded_html_iframe" name="html" cols="40" style="width:290px;margin-left:20px;"><a href="http://{{ site }}{% url 'mapa.views.mapa_view' poi.id %}"><img src="http://{{ site }}{% static "img/ikonka_zm100x100.jpg" %}" style="width:100px; height:100px;float:left;"></a></textarea>
        </p>
      </div>
 
