@@ -121,6 +121,8 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
 .pannel_items .inactive>ul{ display:none; }
 .pannel_items .active>a{ background-color: #dfd; color:black; cursor: default; }
 .pannel_items .active>ul{ display:block; }
+.pannel_items .active_more>a{ background-color: #dfd; color:black; cursor: default; }
+.pannel_items .active_more>ul{ display:none; }
 .pannel_items img{position:relative;top: 5px; margin-right:10px; }
 .pannel_items h4, .dataLbl{ margin:0px 0 3px 2px;}
 .pannel_items > ul { margin: 7px 0 0 0; padding: 0; }

@@ -464,9 +464,19 @@ function toggleMarkerFilter(obj, inactivateOther) {
         unsetMarkerFilter(marker_id);
         obj.parentNode.className='inactive';
     } else {
-        setMarkerFilter(marker_id);
-        obj.parentNode.className='active';
+       setMarkerFilter(marker_id);
     }
+
+    if( markerFilter.filters.length >= 2 ) {
+       for(var str in marker_criteria){
+          document.getElementById(str).parentNode.className='active_more';
+       }
+    } else {
+       for(var str in marker_criteria){
+          document.getElementById(str).parentNode.className='active';
+       }
+    }
+
     // Filtr podle zoom levelu plati jen kdyz neni aktivni
     // zadny filtr dle vlastnosti.
     if (markerFilter.filters.length == 0 && propertyFilter.filters.length == 0) {
