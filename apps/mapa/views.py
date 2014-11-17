@@ -102,7 +102,10 @@ def mapa_view(request, poi_id=None):
         'config': config,
         'site': get_current_site(request).domain,
         'select_poi_header': select_poi_header,
-        'select2_pois_header': select2_pois_header
+        'select2_pois_header': select2_pois_header,
+        'static_filtry': Staticpage.objects.get(slug='filtry'),
+        'static_ostatni_projekty': Staticpage.objects.get(slug='ostatni_projekty'),
+        'vlastnosti': Property.objects.filter(status__show='True')
     })
     return render_to_response('mapa.html', context_instance=context)
 
