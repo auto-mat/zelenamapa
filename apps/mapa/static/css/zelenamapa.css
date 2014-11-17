@@ -1,6 +1,6 @@
 body{height: 100%; font-size:12px;margin:0;padding:0;font-family:Arial,Helvetica, sans-serif;color:#001400;}
 div{padding:0;margin:0;}
-a{color:#008000;text-decoration:none;}
+a{color:#000000;text-decoration:none;}
 a:hover{text-decoration:underline;}
 img{border:0;}
 h1, h2, h3, h4, h5, .dataLbl {font-family:Tahoma, Geneva, sans-serif;color:#999;}
@@ -158,7 +158,7 @@ img.sr_img, img.marker_img, img.property_img {  width:18px; height:18px; positio
    width: 15px;
    right: 50px;
 }
-.dataLayersDiv input:checked+label { color:green; }
+.dataLayersDiv input:checked+label { color:black; }
 .dataLayersDiv input:unchecked+label { color:black; }
 .dataLayersDiv input+label:hover{text-decoration:underline;}
 .dataLbl {
@@ -174,6 +174,7 @@ img.sr_img, img.marker_img, img.property_img {  width:18px; height:18px; positio
 .lc { float:left; bottom:0px;  width: 22px;  }
 .trc { position:relative; left: -8px; padding: 12px 1000px 12px 12px; top: -8px; width:100%; background: #ff6e00; }
 .trc h4{ margin-bottom: 0;}
+.trc a{ color:#ffffff; }
 /* .rc { margin-left: 24px; padding-right:2px; overflow-y: scroll; max-height:240px; } */
 .rc { margin-left: 5px; padding-right:0px; max-height:770px; height: calc(100% - 69px); overflow-y: auto; top: -8px; position: relative;}
 .rc_noscroll { margin-left: 5px; padding-right:2px;  }
