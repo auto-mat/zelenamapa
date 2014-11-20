@@ -60,7 +60,23 @@ text-align:center; border:solid 1px lightgray; }
   border-width: 0;
 }
 #SimpleLayerSwitcher {
-   top: 25px;
+   top: 15px;
+   padding-top: 7px;
+   right: 48px;
+}
+#cela_obrazovka {
+   width: 26px;
+   height: 24px;
+   top: 15px;
+   right: 205px;
+   position: fixed;
+}
+#minimalizovat_menu {
+   width: 26px;
+   height: 24px;
+   top: 15px;
+   right: 15px;
+   position: fixed;
 }
 #tabs .ui-tabs-nav {
   position: fixed;

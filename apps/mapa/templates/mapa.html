@@ -117,9 +117,9 @@
     <div class="page">
         <div class="content">
             {% if not mobilni %}
-            Příklady ovládání:
-            <a href='javascript:$("#tabs").toggle();'>sbalit menu</a>
+            <div id="cela_obrazovka"><input type="image" onclick='javascript:$("#tabs").toggle();' src="/static/img/fullscreen.png"></input></div>
             <div id="SimpleLayerSwitcher" class="SimpleLayerSwitcher olControlNoSelect" style="position: absolute; z-index: 1006;" unselectable="on"></div>
+            <div id="minimalizovat_menu"><input type="image" onclick='javascript:$("#tabs").toggle();' src="/static/img/minimalizovat_menu.png"></input></div>
             <div class="panel" id="tabs">
                <ul>
                   <li><a href="#zelena_mapa">Zelená mapa</a></li>
