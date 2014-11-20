@@ -48,7 +48,7 @@ text-align:center; border:solid 1px lightgray; }
 #tabs{
   position:absolute;
   right: 15px;
-  top: 100px;
+  top: 72px;
   max-height: 70%;
   max-height: calc(100% - 110px);
   padding: 0px;
@@ -59,12 +59,15 @@ text-align:center; border:solid 1px lightgray; }
 #tabs .ui-corner-all {
   border-width: 0;
 }
+#SimpleLayerSwitcher {
+   top: 25px;
+}
 #tabs .ui-tabs-nav {
   position: fixed;
   background: white;
   padding: 0;
   border-width: 0px;
-  top: 75px;
+  top: 46px;
   min-width: 400px;
 }
 #tabs :focus {

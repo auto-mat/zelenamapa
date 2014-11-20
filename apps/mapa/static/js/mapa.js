@@ -122,8 +122,8 @@ function init(mapconfig)
             else {
                     controls = [
                     new OpenLayers.Control.ArgParser(),
-                    new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff', 'div':OpenLayers.Util.getElement('layerswitcher')}),
-                    new SimpleLayerSwitcher(),
+                    //new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff', 'div':OpenLayers.Util.getElement('layerswitcher')}),
+                    new SimpleLayerSwitcher({'div':OpenLayers.Util.getElement('SimpleLayerSwitcher')}),
                     new OpenLayers.Control.Navigation(),
                     new OpenLayers.Control.Permalink('permalink'),
                     new OpenLayers.Control.Attribution()
