@@ -166,7 +166,7 @@ function init(mapconfig)
                   numZoomLevels: 22
             });
 
-	    map.addLayers([layerZMP, layerGoogle]);
+	    map.addLayers([layerZMP, layerGoogle, base_layer]);
 
     kmlvrstvy = mapconfig.vrstvy;
     for (i in kmlvrstvy) {
