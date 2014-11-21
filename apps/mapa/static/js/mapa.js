@@ -347,6 +347,7 @@ function onPopupClose(evt) {
 };
 
 function onFeatureSelect(feature) {
+    $("#" + feature.geometry.id).attr("class", "selected");
     if (feature.fid) {
         var url = "/popup/" + feature.fid + "/";
         lastSelectedFeature = feature.fid;
@@ -397,11 +398,13 @@ var createPopup = function(response) {
         return 'br';
     }
     popup.maxSize = new OpenLayers.Size(300,900);
+    popup.padding = [0, 0, 100, 100];
     this.popup = popup;
     map.addPopup(popup);
 };
 
 function onFeatureUnselect(feature) {
+    $("#" + feature.geometry.id).attr("class", "unselected");
     if (feature.popup)
         removePopup(feature.popup)
 };
