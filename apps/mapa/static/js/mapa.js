@@ -235,6 +235,11 @@ function init(mapconfig)
        $(window).hashchange(onHashChange);
        $(window).hashchange();
     }
+
+    $(".dataLayersDiv").bind("mousedown", function(){
+       unsetAllMarkerFilters();
+       unsetAllPropertyFilters();
+    });
 } // init
 
 function onHashChange() {
@@ -532,6 +537,12 @@ function unsetMarkerFilter(str) {
     $("#" + str).parent().removeClass("active")
     delete marker_criteria[str];
 };
+
+function unsetAllMarkerFilters() {
+    for(var cstr in marker_criteria){
+       unsetMarkerFilter(cstr);
+    }
+}
 
 function toggleFiltry_add(obj) 
 {
