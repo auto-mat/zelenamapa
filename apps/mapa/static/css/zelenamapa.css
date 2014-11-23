@@ -120,7 +120,7 @@ text-align:center; border:solid 1px lightgray; }
   right: 0px;
   left: 0px;
 }
-.right_top_panel{min-width:162px;width:20%; float:right;margin-right:10px max-height:70px;}
+.right_top_panel{min-width:162px;width:20%; float:right;margin-right:10px; max-height:70px;}
 input#subscribe_submit{background:url();border:none;width:100%;text-align:right;color:#008000;}
 input#subscribe_submit:hover{color:#ff6e00;}
 .footer{ width:100%; height:60px; float:left; border-top:1px solid #ccc;}
@@ -136,11 +136,14 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
 .pannel_items a { padding: 4px;}
 #filtr_toggle {  line-height:22px; padding-left:27px;}
 #filtr_help   {  line-height:22px; }
-.pannel_items .inactive>a{ color: black; cursor: default; }
+
+.inactive{background: url(/static/img/checkbox_zm.png) no-repeat; background-position: calc(100% - 35px) 5px; }
+.active, .active_more{background: url(/static/img/checkbox_zm-checked.png) no-repeat; background-position: calc(100% - 35px) 5px; }
+.pannel_items .inactive{ color: black; cursor: default; }
 .pannel_items .inactive>ul{ display:none; }
-.pannel_items .active>a{ background-color: #dfd; color:black; cursor: default; }
+.pannel_items .active{ background-color: #dfd; color:black; cursor: default; }
 .pannel_items .active>ul{ display:block; }
-.pannel_items .active_more>a{ background-color: #dfd; color:black; cursor: default; }
+.pannel_items .active_more{ background-color: #dfd; color:black; cursor: default; }
 .pannel_items .active_more>ul{ display:none; }
 .pannel_items img{position:relative;top: 5px; margin-right:10px; }
 .pannel_items h4, .dataLbl{ margin:0px 0 3px 2px;}

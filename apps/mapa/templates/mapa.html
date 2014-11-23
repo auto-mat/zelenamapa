@@ -177,7 +177,7 @@
                         <ul>
                         {% for v in z.vlastnosti %}
                                 <li class="inactive">
-                                <a id="znacka_{{z.id}}_vlastnost_{{v.slug}}" class="inactive" onclick="togglePropertyFilter(this); return false;" title="{{v.desc}}">
+                                <a id="znacka_{{z.id}}_vlastnost_{{v.slug}}" onclick="togglePropertyFilter(this); return false;" title="{{v.desc}}">
                                 {% if v.default_icon %}
                                    <img class="property_img" src="{{v.default_icon.url}}" alt="{{v.name}}"/>
                                 {% endif %}
