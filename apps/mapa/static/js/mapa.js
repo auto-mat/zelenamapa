@@ -414,10 +414,8 @@ function togglePropertyFilter(obj) {
     // alert( 'str:.' . str );
     if (criteria[str]) {
         unsetPropertyFilter(str);
-        obj.parentNode.className='inactive';
     } else {
         setPropertyFilter(str);
-        obj.parentNode.className='active';
     }
     // Filtr podle zoom levelu plati jen kdyz neni aktivni
     // zadny filtr dle vlastnosti.
@@ -439,6 +437,8 @@ function setPropertyFilter(str) {
     criteria[str] = filter;
     propertyFilter.filters.push(filter);
     _gaq.push(['_trackEvent', 'Filtry', str, '', propertyFilter.filters.length]);
+    $("#" + str).parent().addClass("active")
+    $("#" + str).parent().removeClass("inactive")
 };
 
 function unsetPropertyFilter(str) {
@@ -446,8 +446,16 @@ function unsetPropertyFilter(str) {
     index = propertyFilter.filters.indexOf(filter);
     propertyFilter.filters.splice(index, 1);
     filter.destroy();
+    $("#" + str).parent().addClass("inactive")
+    $("#" + str).parent().removeClass("active")
     delete criteria[str];
 };
+
+function unsetAllPropertyFilters() {
+    for(var cstr in criteria){
+       unsetPropertyFilter(cstr);
+    }
+}
 
 function toggleMarkerFilter(obj, inactivateOther) {
     for(var layer_id in map.layers) {
@@ -457,35 +465,29 @@ function toggleMarkerFilter(obj, inactivateOther) {
         }
     }
 
+    unsetAllPropertyFilters();
 
     marker_id = obj.id;
     if(inactivateOther) {
        for(var str in marker_criteria){
           if(str == marker_id) continue;
           unsetMarkerFilter(str);
-          document.getElementById(str).parentNode.className='inactive';
        }
        for(var str in criteria){
           unsetPropertyFilter(str);
-          document.getElementById(str).parentNode.className='inactive';
        }
     }
 
     if (marker_criteria[marker_id]) {
         unsetMarkerFilter(marker_id);
-        obj.parentNode.className='inactive';
     } else {
        setMarkerFilter(marker_id);
     }
 
     if( markerFilter.filters.length >= 2 ) {
-       for(var str in marker_criteria){
-          document.getElementById(str).parentNode.className='active_more';
-       }
+       $("#marker_list").addClass("active_more");
     } else {
-       for(var str in marker_criteria){
-          document.getElementById(str).parentNode.className='active';
-       }
+       $("#marker_list").removeClass("active_more");
     }
 
     // Filtr podle zoom levelu plati jen kdyz neni aktivni
@@ -517,6 +519,8 @@ function setMarkerFilter(str) {
     marker_criteria[str] = filter;
     markerFilter.filters.push(filter);
     _gaq.push(['_trackEvent', 'Filtry', str, '', markerFilter.filters.length]);
+    $("#" + str).parent().addClass("active")
+    $("#" + str).parent().removeClass("inactive")
 };
 
 function unsetMarkerFilter(str) {
@@ -524,6 +528,8 @@ function unsetMarkerFilter(str) {
     index = markerFilter.filters.indexOf(filter);
     markerFilter.filters.splice(index, 1);
     filter.destroy();
+    $("#" + str).parent().addClass("inactive")
+    $("#" + str).parent().removeClass("active")
     delete marker_criteria[str];
 };
 

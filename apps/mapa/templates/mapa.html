@@ -162,10 +162,11 @@
                 <div class="filtry pannel_items">
                     {% cache 86400 sidebar %}
                     <h4>Chci najít</h4>
-                    <ul>
+                    <ul id="marker_list">
                     {% for z in znacky %}
                         <li class="inactive">
-                        <a id="znacka_{{z.id}}" onclick="toggleMarkerFilter(this, false); return false;" title="{{z.desc}}">
+                        <div id="znacka_{{z.id}}" onclick="toggleMarkerFilter(this, false); return false;">
+                        <a title="{{z.desc}}">
                         {% if z.menu_icon %}
                            <img class="marker_img" src="{{z.menu_icon.url }}" alt="{{z.name}}"/>
                         {% else %}
@@ -173,16 +174,18 @@
                         {% endif %}
                         {{ z.name }}
                         </a>
+                        </div>
                         {% if z.vlastnosti %}
                         <ul>
                         {% for v in z.vlastnosti %}
                                 <li class="inactive">
-                                <a id="znacka_{{z.id}}_vlastnost_{{v.slug}}" onclick="togglePropertyFilter(this); return false;" title="{{v.desc}}">
+                                <div id="znacka_{{z.id}}_vlastnost_{{v.slug}}" onclick="togglePropertyFilter(this); return false;">
+                                <a title="{{v.desc}}">
                                 {% if v.default_icon %}
                                    <img class="property_img" src="{{v.default_icon.url}}" alt="{{v.name}}"/>
                                 {% endif %}
                                 {{v.name}} ({{v.poi_count}})
-                                </a></li>
+                                </a></div></li>
                         {% endfor %}
                         </ul>
                         {% endif %}
