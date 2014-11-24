@@ -137,8 +137,8 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
 #filtr_toggle {  line-height:22px; padding-left:27px;}
 #filtr_help   {  line-height:22px; }
 
-.inactive{background: url(/static/img/checkbox_zm.png) no-repeat; background-position: calc(100% - 35px) 5px; }
-.active {background: url(/static/img/checkbox_zm-checked.png) no-repeat; background-position: calc(100% - 35px) 5px; }
+.inactive, .dataLayersDiv input[type="checkbox"]+label{background: url(/static/img/checkbox_zm.png) no-repeat; background-position: calc(100% - 35px) 5px; }
+.active, .dataLayersDiv input[type="checkbox"]:checked+label{background: url(/static/img/checkbox_zm-checked.png) no-repeat; background-position: calc(100% - 35px) 5px; }
 .pannel_items .inactive{ color: black; cursor: default; }
 .pannel_items .inactive>ul{ display:none; }
 .pannel_items .active{ background-color: #dfd; color:black; cursor: default; }
@@ -178,9 +178,12 @@ img.sr_img, img.marker_img, img.property_img {  width:18px; height:18px; positio
 .baseLbl { display: none; }
 .labelSpan { line-height:19px; padding: 0 0 0 18px; }
 .dataLayersDiv input[type="checkbox"]{
-   position: absolute;
-   width: 15px;
-   right: 50px;
+   display: none;
+}
+.labelSpan.olButton {
+   display: block;
+   float: left;
+   width: calc(100% - 20px);
 }
 .dataLayersDiv input:checked+label { color:black; }
 .dataLayersDiv input:unchecked+label { color:black; }
