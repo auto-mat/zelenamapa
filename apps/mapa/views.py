@@ -38,7 +38,7 @@ def get_znacky():
     for znacka in znacky:
         znacka.vlastnosti = Property.objects.filter(status__show=True).all()
         for vlastnost in znacka.vlastnosti:
-            vlastnost.poi_count = vlastnost.poi_set.filter(marker = znacka).count()
+            vlastnost.poi_count = vlastnost.poi_set.filter(marker = znacka, status__show=True).count()
         znacka.vlastnosti = sorted(znacka.vlastnosti, key = lambda a: a.poi_count, reverse = True)
         znacka.vlastnosti = filter(lambda a: a.poi_count != 0, znacka.vlastnosti)
     return znacky
