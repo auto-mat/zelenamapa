@@ -13,23 +13,31 @@
 #m_left,
 #m_top,
 #m_bottom,
+#ovladaci_prvky,
+#print_area,
 .olControlPanZoomBar,
-.olControlLayerSwitcher,
 .olControlLayerSwitcher {
   display: none !important;
+  top: 0px !important;
+  left: 0px !important;
+  width: 0px !important;
+  height: 0px !important;
 }
 
-.olControlAttribution {
-  bottom: 0px;
+.trc,
+.olPopupCloseBox {
+  -webkit-print-color-adjust:exact;
+}
+
+html, body {
+   height: 99%;
 }
 
 #map {
-  position: absolute !important;
+  position: relative !important;
   border: 0px solid black !important;
-  bottom: 5px !important;
-  top: 0px !important;
-  left: 0px !important;
+  bottom: 0px !important;
   right: 0px !important;
-  width: 297mm !important;
-  height: 185mm !important;
 }
+
+@page {size: landscape;}

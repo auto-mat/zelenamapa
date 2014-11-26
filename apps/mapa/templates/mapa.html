@@ -36,12 +36,48 @@
    <script type="text/javascript">
         function resizeIframe(obj) {
          obj.style.height = obj.contentWindow.document.body.scrollHeight + 30 + 'px';
+        };
+
+        function printAreaChanged(){
+           top_ = parseInt($("#print_area").css("top"));
+           left = parseInt($("#print_area").css("left"));
+           width = parseInt($("#print_area").css("width"));
+           height = parseInt($("#print_area").css("height"));
+           orientation = height > width ? "portrait" : "landscape";
+           $('#print_style').remove();
+           $('head').append('<style type="text/css" media="print" id="print_style">#map{width:' + (width + left) + 'px;height:' + (height + top_) + 'px; top: -' + top_ + 'px; left: -' + left + 'px;} .olControlScaleLine, .olControlAttribution { left: ' + (left + 10) + 'px !important; } @page {size: ' + orientation + ';}</style>');
+        };
+
+        function noEventStart(){
+           $("#noevent_area").show();
+        }
+        function noEventStop(){
+           $("#noevent_area").hide();
         }
     
         $(function() {
           $( "#tabs" ).tabs({
+            activate: function(event, ui) {
+               selectedTab = ui.newTab.index();
+               if(selectedTab == 2){
+                  $('#print_area').show();
+               } else {
+                  $('#print_area').hide();
+               };
+            }
+          });
+
+          $('#print_area').resizable({
+             resize: printAreaChanged,
+             start: noEventStart,
+             stop: noEventStop
+          }).draggable({
+             drag: printAreaChanged,
+             start: noEventStart,
+             stop: noEventStop
           });
         });
+
     </script>
    {% endif %}
     {% endcompress %}
@@ -117,9 +153,11 @@
     <div class="page">
         <div class="content">
             {% if not mobilni %}
+            <div id="ovladaci_prvky">
             <div id="cela_obrazovka"><input type="image" onclick='javascript:$("#tabs").toggle();' src="/static/img/fullscreen.png"></input></div>
             <div id="SimpleLayerSwitcher" class="SimpleLayerSwitcher olControlNoSelect" style="position: absolute; z-index: 1006;" unselectable="on"></div>
             <div id="minimalizovat_menu"><input type="image" onclick='javascript:$("#tabs").toggle();' src="/static/img/minimalizovat_menu.png"></input></div>
+            </div>
             <div class="panel" id="tabs">
                <ul>
                   <li><a href="#zelena_mapa">Zelená mapa</a></li>
@@ -217,6 +255,8 @@
 	    
 	                <div class="core">
                 <div class="mapbox">
+                    <div id="noevent_area"></div>
+                    <div id="print_area" class="ui-widget-content"></div>
                     <div id="map"></div>
                 </div>
         </div>
