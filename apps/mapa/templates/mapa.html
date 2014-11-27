@@ -6,27 +6,30 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
   <link rel="shortcut icon" type="image/x-icon" href="{% static "img/favicon.ico" %}" />
+  {% compress css %}
   <link rel="stylesheet" href="{% static "css/openlayers.css" %}" type="text/css" /> 
   <link rel="stylesheet" href="{% static "css/zelenamapa.css" %}" type="text/css" />
   <link rel="stylesheet" href="{% static "css/layerswitcher.css" %}" type="text/css" />
+  <link rel="stylesheet" href="{% static "css/jquery-ui.css" %}" type="text/css"/>
+  {% endcompress %}
 
   <link rel="stylesheet" href="{% static "css/print.css" %}" type="text/css" media="print" />
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css"/>
 
   {% if mobilni %}
       <link rel="stylesheet" href="{% static "css/mobile.css" %}" type="text/css" />
   {% endif %}
 
 
-   <script type="text/javascript" src="{% static "js/OpenLayers.js" %}"></script>
+
+   <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.8&amp;sensor=false"></script>
  {% compress js %} 
+   <script type="text/javascript" src="{% static "js/OpenLayers.js" %}"></script>
    <script type="text/javascript" src="{% static "js/OpenStreetMap.js" %}"></script>
    <script type="text/javascript" src="{% static "js/MyFramedCloud.js" %}"></script>
 
    <script type="text/javascript" src="{% static "js/jquery.tools.min.js" %}"></script>
-   <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.8&amp;sensor=false"></script>
-   <script type="text/javascript" src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-   <script type="text/javascript" src="http://code.jquery.com/ui/1.11.2/jquery-ui.min.js"></script>
+   <script type="text/javascript" src="{% static "js/jquery-2.1.1.min.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/jquery-ui.min.js" %}"></script>
 
    <script type="text/javascript" src="{% static "js/jquery.ba-hashchange.min.js" %}"></script>
 

@@ -193,6 +193,8 @@ CONSTANCE_BACKEND = 'constance.backends.database.DatabaseBackend'
 FLUENT_COMMENTS_EXCLUDE_FIELDS = ('url',)
 COMMENTS_APP = 'fluent_comments'
 
+COMPRESS_ENABLED=True
+
 # import local settings
 try:
     from settings_local import *
