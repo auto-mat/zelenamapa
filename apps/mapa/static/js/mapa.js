@@ -199,7 +199,7 @@ function init(mapconfig)
     // zabranime odzoomovani na nizsi level nez 11 
     map.isValidZoomLevel = function(zoomLevel) {
         var valid = ( (zoomLevel != null) &&
-            (zoomLevel >= 11) &&
+            (zoomLevel >= mapconfig.minzoom) &&
             (zoomLevel < this.getNumZoomLevels()) );
         if (valid && zoomFilter.value != 999) {
             // Toto je trochu hack, ale jinak (napr. pomoci eventu) nelze zajistit

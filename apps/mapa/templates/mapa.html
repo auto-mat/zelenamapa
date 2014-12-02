@@ -131,6 +131,7 @@
      mapconfig['baselon'] = {{ config.MAP_BASELON }};
      mapconfig['baselat'] = {{ config.MAP_BASELAT }};
      mapconfig['bounds'] = new OpenLayers.Bounds( {{ config.MAP_BOUNDS }});
+     mapconfig['minzoom'] = {{ config.MIN_ZOOMLEVEL }};
     {% if center_poi %}
         mapconfig['zoom'] = {{ config.MAP_POIZOOM }};
         mapconfig['lon'] = {{ center_poi.geom.x }};
