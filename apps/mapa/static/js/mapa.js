@@ -241,6 +241,8 @@ function init(mapconfig)
     $(".dataLayersDiv").bind("mousedown", function(){
        unsetAllMarkerFilters();
        unsetAllPropertyFilters();
+
+       redrawFiltersChange();
     });
 } // init
 
@@ -385,6 +387,25 @@ var requestFailed = function(response) {
    alert(response.responseText);
 }
 
+var redrawFiltersChange = function() {
+    // Filtr podle zoom levelu plati jen kdyz neni aktivni
+    // zadny filtr dle vlastnosti.
+    if (markerFilter.filters.length == 0 && propertyFilter.filters.length == 0) {
+        zoomFilter.value = map.getZoom();
+    } else {
+        zoomFilter.value = 999;
+    };
+
+    if (markerFilter.filters.length == 0) {
+        index = mainFilter.filters.indexOf(markerFilter);
+        mainFilter.filters.splice(index, 1);
+    } else {
+        if(mainFilter.filters.indexOf(markerFilter) == -1)
+           mainFilter.filters.push(markerFilter);
+    };
+    for (var i in vectors)
+        vectors[i].redraw();
+}
 
 var createPopup = function(response) {
     if (this.fid != lastSelectedFeature) {
@@ -424,15 +445,7 @@ function togglePropertyFilter(obj) {
     } else {
         setPropertyFilter(str);
     }
-    // Filtr podle zoom levelu plati jen kdyz neni aktivni
-    // zadny filtr dle vlastnosti.
-    if (markerFilter.filters.length == 0 && propertyFilter.filters.length == 0) {
-        zoomFilter.value = map.getZoom();
-    } else {
-        zoomFilter.value = 999;
-    };
-    for (var i in vectors)
-        vectors[i].redraw();
+    redrawFiltersChange();
 };
 
 function setPropertyFilter(str) {
@@ -497,23 +510,7 @@ function toggleMarkerFilter(obj, inactivateOther) {
        $("#marker_list").removeClass("active_more");
     }
 
-    // Filtr podle zoom levelu plati jen kdyz neni aktivni
-    // zadny filtr dle vlastnosti.
-    if (markerFilter.filters.length == 0 && propertyFilter.filters.length == 0) {
-        zoomFilter.value = map.getZoom();
-    } else {
-        zoomFilter.value = 999;
-    };
-
-    if (markerFilter.filters.length == 0) {
-        index = mainFilter.filters.indexOf(markerFilter);
-        mainFilter.filters.splice(index, 1);
-    } else {
-        if(mainFilter.filters.indexOf(markerFilter) == -1)
-           mainFilter.filters.push(markerFilter);
-    };
-    for (var i in vectors)
-        vectors[i].redraw();
+    redrawFiltersChange();
 };
 
 
