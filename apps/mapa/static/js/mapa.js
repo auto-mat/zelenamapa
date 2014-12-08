@@ -147,6 +147,7 @@ function init(mapconfig)
         theme: null
     };
     map = new OpenLayers.Map('map', options);
+    map.paddingForPopups.right = 430;
 
     base_layer = new OpenLayers.Layer.OSM.Mapnik("OpenStreetMap", { 
         displayOutsideMaxExtent: false,
@@ -648,6 +649,7 @@ function ZoomToLonLat( obj, lon, lat, zoom)
     lonlat = new OpenLayers.LonLat(lon,lat);
     lonlat.transform(EPSG4326, EPSG900913);
     map.setCenter(lonlat,zoom);
+    map.pan(200,0);
 	   
     // Test on displayed left overlay - move right to be visible.
     var overlay_left = $('#overlay_left');
