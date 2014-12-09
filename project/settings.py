@@ -114,6 +114,7 @@ INSTALLED_APPS = (
     'massadmin',
     'comments_moderation',
     'mapa',
+    'rest_framework',
 )
 
 LOGGING = {
