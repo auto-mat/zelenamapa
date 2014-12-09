@@ -197,6 +197,14 @@ COMMENTS_APP = 'fluent_comments'
 
 COMPRESS_ENABLED=True
 
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ]
+}
+
 # import local settings
 try:
     from settings_local import *
