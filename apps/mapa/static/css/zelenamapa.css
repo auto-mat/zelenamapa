@@ -199,12 +199,12 @@ img.sr_img, img.marker_img, img.property_img {  width:18px; height:18px; positio
 .olControlScaleLine { left: 10px; bottom: 40px; }
 .olControlAttribution { left: 10px; bottom: 25px; }
 
-image {
-   transform: scale(0.9);
+.olLayerDiv:not(.olLayerGrid) image {
+   transform: scale(1);
    transform-origin: center;
 }
-image:hover, image.selected {
-   transform: scale(1);
+.olLayerDiv:not(.olLayerGrid) image:hover, .olLayerDiv:not(.olLayerGrid) image.selected {
+   transform: scale(1.2);
    transform-origin: center;
 }
 
