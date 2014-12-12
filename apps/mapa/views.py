@@ -6,6 +6,7 @@ import math
 import urllib
 
 from django import forms, http
+from django.contrib.gis.forms import OSMWidget, PointField
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.gis.geos import Point
@@ -132,9 +133,30 @@ def txt_view(request, name_vrstvy):
 
 
 class UpresneniForm(forms.ModelForm):
+    location = PointField(
+        label=u"Poloha místa",
+        required=False,
+        )
+
     class Meta:
         model = Upresneni
-        fields = ('email', 'desc', 'url', 'address')
+        fields = ('name', 'desc', 'location', 'address', 'url', 'email', 'photo1', 'photo2', 'photo3')
+
+    def __init__(self, *args, **kwargs):
+        poi_id = kwargs.pop('poi_id')
+        super(UpresneniForm, self).__init__(*args, **kwargs)
+
+        self.fields['location'].widget=OSMWidget(attrs={
+            'geom_type': 'POINT',
+            'default_lat': config.MAP_BASELAT,
+            'default_lon': config.MAP_BASELON,
+            'default_zoom': 14,
+        })
+        self.fields['location'].widget.template_name = "gis/openlayers-osm-custom.html"
+
+        if poi_id:
+            for field in {'name', 'location', 'address', 'url'}:
+                self.fields.pop(field)
 
 
 # View pro formular na uzivatelske vkladani oprav a doplnku
@@ -148,31 +170,45 @@ def addpoi_view(request, poi_id=None):
         poi_desc = 'nove misto'
 
     if request.method == 'POST':
-        obj = Upresneni(misto=poi, status='novy')
-        form = UpresneniForm(request.POST, instance=obj)
+        obj = Upresneni(webmap_poi=poi, status='novy')
+        form = UpresneniForm(request.POST, instance=obj, poi_id=poi_id)
         if form.is_valid():
             form.save()
             # http://docs.djangoproject.com/en/dev/topics/email/
             from_email = 'form@zelenamapa.cz'
             to_email = obj.email
-            subject = 'Doplneni Zelene mapy - ' + poi_desc
-            message = "Z Vaseho mailu (" + to_email + ") bylo zaslano doplneni Zelene mapy Prahy." + \
-                      "Dekujeme za Vas prispevek!\n\n" +                                        \
-                      "Obsah doplneni:\n" +                                                     \
-                      "Misto         :" + poi_desc + "\n" +                                   \
-                      "Popis doplneni:\n" + obj.desc + "\n\n" +                                \
-                      "URL           :" + obj.url + "\n" +                                   \
-                      "Adresa        :" + obj.address + "\n\n" +                             \
-                      "Dekujeme za Vas doplnek, ozveme se vam po jeho vyhodnoceni\n\n" +        \
-                      "V pripade nejasnosti nas kontaktujte na adrese doplneni@zelenamapa.cz .\n"
+            subject = u'Doplnění Zelené mapy - ' + poi_desc
+            message = u"Z Vašeho emailu (" + to_email + u") bylo zasláno doplnění Zelené mapy Prahy." + \
+                      u"Děkujeme za Váš příspěvek!\n\n" +                                        \
+                      u"Obsah doplnění:\n"
+            if obj.name:
+                message += u"Název         :" + obj.name + "\n"
+            message += u"Místo         :" + poi_desc + "\n"
+            if obj.location:
+                message += u"Umístění      :" + str(obj.location) + "\n\n"
+            if obj.desc:
+                message += u"Popis doplnění:" + obj.desc + "\n\n"
+            if obj.url:
+                message += u"URL           :" + obj.url + "\n"
+            if obj.address:
+                message += u"Adresa        :" + obj.address + "\n\n"
+            if obj.photo1:
+                message += u"Fotografie 1  :" + obj.photo1.url + "\n\n"
+            if obj.photo2:
+                message += u"Fotografie 2  :" + obj.photo2.url + "\n\n"
+            if obj.photo3:
+                message += u"Fotografie 3  :" + obj.photo3.url + "\n\n"
+            message += u"Děkujeme za Váš doplněk, ozveme se vám po jeho vyhodnocení\n\n" \
+                       u"V případě nejasností nás kontaktujte na adrese doplneni@plzne.cz .\n"
+
             # try:
-            send_mail(subject, message, from_email, [to_email, 'kontakt@zelenamapa.cz'])
+            send_mail(subject, message, from_email, [to_email, 'kontakt@plzne.cz'])
             # except:
             #    return http.HttpResponse('Mail problem.')
 
             return http.HttpResponseRedirect(reverse(static_view, args=["dekujeme"]))
     else:
-        form = UpresneniForm()  # An unbound form
+        form = UpresneniForm(poi_id=poi_id)  # An unbound form
 
     return render_to_response('addpoi.html',
                               context_instance=RequestContext(request, {

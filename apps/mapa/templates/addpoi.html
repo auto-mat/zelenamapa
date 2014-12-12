@@ -3,6 +3,8 @@
 <html>
   <head>
    <link rel="stylesheet" href="{% static "css/zelenamapa.css" %}" type="text/css" />
+   {{ form.media }}
+   <script type="text/javascript" src="{% static "js/mapa.js" %}"></script>
    
    <title>Doplneni</title>
   </head>
@@ -66,10 +68,11 @@
    {% else %}
 <form action="{% url 'mapa.views.addpoi_view' %}" method="post">
    {% endif %}
+   {% csrf_token %}
     {% for field in form %}
         <div class="fieldWrapper">
             {{ field.errors }}
-            {{ field.label_tag }}:<br/>
+            {{ field.label_tag }}<br/>
             {{ field }}
         </div>
     {% endfor %}

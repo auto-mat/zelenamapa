@@ -50,7 +50,7 @@ class UpresneniAdmin(admin.ModelAdmin):
     model = Upresneni
     raw_id_fields = ('webmap_poi',)
     list_filter = ('status',)
-    list_display = ('webmap_poi', 'email', 'status', 'desc',)
+    list_display = ('name', 'webmap_poi', 'created', 'email', 'status', 'desc',)
 
 
 class StaticAdmin(admin.ModelAdmin):

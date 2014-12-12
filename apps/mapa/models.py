@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.gis.db import models
 from webmap.models import Poi
+from webmap.utils import SlugifyFileSystemStorage
 
 
 class SitPoi(models.Model):
@@ -51,6 +52,10 @@ class Upresneni(models.Model):
     Nektera pole mohou byt proto nefunkncni.
     """
 
+    name = models.CharField(
+        max_length=255,
+        verbose_name="Název",
+        )
     webmap_poi = models.ForeignKey(
         Poi,
         null=True,
@@ -78,6 +83,37 @@ class Upresneni(models.Model):
         null=True,
         blank=True,
         )
+    location = models.PointField(
+        verbose_name=u"poloha",
+        srid=4326,
+        blank=True,
+        null=True,
+        help_text=u"Poloha přidávaného místa",
+        )
+    photo1 = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to='photo_upload',
+        storage=SlugifyFileSystemStorage(),
+        verbose_name="Foto 1",
+        )
+    photo2 = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to='photo_upload',
+        storage=SlugifyFileSystemStorage(),
+        verbose_name="Foto 2",
+        )
+    photo3 = models.ImageField(
+        null=True,
+        blank=True,
+        upload_to='photo_upload',
+        storage=SlugifyFileSystemStorage(),
+        verbose_name="Foto 3",
+        )
+    created = models.DateTimeField(auto_now_add=True, verbose_name="created at")
+    modified = models.DateTimeField(auto_now=True, verbose_name="last modification at")
+
 
     class Meta:
         verbose_name_plural = u"upřesnění"
