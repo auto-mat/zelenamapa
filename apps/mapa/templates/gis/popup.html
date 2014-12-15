@@ -9,13 +9,13 @@
 {% if fotky %}
   {% thumbnail fotky.0.photo "250x250" as foto_thumb %}
     <a href="#detail={{ poi.id }}" title="Podrobné informace o místě" >
-    <img src="{{ foto_thumb.url }}" title="{{ fotky.0.name }}" width="{{ foto_thumb.width }}" height="{{ foto_thumb.height }}" class="foto_thumb"></a>
+    <img src="http://{{ site }}{{ foto_thumb.url }}" title="{{ fotky.0.name }}" width="{{ foto_thumb.width }}" height="{{ foto_thumb.height }}" class="foto_thumb"></a>
 {% endif %}
 
 <div>
 {% for vl in poi.properties.all %}
    {% if vl.status.show %}
-      <img src="{{ vl.default_icon.url }}" title="{{ vl.name }}">
+      <img src="http://{{ site }}{{ vl.default_icon.url }}" title="{{ vl.name }}">
    {% endif %}
 {% endfor %}
 </div>

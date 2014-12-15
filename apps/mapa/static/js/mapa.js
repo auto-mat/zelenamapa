@@ -48,18 +48,9 @@ function defaultPanZoom()
    return newPanZoom;
 }
 
-function getTileURL(bounds)
-{
-	var res = this.map.getResolution();
-	var x = Math.round((bounds.left - this.maxExtent.left) / (res * this.tileSize.w));
-	var y = Math.round((this.maxExtent.top - bounds.top) / (res * this.tileSize.h));
-	var z = this.map.getZoom();
-	return this.url + z + "/" + x + "/" + y + "." + this.type;
-}
-
 function init(mapconfig)
 {
-    OpenLayers.ImgPath = "/static/js/img/";
+    OpenLayers.ImgPath = mapconfig['siteurl'] + "/static/js/img/";
     OpenLayers.Lang.setCode("cs-CZ");
     var args = OpenLayers.Util.getParameters(); 
     mainFilter = new OpenLayers.Filter.Logical({
@@ -280,16 +271,16 @@ function onHashChange() {
                 */
                 
     if (args['festival']) {
-        OverlayLeft(this, '/festival/' + args['festival']);
+        OverlayLeft(this, mapconfig['siteurl'] + '/festival/' + args['festival']);
     }
     if (args['detail']) {
-        OverlayLeft(this, '/detail/' + args['detail']);
+        OverlayLeft(this, mapconfig['siteurl'] + '/detail/' + args['detail']);
     };
     if (args['clanek']) {
-        OverlayLeft(this, '/clanky/' + args['clanek']);
+        OverlayLeft(this, mapconfig['siteurl'] + '/clanky/' + args['clanek']);
     };
     if (args['doplnit']) {
-        OverlayLeft(this, '/doplnit/' + args['doplnit']);
+        OverlayLeft(this, mapconfig['siteurl'] + '/doplnit/' + args['doplnit']);
     };
     if (args['blog']) {
         OverlayLeft(this, 'http://wp.zelenamapa.cz/?p=' + args['blog']);
@@ -359,7 +350,7 @@ function onPopupClose(evt) {
 function onFeatureSelect(feature) {
     $("#" + feature.geometry.id).attr("class", "selected");
     if (feature.fid) {
-        var url = "/popup/" + feature.fid + "/";
+        var url = mapconfig['siteurl'] + "/popup/" + feature.fid + "/";
         lastSelectedFeature = feature.fid;
         for (var i in map.popups) {
             removePopup(map.popups[i]);

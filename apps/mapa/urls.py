@@ -6,6 +6,9 @@ from mapa.views import mapa_view, popup_view, detail_view, vlastnosti_view, \
 
 urlpatterns = patterns('',
                        (r'^$', mapa_view),
+                       (r'^panel/$', mapa_view, {'template_name': 'panel.html'}),
+                       (r'^layers/$', mapa_view, {'template_name': 'layers.js'}),
+                       (r'^layers/(\d+)/$', mapa_view, {'template_name': 'layers.js'}),
                        (r'^misto/(\d+)/$', mapa_view),
                        (r'^popup/(\d+)/$', popup_view),
                        (r'^doplnit/(\d+)/$', 'mapa.views.addpoi_view'),

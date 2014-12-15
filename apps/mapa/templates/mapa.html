@@ -36,56 +36,10 @@
    <script type="text/javascript" src="{% static "js/simplelayerswitcher.js" %}"></script>
    <script type="text/javascript" src="{% static "js/cs-CZ.js" %}"></script>
    <script type="text/javascript" src="{% static "js/mapa.js" %}"></script>
-
-   {% if not mobilni %}
-   <script type="text/javascript">
-        function resizeIframe(obj) {
-         obj.style.height = obj.contentWindow.document.body.scrollHeight + 30 + 'px';
-        };
-
-        function printAreaChanged(){
-           top_ = parseInt($("#print_area").css("top"));
-           left = parseInt($("#print_area").css("left"));
-           width = parseInt($("#print_area").css("width"));
-           height = parseInt($("#print_area").css("height"));
-           orientation = height > width ? "portrait" : "landscape";
-           $('#print_style').remove();
-           $('head').append('<style type="text/css" media="print" id="print_style">#map{width:' + (width + left) + 'px;height:' + (height + top_) + 'px; top: -' + top_ + 'px; left: -' + left + 'px;} .olControlScaleLine, .olControlAttribution { left: ' + (left + 10) + 'px !important; } @page {size: ' + orientation + ';}</style>');
-        };
-
-        function noEventStart(){
-           $("#noevent_area").show();
-        }
-        function noEventStop(){
-           $("#noevent_area").hide();
-        }
-    
-        $(function() {
-          $( "#tabs" ).tabs({
-            activate: function(event, ui) {
-               selectedTab = ui.newTab.index();
-               if(selectedTab == 2){
-                  $('#print_area').show();
-               } else {
-                  $('#print_area').hide();
-               };
-            }
-          });
-
-          $('#print_area').resizable({
-             resize: printAreaChanged,
-             start: noEventStart,
-             stop: noEventStop
-          }).draggable({
-             drag: printAreaChanged,
-             start: noEventStart,
-             stop: noEventStop
-          });
-        });
-
-    </script>
-   {% endif %}
+   <script type="text/javascript" src="{% static "js/mapa-utils.js" %}"></script>
+   <script type="text/javascript" src="{% static "js/ga.js" %}"></script>
     {% endcompress %}
+    <script type="text/javascript" src="layers/{{ center_poi.id }}"></script>
 
     <title>{% if center_poi %}{{ center_poi }} - {% endif %}Zelená mapa Plzně</title>
     {% if center_poi %}
@@ -103,52 +57,6 @@
  	   <meta property="og:description" content="{{ center_poi.znacka }}"/>
 	 {% endif %}
    {% endif %}     
-     
-<script type="text/javascript">
-     var _gaq = _gaq || [];
-     _gaq.push(['_setAccount', 'UA-22281359-12']);
-     _gaq.push(['_setDomainName', '.{{ site }}']);
-     _gaq.push(['_trackPageview']);
-   
-     (function() 
-      {
-	 
-         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-	 ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-         var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      }
-      )();
-
-{% cache 86400 mapconfig %} {# 24 hodin #}
-    var mapconfig = {};
-    mapconfig['vrstvy'] = [];
-    {% for v in vrstvy %}
-        mapconfig['vrstvy'].push(["{{v.name}}", "{% url 'webmap.views.kml_view' v.slug %}"]);
-    {% endfor %}
-{% endcache %}
-
-     mapconfig['basezoom'] = {{ config.MAP_BASEZOOM }};
-     mapconfig['baselon'] = {{ config.MAP_BASELON }};
-     mapconfig['baselat'] = {{ config.MAP_BASELAT }};
-     mapconfig['bounds'] = new OpenLayers.Bounds( {{ config.MAP_BOUNDS }});
-     mapconfig['minzoom'] = {{ config.MIN_ZOOMLEVEL }};
-    {% if center_poi %}
-        mapconfig['zoom'] = {{ config.MAP_POIZOOM }};
-        mapconfig['lon'] = {{ center_poi.geom.x }};
-        mapconfig['lat'] = {{ center_poi.geom.y }};
-        mapconfig['center_feature'] = {{ center_poi.id }};
-    {% else %}
-        mapconfig['zoom'] = mapconfig['basezoom'];
-        mapconfig['lon'] = mapconfig['baselon'];
-        mapconfig['lat'] = mapconfig['baselat'];
-    {% endif %}
-    {% if mobilni %}
-        mapconfig['mobilni'] = true;
-    {% else %}
-        mapconfig['mobilni'] = false;
-    {% endif %}
-</script>
-     
      
   </head>
   <body onload="init(mapconfig)">

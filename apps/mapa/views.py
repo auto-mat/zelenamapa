@@ -44,7 +44,7 @@ def get_znacky():
         znacka.vlastnosti = filter(lambda a: a.poi_count != 0, znacka.vlastnosti)
     return znacky
 
-def mapa_view(request, poi_id=None):
+def mapa_view(request, poi_id=None, template_name='mapa.html'):
     vrstvy = Layer.objects.filter(status__show=True)
 
     select_poi = None
@@ -108,7 +108,7 @@ def mapa_view(request, poi_id=None):
         'static_ostatni_projekty': Staticpage.objects.get(slug='ostatni_projekty'),
         'vlastnosti': Property.objects.filter(status__show='True')
     })
-    return render_to_response('mapa.html', context_instance=context)
+    return render_to_response(template_name, context_instance=context)
 
 
 #@cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
@@ -120,6 +120,7 @@ def popup_view(request, poi_id):
                          context_instance=RequestContext(request, {
                              'poi': poi,
                              'fotky': poi.photos.all(),
+                             'site': get_current_site(request).domain,
                              }))
 
 

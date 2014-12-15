@@ -22,7 +22,7 @@
         <input id="search_input" type="search" name="query"/><input id="search_submit" type="submit" value=""/>
     </form>
     <div id="search_results" style="display:none">
-    <a onclick="searchClosed()"><img src="{% static "js/img/close_18.png" %}" alt="zavřít" class="close"/></a>
+    <a onclick="searchClosed()"><img src="http://{{ site }}{% static "js/img/close_18.png" %}" alt="zavřít" class="close"/></a>
            <h4>Výsledky hledání</h4>
            <div id="sr_inner" class="pannel_items"></div>
     </div>
@@ -48,9 +48,9 @@
             <div id="znacka_{{z.id}}" onclick="toggleMarkerFilter(this, false); return false;">
             <a title="{{z.desc}}">
             {% if z.menu_icon %}
-               <img class="marker_img" src="{{z.menu_icon.url }}" alt="{{z.name}}"/>
+               <img class="marker_img" src="http://{{ site }}{{z.menu_icon.url }}" alt="{{z.name}}"/>
             {% else %}
-               <img class="marker_img" src="{{z.default_icon.url }}" alt="{{z.name}}"/>
+               <img class="marker_img" src="http://{{ site }}{{z.default_icon.url }}" alt="{{z.name}}"/>
             {% endif %}
             {{ z.name }}
             </a>
@@ -62,7 +62,7 @@
                     <div id="znacka_{{z.id}}_vlastnost_{{v.slug}}" onclick="togglePropertyFilter(this); return false;">
                     <a title="{{v.desc}}">
                     {% if v.default_icon %}
-                       <img class="property_img" src="{{v.default_icon.url}}" alt="{{v.name}}"/>
+                       <img class="property_img" src="http://{{ site }}{{v.default_icon.url}}" alt="{{v.name}}"/>
                     {% endif %}
                     {{v.name}} ({{v.poi_count}})
                     </a></div></li>
@@ -80,7 +80,7 @@
       <ul>
         {% for l in legenda %}
         <li>
-        <img src="{{ l.image.url }}" alt="{{ l.name }}"/> &nbsp; {{ l.name }}
+        <img src="http://{{ site }}{{ l.image.url }}" alt="{{ l.name }}"/> &nbsp; {{ l.name }}
         </li>
         {% endfor %}
       </ul>

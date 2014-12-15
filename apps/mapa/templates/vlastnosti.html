@@ -9,7 +9,7 @@
        <dl class="desc_vlastnosti">
        {% for v in vlastnosti %}
        
-       <dt><img src="{{v.default_icon.url}}"></img> <b>{{v.nazev}}</b>
+       <dt><img src="http://{{ site }}{{v.default_icon.url}}"></img> <b>{{v.nazev}}</b>
        {% if not v.filtr  %}(Doplnkovy){% endif %}</dt>
        <dd>{{v.desc}}<dd>
        
