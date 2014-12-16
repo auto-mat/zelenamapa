@@ -38,6 +38,12 @@
    <script type="text/javascript" src="{% static "js/mapa.js" %}"></script>
    <script type="text/javascript" src="{% static "js/mapa-utils.js" %}"></script>
    <script type="text/javascript" src="{% static "js/ga.js" %}"></script>
+   <script>
+      $(document).ready(function($) {
+         loadTabs();
+         loadPrintArea();
+      });
+   </script>
     {% endcompress %}
     <script type="text/javascript" src="layers/{{ center_poi.id }}"></script>
 
