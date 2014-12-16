@@ -11,8 +11,8 @@
 {% block options %}{{ block.super }}
 options['scale_text'] = true;
 options['mouse_position'] = true;
-options['default_lon'] = {{ default_lon|unlocalize }};
-options['default_lat'] = {{ default_lat|unlocalize }};
+options['default_lon'] = {{ default_lon_custom|unlocalize }};
+options['default_lat'] = {{ default_lat_custom|unlocalize }};
 options['default_zoom'] = {{ default_zoom|unlocalize }};
 options['base_layer'] = new OpenLayers.Layer.OSM(
    "Zelená mapa Plzeň",

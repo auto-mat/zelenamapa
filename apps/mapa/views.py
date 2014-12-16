@@ -149,8 +149,8 @@ class UpresneniForm(forms.ModelForm):
 
         self.fields['location'].widget=OSMWidget(attrs={
             'geom_type': 'POINT',
-            'default_lat': config.MAP_BASELAT,
-            'default_lon': config.MAP_BASELON,
+            'default_lat_custom': config.MAP_BASELAT,
+            'default_lon_custom': config.MAP_BASELON,
             'default_zoom': 14,
         })
         self.fields['location'].widget.template_name = "gis/openlayers-osm-custom.html"
