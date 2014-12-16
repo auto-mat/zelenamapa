@@ -207,6 +207,12 @@ REST_FRAMEWORK = {
     ]
 }
 
+THUMBNAIL_ALIASES = {
+    '': {
+        'photo_thumb': {'size': (250, 250)},
+    },
+}
+
 # import local settings
 try:
     from settings_local import *
