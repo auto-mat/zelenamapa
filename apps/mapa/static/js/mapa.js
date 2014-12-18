@@ -161,6 +161,7 @@ function init(mapconfig)
             });
 
 	    map.addLayers([layerZMP, layerGoogle, base_layer]);
+            layerGoogle.mapObject.setTilt(0);
 
     kmlvrstvy = mapconfig.vrstvy;
     for (i in kmlvrstvy) {
