@@ -33,6 +33,7 @@
      $.getScript("http://zelenamapa-dev.plzne.cz/layers/" + misto_id, function() {
            $("#load_panel").load("http://zelenamapa-dev.plzne.cz/panel/", function(){
               loadTabs();
+              loadPrintArea();
               init(mapconfig);
            });
      });
