@@ -24,13 +24,17 @@ OpenLayers.Control.PropertiesArgParser = OpenLayers.Class(OpenLayers.Control.Arg
    setMap: function(evt) { 
       OpenLayers.Control.ArgParser.prototype.setMap.apply(this, arguments);
       var args = this.getParameters();
-      markers = [].concat(args.markers);
-      properties = [].concat(args.properties);
-      for(c in markers){
-         setMarkerFilter(markers[c]);
+      if(args.markers){
+         markers = [].concat(args.markers);
+         for(c in markers){
+            setMarkerFilter(markers[c]);
+         }
       }
-      for(c in properties){
-         setPropertyFilter(properties[c]);
+      if(args.properties){
+         properties = [].concat(args.properties);
+         for(c in properties){
+            setPropertyFilter(properties[c]);
+         }
       }
    }
 });
