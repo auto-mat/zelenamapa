@@ -46,7 +46,7 @@ function loadTabs(){
   $( "#tabs" ).tabs({
     activate: function(event, ui) {
        selectedTab = ui.newTab.index();
-       if(selectedTab == 2){
+       if(selectedTab == 1){
           $('#print_area').show();
        } else {
           $('#print_area').hide();
