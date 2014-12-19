@@ -3,42 +3,42 @@
   <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
-  <link rel="shortcut icon" type="image/x-icon" href="http://plzen.zelenamapa.cz/static/img/favicon.ico" />
-  <link rel="stylesheet" href="http://plzen.zelenamapa.cz/static/css/openlayers.css" type="text/css" />
-  <link rel="stylesheet" href="http://plzen.zelenamapa.cz/static/css/zelenamapa.css" type="text/css" />
-  <link rel="stylesheet" href="http://plzen.zelenamapa.cz/static/css/layerswitcher.css" type="text/css" />
-  <link rel="stylesheet" href="http://plzen.zelenamapa.cz/static/css/jquery-ui.css" type="text/css"/>
+  <link rel="shortcut icon" type="image/x-icon" href="http://zelenamapa-dev.plzne.cz/static/img/favicon.ico" />
+  <link rel="stylesheet" href="http://zelenamapa-dev.plzne.cz/static/css/openlayers.css" type="text/css" />
+  <link rel="stylesheet" href="http://zelenamapa-dev.plzne.cz/static/css/zelenamapa.css" type="text/css" />
+  <link rel="stylesheet" href="http://zelenamapa-dev.plzne.cz/static/css/layerswitcher.css" type="text/css" />
+  <link rel="stylesheet" href="http://zelenamapa-dev.plzne.cz/static/css/jquery-ui.css" type="text/css"/>
 
-  <link rel="stylesheet" href="http://plzen.zelenamapa.cz/static/css/print.css" type="text/css" media="print" />
+  <link rel="stylesheet" href="http://zelenamapa-dev.plzne.cz/static/css/print.css" type="text/css" media="print" />
 
 
    <script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.8&amp;sensor=false"></script>
 
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/OpenLayers.js"></script>
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/OpenStreetMap.js"></script>
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/MyFramedCloud.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/OpenLayers.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/OpenStreetMap.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/MyFramedCloud.js"></script>
 
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/jquery.tools.min.js"></script>
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/jquery-2.1.1.min.js"></script>
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/jquery-ui.min.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/jquery.tools.min.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/jquery-2.1.1.min.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/jquery-ui.min.js"></script>
 
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/jquery.ba-hashchange.min.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/jquery.ba-hashchange.min.js"></script>
 
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/simplelayerswitcher.js"></script>
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/cs-CZ.js"></script>
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/mapa-utils.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/simplelayerswitcher.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/cs-CZ.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/mapa-utils.js"></script>
    <script>
      misto_id = getUrlVars()['misto'];
      if(misto_id == undefined) misto_id = "";
-     $.getScript("http://plzen.zelenamapa.cz/layers/" + misto_id, function() {
-           $("#load_panel").load("http://plzen.zelenamapa.cz/panel/", function(){
+     $.getScript("http://zelenamapa-dev.plzne.cz/layers/" + misto_id, function() {
+           $("#load_panel").load("http://zelenamapa-dev.plzne.cz/panel/", function(){
               loadTabs();
               init(mapconfig);
            });
      });
    </script>
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/mapa.js"></script>
-   <script type="text/javascript" src="http://plzen.zelenamapa.cz/static/js/ga.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/mapa.js"></script>
+   <script type="text/javascript" src="http://zelenamapa-dev.plzne.cz/static/js/ga.js"></script>
 
     <title>Zelená mapa Plzně</title>
   </head>
@@ -47,9 +47,9 @@
         <a href="addpoi.html">Přidat místo</a>
         <div class="content">
             <div id="ovladaci_prvky">
-               <div id="cela_obrazovka"><input type="image" onclick='javascript:$("#tabs").toggle();' src="http://plzen.zelenamapa.cz/static/img/fullscreen.png"></input></div>
+               <div id="cela_obrazovka"><input type="image" onclick='javascript:$("#tabs").toggle();' src="http://zelenamapa-dev.plzne.cz/static/img/fullscreen.png"></input></div>
                <div id="SimpleLayerSwitcher" class="SimpleLayerSwitcher olControlNoSelect" style="position: absolute; z-index: 1006;" unselectable="on"></div>
-               <div id="minimalizovat_menu"><input type="image" onclick='javascript:$("#tabs").toggle();' src="http://plzen.zelenamapa.cz/static/img/minimalizovat_menu.png"></input></div>
+               <div id="minimalizovat_menu"><input type="image" onclick='javascript:$("#tabs").toggle();' src="http://zelenamapa-dev.plzne.cz/static/img/minimalizovat_menu.png"></input></div>
             </div>
             <div id="load_panel"></div>
 
