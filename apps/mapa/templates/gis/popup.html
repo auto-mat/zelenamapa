@@ -8,7 +8,7 @@
 <div class="rc">
 {% if fotky %}
   {% thumbnail fotky.0.photo "250x250" as foto_thumb %}
-    <a href="/misto/{{ poi.id }}" title="Podrobné informace o místě" >
+    <a href="/misto/{{ poi.id }}" title="Podrobné informace o místě" target="_blank">
     <img src="http://{{ site }}{{ foto_thumb.url }}" title="{{ fotky.0.name }}" width="{{ foto_thumb.width }}" height="{{ foto_thumb.height }}" class="foto_thumb"></a>
 {% endif %}
 
@@ -42,7 +42,7 @@
     {% if perms.mapa.change_poi %}
        <a href="{% url 'admin:webmap_poi_change' poi.id %}">upravit</a>
     {% endif %}
-    <a href="/misto/{{ poi.id }}" title="Podrobné informace o místě">detail</a>
+    <a href="/misto/{{ poi.id }}" title="Podrobné informace o místě" target="_blank">detail</a>
     <!--
     <a href="javascript:void(0);" onclick="ZoomToLonLat(this, {{ poi.geom.x }}, {{ poi.geom.y }}, 17);"
       title="Najet v mapě na místo" >na střed</a>
