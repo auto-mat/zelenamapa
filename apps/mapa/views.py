@@ -161,7 +161,7 @@ class UpresneniForm(forms.ModelForm):
 
 
 # View pro formular na uzivatelske vkladani oprav a doplnku
-def addpoi_view(request, poi_id=None):
+def addpoi_view(request, poi_id=None, template_name='addpoi.html'):
     static_vkladani = Staticpage.objects.get(slug='vkladani')
     if poi_id:
         poi = Poi.objects.get(id=poi_id)
@@ -172,7 +172,7 @@ def addpoi_view(request, poi_id=None):
 
     if request.method == 'POST':
         obj = Upresneni(webmap_poi=poi, status='novy')
-        form = UpresneniForm(request.POST, instance=obj, poi_id=poi_id)
+        form = UpresneniForm(request.POST, request.FILES, instance=obj, poi_id=poi_id)
         if form.is_valid():
             form.save()
             # http://docs.djangoproject.com/en/dev/topics/email/
@@ -211,7 +211,7 @@ def addpoi_view(request, poi_id=None):
     else:
         form = UpresneniForm(poi_id=poi_id)  # An unbound form
 
-    return render_to_response('addpoi.html',
+    return render_to_response(template_name,
                               context_instance=RequestContext(request, {
                                   'poi': poi,
                                   'form': form,

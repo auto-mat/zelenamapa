@@ -1,0 +1,11 @@
+{% load static %}
+{% load url from future %}
+{% csrf_token %}
+{% for field in form %}
+    <div class="fieldWrapper">
+        {{ field.errors }}
+        {{ field.label_tag }}<br/>
+        {{ field }}
+    </div>
+{% endfor %}
+<button><input type="submit" value="Odeslat" /></button>
