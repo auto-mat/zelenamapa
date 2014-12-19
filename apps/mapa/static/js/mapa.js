@@ -9,6 +9,33 @@ var marker_criteria = {};
 var EPSG4326 = new OpenLayers.Projection("EPSG:4326");
 var EPSG900913 = new OpenLayers.Projection("EPSG:900913"); 
 
+OpenLayers.Control.PropertiesPermalink = OpenLayers.Class(OpenLayers.Control.Permalink, {
+   CLASS_NAME: "OpenLayers.Control.PropertiesPermalink",
+   createParams: function(evt) { 
+      params = OpenLayers.Control.Permalink.prototype.createParams.apply(this, arguments);
+      params.properties = Object.keys(criteria);
+      params.markers = Object.keys(marker_criteria);
+      return params;
+   }
+});
+
+OpenLayers.Control.PropertiesArgParser = OpenLayers.Class(OpenLayers.Control.ArgParser, {
+   CLASS_NAME: "OpenLayers.Control.PropertiesArgParser",
+   setMap: function(evt) { 
+      OpenLayers.Control.ArgParser.prototype.setMap.apply(this, arguments);
+      var args = this.getParameters();
+      markers = [].concat(args.markers);
+      properties = [].concat(args.properties);
+      for(c in markers){
+         setMarkerFilter(markers[c]);
+      }
+      for(c in properties){
+         setPropertyFilter(properties[c]);
+      }
+   }
+});
+
+
 function defaultPanZoom()
 {
    var newPanZoom = new OpenLayers.Control.PanZoom();
@@ -99,10 +126,10 @@ function init(mapconfig)
     mainFilter.filters.push(propertyFilter);
     if(mapconfig.mobilni) {
       controls = [
-           new OpenLayers.Control.ArgParser(),
+           new OpenLayers.Control.PropertiesArgParser(),
            new OpenLayers.Control.LayerSwitcher(),
            new OpenLayers.Control.Navigation(),
-           new OpenLayers.Control.Permalink('permalink'),
+           new OpenLayers.Control.PropertiesPermalink('permalink'),
            new OpenLayers.Control.ZoomPanel(),
            new OpenLayers.Control.Attribution()
       ] 
@@ -113,11 +140,11 @@ function init(mapconfig)
             }
             else {
                     controls = [
-                    new OpenLayers.Control.ArgParser(),
+                    new OpenLayers.Control.PropertiesArgParser(),
                     new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff', 'div':OpenLayers.Util.getElement('layerswitcher')}),
                     new SimpleLayerSwitcher({'div':OpenLayers.Util.getElement('SimpleLayerSwitcher')}),
                     new OpenLayers.Control.Navigation(),
-                    new OpenLayers.Control.Permalink('permalink'),
+                    new OpenLayers.Control.PropertiesPermalink('permalink'),
                     new OpenLayers.Control.Attribution(),
                     new OpenLayers.Control.ScaleLine({maxWidth: 600, bottomOutUnits: ''}),
                     //defaultPanZoom()
@@ -438,6 +465,7 @@ function togglePropertyFilter(obj) {
     } else {
         setPropertyFilter(str);
     }
+    map.events.triggerEvent("changelayer", {});
     redrawFiltersChange();
 };
 
@@ -503,6 +531,7 @@ function toggleMarkerFilter(obj, inactivateOther) {
        $("#marker_list").removeClass("active_more");
     }
 
+    map.events.triggerEvent("changelayer", {});
     redrawFiltersChange();
 };
 
