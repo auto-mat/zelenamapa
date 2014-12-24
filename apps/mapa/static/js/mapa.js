@@ -24,18 +24,24 @@ OpenLayers.Control.PropertiesArgParser = OpenLayers.Class(OpenLayers.Control.Arg
    setMap: function(evt) { 
       OpenLayers.Control.ArgParser.prototype.setMap.apply(this, arguments);
       var args = this.getParameters();
-      if(args.markers){
-         markers = [].concat(args.markers);
-         for(c in markers){
-            setMarkerFilter(markers[c]);
-         }
-      }
       if(args.properties){
          properties = [].concat(args.properties);
          for(c in properties){
             setPropertyFilter(properties[c]);
          }
       }
+      if(args.markers){
+         markers = [].concat(args.markers);
+         for(c in markers){
+            setMarkerFilter(markers[c]);
+         }
+      }
+      if( markerFilter.filters.length >= 2 ) {
+         $("#marker_list").addClass("active_more");
+      } else {
+         $("#marker_list").removeClass("active_more");
+      }
+      redrawFiltersChange();
    }
 });
 
