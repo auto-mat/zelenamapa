@@ -421,7 +421,9 @@ var redrawFiltersChange = function() {
     // Filtr podle zoom levelu plati jen kdyz neni aktivni
     // zadny filtr dle vlastnosti.
     if (markerFilter.filters.length == 0 && propertyFilter.filters.length == 0) {
-        zoomFilter.value = map.getZoom();
+        if(map != undefined) {
+           zoomFilter.value = map.getZoom();
+        }
     } else {
         zoomFilter.value = 999;
     };
