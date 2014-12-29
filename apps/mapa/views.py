@@ -207,7 +207,8 @@ def addpoi_view(request, poi_id=None, template_name='addpoi.html'):
             # except:
             #    return http.HttpResponse('Mail problem.')
 
-            return http.HttpResponseRedirect(reverse(static_view, args=["dekujeme"]))
+            #return http.HttpResponseRedirect(reverse(static_view, args=["dekujeme"]))
+            return http.HttpResponse('OK')
     else:
         form = UpresneniForm(poi_id=poi_id)  # An unbound form
 
