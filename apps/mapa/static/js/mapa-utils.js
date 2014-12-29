@@ -59,10 +59,12 @@ function loadPrintArea(){
   $('#print_area').resizable({
      resize: printAreaChanged,
      start: noEventStart,
+     containment: "#mappage",
      stop: noEventStop
   }).draggable({
      drag: printAreaChanged,
      start: noEventStart,
+     containment: "#mappage",
      stop: noEventStop
   });
 }
