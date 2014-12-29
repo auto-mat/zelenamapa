@@ -1,17 +1,3 @@
-body{height: 100%; font-size:12px;margin:0;padding:0;font-family:Arial,Helvetica, sans-serif;color:#001400;}
-div{padding:0;margin:0;}
-a{color:#000000;text-decoration:none;}
-a:hover{text-decoration:underline;}
-img{border:0;}
-h1, h2, h3, h4, h5, .dataLbl {font-family:Tahoma, Geneva, sans-serif;color:#999;}
-h2{font-size:16px; font-style:italic;}
-h3{font-size:14px; color:black;}
-h4, .dataLbl {font-size:12px; color:black; margin-top:2px;} // used inside of popup
-ol{margin:0 0 10px 0;padding:0;list-style:none;}
-li{margin:0 0 8px 0;padding:0;list-style:none;}
-td{font-size:10px;}
-dt{font-weight:bold;}
-
 .page{ width:100%; text-align:center;}
 .head{width:100%;height:75px;}
 .logo{padding:8px 0 0 0;width:310px;float:left;}
@@ -35,10 +21,10 @@ text-align:center; border:solid 1px lightgray; }
 .third h3 { margin-top:28px; margin-bottom:19px; }
 
 .top-menu a{margin:0 12px 0 0;color:#333;font-size:12px;}
-.core{width:100%; height: 100%; clear:none; margin:0; top:0}
-.mapbox, .secondary, .bottom{width:100%;}
+#mappage, .core{width:100%; height: 100%; clear:none; margin:0; top:0}
+.mapbox, .secondary, .bottom{width:100%;height:100%}
 .secondary{float:left;}
-.content{width:100%;margin:0; margin-left:0px; text-align:left;}
+.content{width:100%;height:100%;margin:0; margin-left:0px; text-align:left;}
 .content_left{max-width:520px;margin:0; text-align:left; font-size: 13px;}
 .first, .second, .third{float:left;clear:none;width:48%; overflow: hidden;}
 .first p, .second p, .third p{text-align:justify;text-indent:0px;}
@@ -48,9 +34,9 @@ text-align:center; border:solid 1px lightgray; }
 #tabs{
   position:absolute;
   right: 15px;
-  top: 72px;
+  top: 47px;
   max-height: 70%;
-  max-height: calc(100% - 110px);
+  max-height: calc(100% - 60px);
   padding: 0px;
   border-width: 0;
   overflow-y: auto;
@@ -62,22 +48,25 @@ text-align:center; border:solid 1px lightgray; }
 }
 #SimpleLayerSwitcher {
    top: 15px;
-   padding-top: 7px;
+   padding-top: 8px;
    right: 48px;
+   font-size:12px;
 }
 #cela_obrazovka {
    width: 26px;
    height: 24px;
    top: 15px;
    right: 205px;
-   position: fixed;
+   position: absolute;
+   z-index: 1006;
 }
 #minimalizovat_menu {
    width: 26px;
    height: 24px;
    top: 15px;
    right: 15px;
-   position: fixed;
+   position: absolute;
+   z-index: 1006;
 }
 #tabs .ui-tabs-nav {
   position: fixed;
@@ -122,15 +111,7 @@ text-align:center; border:solid 1px lightgray; }
   left: 0px;
 }
 .right_top_panel{min-width:162px;width:20%; float:right;margin-right:10px; max-height:70px;}
-input#subscribe_submit{background:url();border:none;width:100%;text-align:right;color:#008000;}
-input#subscribe_submit:hover{color:#ff6e00;}
 .footer{ width:100%; height:60px; float:left; border-top:1px solid #ccc;}
-
-/* Input obecne */
-input{background:url();border:none;width:100%;text-align:left;font-size:10px;}
-input:hover{color:#ff6e00;}
-textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 1px grey;
-         font-family:Arial,Helvetica, sans-serif;font-size:10px;}
 
 /* Filtry (inlc.zvyraznovani) */
 .pannel_items{ padding:0 3px 3px 11px;line-height:19px;font-size:12px;}
@@ -151,8 +132,8 @@ textarea{background:url();width:100%;text-align:left;color:#008000;border:solid 
 .pannel_items > ul { margin: 7px 0 0 0; padding: 0; }
 
 /* Search  */
-#print_area {width:1000px;height:680px; top:0px; left: 0px; border:3px solid blue; background: rgba(256, 256, 256, 0.3); position: fixed; display: none; z-index: 20;}
-#noevent_area {width:100%;height:100%; top:0px; left: 0px; background: rgba(256, 256, 256, 0.0); position: fixed; display: none;}
+#print_area {width:1000px;height:680px; top:0px; left: 0px; border:3px solid blue; background: rgba(256, 256, 256, 0.3); position: absolute; display: none; z-index: 1020;}
+#noevent_area {width:100%;height:100%; top:0px; left: 0px; background: rgba(256, 256, 256, 0.0); position: fixed; display: none; z-index: 1006}
 #search_input { border-style:solid; display:inline; line-height:14px; margin:0; font-size: 12px; width: 220px; border-width: 1px; margin-right: 5px;  }
 #search_submit { border-style: none; display:inline; line-height:14px; padding:0px 0px 6px 0px; margin:0; width: 25px; background: url(/static/img/search.png) no-repeat;}
 .widget_input { display:inline; width:auto; border:solid 1px grey; margin:0 0 10px 0;}
@@ -231,26 +212,7 @@ img.sr_img, img.marker_img, img.property_img {  width:18px; height:18px; positio
 
 /* Map borders */
 
-/* #map { position:absolute; height:607px; width:889px; } */
 #map { float:left; position:absolute; height:100%; width:100%; z-index:-1000; }
-
-/* #m_bottom{float:left;position:relative;z-index:1000;background:url(/static/img/m_bottom.png) no-repeat left top;width:889px;height:3px; }
-#m_top{position:relative;z-index:1000;background:url(/static/img/m_top.png) no-repeat left bottom;width:889px; height:3px;}
-#m_left{float:left;clear:none;position:relative;z-index:1000;background:url(/static/img/m_left.png) no-repeat left top;width:3px;height:616px; }
-#m_right{float:right;position:relative;z-index:1000;background:url(/static/img/m_right.png) no-repeat right top;width:3px;height:616px; } */
-
-/* #mapover { position:absolute; height:621px; width:889px; overflow:hidden; z-index:999; } */
-
-/* IE (even 7) workaround */
-/*
-* html #m_top { display:none; }
-* html #m_bottom { display:none; }
-* html #m_left { display:none; }
-* html #m_right { display:none; }
-* html #map { position: static; border:solid 1px grey; width:887px; height:605px; }
-* html .mapbox { margin-bottom:10px; }
-*/
-/* END Map borders */
 
 /* Detailni popis */
 .poi_znacka { float:left; margin-right:7px; margin-bottom:0px;}

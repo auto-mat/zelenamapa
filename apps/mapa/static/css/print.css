@@ -9,6 +9,8 @@
 .SimpleLayerSwitcher,
 .olControlPanZoom,
 .head,
+#header,
+#footer,
 #m_right,
 #m_left,
 #m_top,
@@ -37,6 +39,7 @@ html, body {
   position: relative !important;
   border: 0px solid black !important;
   bottom: 0px !important;
+  height: 100% !important;
   right: 0px !important;
 }
 

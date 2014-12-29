@@ -19,7 +19,7 @@ function printAreaChanged(){
    height = parseInt($("#print_area").css("height"));
    orientation = height > width ? "portrait" : "landscape";
    $('#print_style').remove();
-   $('head').append('<style type="text/css" media="print" id="print_style">#map{width:' + (width + left) + 'px;height:' + (height + top_) + 'px; top: -' + top_ + 'px; left: -' + left + 'px;} .olControlScaleLine, .olControlAttribution { left: ' + (left + 10) + 'px !important; } @page {size: ' + orientation + ';}</style>');
+   $('head').append('<style type="text/css" media="print" id="print_style">#mappage{width:' + (width + left) + 'px;height:' + (height + top_) + 'px; top: -' + top_ + 'px; left: -' + left + 'px;} .olControlScaleLine, .olControlAttribution { left: ' + (left + 10) + 'px !important; } @page {size: ' + orientation + ';}</style>');
 };
 
 function noEventStart(){
