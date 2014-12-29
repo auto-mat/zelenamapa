@@ -64,6 +64,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
 ) 
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -115,6 +116,7 @@ INSTALLED_APPS = (
     'comments_moderation',
     'mapa',
     'rest_framework',
+    'corsheaders',
 )
 
 LOGGING = {
