@@ -189,7 +189,7 @@ function init(mapconfig)
 	    var layerZMP = new OpenLayers.Layer.OSM(
 		  "Zelená mapa Plzeň",
 	          "http://zelenamapa.cz/media/tiles_ZMP/",
-		  { type: 'png', numZoomLevels: 19, getURL: getTileURL, tileOptions : {crossOriginKeyword: null}  } );
+		  { type: 'png', numZoomLevels: 20, getURL: getTileURL, tileOptions : {crossOriginKeyword: null}  } );
             var layerGoogle = new OpenLayers.Layer.Google(
                   "Satelitní mapa", {
                   displayInLayerSwitcher: false,
