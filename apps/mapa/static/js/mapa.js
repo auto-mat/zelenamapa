@@ -153,7 +153,7 @@ function init(mapconfig)
                     new OpenLayers.Control.PropertiesArgParser(),
                     new OpenLayers.Control.LayerSwitcher({roundedCornerColor:'#fff', 'div':OpenLayers.Util.getElement('layerswitcher')}),
                     new SimpleLayerSwitcher({'div':OpenLayers.Util.getElement('SimpleLayerSwitcher')}),
-                    new OpenLayers.Control.Navigation(),
+                    new OpenLayers.Control.Navigation({zoomWheelEnabled: false}),
                     new OpenLayers.Control.PropertiesPermalink('permalink'),
                     new OpenLayers.Control.Attribution(),
                     new OpenLayers.Control.ScaleLine({maxWidth: 600, bottomOutUnits: ''}),
