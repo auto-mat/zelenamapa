@@ -11,15 +11,30 @@
       $(document).ready(function($) { 
            misto_id = getUrlVars()['misto'];
            if(misto_id == undefined) misto_id = "";
-           $("#load_content").load("http://zelenamapa-dev.plzne.cz/doplnit-form/" + misto_id);
+           $("#load_content").load("http://localhost:8000/doplnit-form/" + misto_id);
       });
+
+     $('.addplace form').submit(function(event){
+
+       $.post($(this).attr('action'), new FormData($(this)))
+         .done(function( data ) {
+           if (data == 'OK')
+             location.href = 'http://zelenamapa.plzne.cz/dekujeme-za-pridani-nebo-doplneni-mista/';
+           else
+             $('#load_content').html(data);
+         });
+
+       return false;
+     });
    </script>
   </head>
   <body class="static">
-  <form enctype="multipart/form-data" method="post">
+<div class="addplace">
+  <form enctype="multipart/form-data" method="post" action="http://localhost:8000/doplnit-form/">
   <div id="load_content">
-  </form>
   </div>
+  </form>
+</div>
 </body>
 </html>
 
