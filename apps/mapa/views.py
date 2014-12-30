@@ -18,6 +18,8 @@ from django.views.decorators.cache import never_cache
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.db.models import Q, Count
+from django.views.decorators.csrf import csrf_exempt
+
 
 from mapa.models import Upresneni, Staticpage
 from webmap.models import Poi, Layer, Property, Photo, Marker, Legend
@@ -161,6 +163,8 @@ class UpresneniForm(forms.ModelForm):
 
 
 # View pro formular na uzivatelske vkladani oprav a doplnku
+
+@csrf_exempt
 def addpoi_view(request, poi_id=None, template_name='addpoi.html'):
     static_vkladani = Staticpage.objects.get(slug='vkladani')
     if poi_id:
