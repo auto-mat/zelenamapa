@@ -435,6 +435,14 @@ var redrawFiltersChange = function() {
         if(mainFilter.filters.indexOf(markerFilter) == -1)
            mainFilter.filters.push(markerFilter);
     };
+
+    if (propertyFilter.filters.length == 0) {
+        index = mainFilter.filters.indexOf(propertyFilter);
+        mainFilter.filters.splice(index, 1);
+    } else {
+        if(mainFilter.filters.indexOf(propertyFilter) == -1)
+           mainFilter.filters.push(propertyFilter);
+    };
     for (var i in vectors)
         vectors[i].redraw();
 }
