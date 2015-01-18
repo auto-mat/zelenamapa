@@ -428,20 +428,20 @@ var redrawFiltersChange = function() {
         zoomFilter.value = 999;
     };
 
-    if (markerFilter.filters.length == 0) {
-        index = mainFilter.filters.indexOf(markerFilter);
-        mainFilter.filters.splice(index, 1);
-    } else {
-        if(mainFilter.filters.indexOf(markerFilter) == -1)
-           mainFilter.filters.push(markerFilter);
-    };
-
     if (propertyFilter.filters.length == 0) {
         index = mainFilter.filters.indexOf(propertyFilter);
         mainFilter.filters.splice(index, 1);
     } else {
         if(mainFilter.filters.indexOf(propertyFilter) == -1)
            mainFilter.filters.push(propertyFilter);
+    };
+
+    if (markerFilter.filters.length == 0) {
+        index = mainFilter.filters.indexOf(markerFilter);
+        mainFilter.filters.splice(index, 1);
+    } else {
+        if(mainFilter.filters.indexOf(markerFilter) == -1)
+           mainFilter.filters.push(markerFilter);
     };
     for (var i in vectors)
         vectors[i].redraw();
