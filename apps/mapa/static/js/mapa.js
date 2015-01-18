@@ -613,7 +613,7 @@ function doSearch(obj) {
     if (searchLayer) {
         destroySearchLayer();
     } 
-    searchLayerIdx = addMapLayer("Hledání", '/webmap/search/' + encodeURIComponent(searchField.value) + '/', vectors);
+    searchLayerIdx = addMapLayer("Hledání", mapconfig['siteurl'] + '/webmap/search/' + encodeURIComponent(searchField.value) + '/', vectors);
     searchLayer = vectors[searchLayerIdx];
     searchLayer.styleMap.styles["default"].addRules([nofilter_rule]);
     ;
