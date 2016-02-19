@@ -97,11 +97,10 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'compressor',
     'mapwidget',
-    'south',
     'django.contrib.sites',
     'fluent_comments',
     'crispy_forms',
-    'django.contrib.comments',
+    'django_comments',
     'constance',
     'constance.backends.database',
     'massadmin',
@@ -127,10 +126,10 @@ LOGGING = {
          }
      },
     'handlers': {
-        'null': {
-            'level': 'DEBUG',
-            'class': 'django.utils.log.NullHandler',
-        },
+        #'null': {
+        #    'level': 'DEBUG',
+        #    'class': 'django.utils.log.NullHandler',
+        #},
         'console':{
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
