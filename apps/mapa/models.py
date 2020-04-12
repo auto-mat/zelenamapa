@@ -28,7 +28,7 @@ class Vrstva(models.Model):
     nazev   = models.CharField(max_length=255)                      # Name of the layer
     slug    = models.SlugField(unique=True, verbose_name=u"název v URL")  # Vrstva v URL
     desc    = models.TextField(null=True, blank=True)               # Description
-    status  = models.ForeignKey(Status)              # zobrazovaci status
+    status  = models.ForeignKey(Status, on_delete=models.CASCADE)              # zobrazovaci status
     order   = models.PositiveIntegerField()
     remark  = models.TextField(null=True, blank=True, help_text=u"interni informace o objektu, ktere se nebudou zobrazovat")
 
@@ -43,8 +43,8 @@ class Znacka(models.Model):
     nazev   = models.CharField(unique=True, max_length=255)   # Name of the mark
     
     # Relationships
-    vrstva  = models.ForeignKey(Vrstva)              # Kazda znacka lezi prave v jedne vrstve
-    status  = models.ForeignKey(Status)              # kvuli vypinani
+    vrstva  = models.ForeignKey(Vrstva, on_delete=models.CASCADE)              # Kazda znacka lezi prave v jedne vrstve
+    status  = models.ForeignKey(Status, on_delete=models.CASCADE)              # kvuli vypinani
     
     # icon: Neni zde, ale v tabulce znacky a vztahuje se k rozlicnym zobrazenim 
     # Pro zjednoduseni mame image "default_icon", ale to je jen nouzove reseni, 
@@ -77,7 +77,7 @@ class Znacka(models.Model):
     def __unicode__(self):
         return self.nazev
 
-class ViditelneManager(models.GeoManager):
+class ViditelneManager(models.Manager):
     "Pomocny manazer pro dotazy na Poi se zobrazitelnym statuem"
     def get_query_set(self):
         return super(ViditelneManager, self).get_query_set().filter(status__show=True, znacka__status__show=True)
@@ -85,14 +85,14 @@ class ViditelneManager(models.GeoManager):
 @fgp.guard('dulezitost', 'status', name='can_edit_advanced_fields')
 class Poi(models.Model):
     "Misto - bod v mape"
-    author = models.ForeignKey(User, verbose_name="Autor")
+    author = models.ForeignKey(User, verbose_name="Autor", on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True,  verbose_name="Posledni zmena")
 
     nazev   = models.CharField(max_length=255, verbose_name=u"název", help_text=u"Přesný název místa.")
     
     # Relationships
-    znacka  = models.ForeignKey(Znacka, limit_choices_to = {'status__show_TU': 'True', 'vrstva__status__show_TU': 'True'}, verbose_name=u"značka", help_text="Zde vyberte ikonu, která se zobrazí na mapě.", related_name="pois")
-    status  = models.ForeignKey(Status, default=2, help_text="Status místa; určuje, kde všude se místo zobrazí.")
+    znacka  = models.ForeignKey(Znacka, limit_choices_to = {'status__show_TU': 'True', 'vrstva__status__show_TU': 'True'}, verbose_name=u"značka", help_text="Zde vyberte ikonu, která se zobrazí na mapě.", related_name="pois", on_delete=models.CASCADE)
+    status  = models.ForeignKey(Status, default=2, help_text="Status místa; určuje, kde všude se místo zobrazí.", on_delete=models.CASCADE)
     vlastnosti    = models.ManyToManyField('Vlastnost', blank=True, null=True, limit_choices_to = {'status__show_TU': 'True'}, help_text="Určete, jaké má místo vlastnosti. Postupujte podle manuálu.<br/>")
     
     # "dulezitost" - modifikator minimalniho zoomu, ve kterem se misto zobrazuje. 
@@ -107,7 +107,7 @@ class Poi(models.Model):
             #Kreslení linie: Klikněte na ikonu linie a klikáním do mapy určete lomenou čáru. Kreslení ukončíte dvouklikem.<br/>
             #Kreslení oblasti: Klikněte na ikonu oblasti a klikáním do mapy definujte oblast. Kreslení ukončíte dvouklikem.<br/>
             #Úprava vložených objektů: Klikněte na první ikonu a potom klikněte na objekt v mapě. Tažením přesouváte body, body uprostřed úseků slouží k vkládání nových bodů do úseku.""")
-    objects = models.GeoManager()
+    objects = models.Manager()
     
     # Own content (facultative)
     desc    = models.TextField(null=True, blank=True, verbose_name=u"popis", help_text=u"Text, který se zobrazí na mapě po kliknutí na ikonu.")
@@ -150,7 +150,7 @@ class Poi(models.Model):
 
 class Sit(models.Model):
     "Importovaná data ze SIT"
-    poi = models.ForeignKey("Poi", related_name="sit_keys")
+    poi = models.ForeignKey("Poi", related_name="sit_keys", on_delete=models.CASCADE)
     
     key = models.CharField(max_length=255, null=False, blank=False, default="", verbose_name=u"key")
     value = models.CharField(max_length=255, null=True, blank=True, default="", verbose_name=u"value")
@@ -174,7 +174,7 @@ class Sektor(models.Model):
     slug    = models.SlugField(unique=True, verbose_name="Slug")
     
     geom    = models.PolygonField(verbose_name=u"plocha",srid=4326, help_text=u"Plocha sektoru")
-    objects = models.GeoManager()
+    objects = models.Manager()
 
     class Meta:
         verbose_name_plural = u"sektory"
@@ -183,7 +183,7 @@ class Sektor(models.Model):
 class Vlastnost(models.Model):
     "Vlastnosti mist"
     nazev   = models.CharField(max_length=255)   # Name of the property
-    status  = models.ForeignKey(Status)          # "Statuty"  - tj. active/inactive. Mozny je i boolean "active"
+    status  = models.ForeignKey(Status, on_delete=models.CASCADE)          # "Statuty"  - tj. active/inactive. Mozny je i boolean "active"
     filtr   = models.BooleanField()              # Pouzit v levem menu, filtrovat???
     poradi  = models.PositiveIntegerField()
     # content 
@@ -194,7 +194,7 @@ class Vlastnost(models.Model):
    
     class Meta:
         verbose_name_plural = u"vlastnosti"
-	ordering = ['poradi']
+        ordering = ['poradi']
     def __unicode__(self):
         return self.nazev
 
@@ -214,7 +214,7 @@ class Upresneni(models.Model):
     Slouzi predevsim k doplneni informace k mistu. Nektera pole mohou byt proto nefunkncni.
     """
 
-    misto  = models.ForeignKey(Poi, blank=True, null=True) # Odkaz na objekt, ktery chce opravit, muze byt prazdne.
+    misto  = models.ForeignKey(Poi, blank=True, null=True, on_delete=models.CASCADE) # Odkaz na objekt, ktery chce opravit, muze byt prazdne.
     email  = models.EmailField(verbose_name=u"Váš e-mail (pro další komunikaci)", null=True)    # Prispevatel musi vyplnit email.
     status  = models.CharField(max_length=10,choices=UPRESNENI_CHOICE) 
     desc    = models.TextField(verbose_name=u"Popis (doplnění nebo oprava nebo popis nového místa, povinné pole)",null=True)

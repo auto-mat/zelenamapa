@@ -1,8 +1,8 @@
-from django.conf.urls import patterns, include, url 
+from django.conf.urls import include, url 
 
-from views import *
+from .views import *
 
-urlpatterns = patterns("",
+urlpatterns = [
     url(r"^(?P<w>\d+)x(?P<h>\d+)/(?P<pk>\d+)/$",
         map_view,
         name="zm.mapwidget.map", ),
@@ -16,4 +16,4 @@ urlpatterns = patterns("",
         mapconfig_js_view,
         {"template": "mapwidget/mapconfig_div.js"},
         name="zm.mapwidget.map_div_js", ),
-)
+]

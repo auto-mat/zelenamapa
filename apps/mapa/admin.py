@@ -12,7 +12,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.db.models import Q
 from constance import config
 import fgp
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 # Grab the Admin Manager that automaticall initializes an OpenLayers map
 # for any geometry field using the in Google Mercator projection with OpenStreetMap basedata
@@ -30,7 +30,7 @@ from mapa.models import *
 USE_GOOGLE_TERRAIN_TILES = False
 
 class UserAdmin(UserAdmin):
-    list_display = ('__unicode__', 'email', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'is_active', 'last_login', 'get_groups', 'get_user_permissions')
+    list_display = ('__str__', 'email', 'first_name', 'last_name', 'is_staff', 'is_superuser', 'is_active', 'last_login', 'get_groups', 'get_user_permissions')
 
     def get_groups(self, obj):
         if obj:

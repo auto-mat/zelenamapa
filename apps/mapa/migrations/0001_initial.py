@@ -31,7 +31,7 @@ class Migration(migrations.Migration):
                 ('foto_thumb', models.ImageField(storage=mapa.utils.SlugifyFileSystemStorage(), upload_to=b'foto', blank=True, help_text='Nahrajte fotku v pln\xe9 velikosti.', null=True, verbose_name='fotka')),
                 ('vlastnosti_cache', models.CharField(max_length=255, null=True, blank=True)),
                 ('sit_geom', django.contrib.gis.db.models.fields.GeometryField(help_text='P\u016fvodn\xed poloha podle SITu', srid=4326, null=True, verbose_name='SIT poloha', blank=True)),
-                ('author', models.ForeignKey(verbose_name=b'Autor', to=settings.AUTH_USER_MODEL)),
+                ('author', models.ForeignKey(verbose_name=b'Autor', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'm\xedsto',
@@ -58,7 +58,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('key', models.CharField(default=b'', max_length=255, verbose_name='key')),
                 ('value', models.CharField(default=b'', max_length=255, null=True, verbose_name='value', blank=True)),
-                ('poi', models.ForeignKey(related_name='sit_keys', to='mapa.Poi')),
+                ('poi', models.ForeignKey(related_name='sit_keys', to='mapa.Poi', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -94,7 +94,7 @@ class Migration(migrations.Migration):
                 ('desc', models.TextField(null=True, verbose_name='Popis (dopln\u011bn\xed nebo oprava nebo popis nov\xe9ho m\xedsta, povinn\xe9 pole)')),
                 ('url', models.URLField(null=True, verbose_name='Odkaz, webov\xe9 str\xe1nky m\xedsta (voliteln\xe9 pole)', blank=True)),
                 ('address', models.CharField(max_length=255, null=True, verbose_name='Adresa m\xedsta, popis lokace (voliteln\xe9 pole)', blank=True)),
-                ('misto', models.ForeignKey(blank=True, to='mapa.Poi', null=True)),
+                ('misto', models.ForeignKey(blank=True, to='mapa.Poi', null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'up\u0159esn\u011bn\xed',
@@ -111,7 +111,7 @@ class Migration(migrations.Migration):
                 ('desc', models.TextField(null=True, blank=True)),
                 ('remark', models.TextField(help_text='interni informace o objektu, ktere se nebudou zobrazovat', null=True, blank=True)),
                 ('default_icon', models.ImageField(storage=mapa.utils.SlugifyFileSystemStorage(), null=True, upload_to=b'ikony')),
-                ('status', models.ForeignKey(to='mapa.Status')),
+                ('status', models.ForeignKey(to='mapa.Status', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['poradi'],
@@ -127,7 +127,7 @@ class Migration(migrations.Migration):
                 ('desc', models.TextField(null=True, blank=True)),
                 ('order', models.PositiveIntegerField()),
                 ('remark', models.TextField(help_text='interni informace o objektu, ktere se nebudou zobrazovat', null=True, blank=True)),
-                ('status', models.ForeignKey(to='mapa.Status')),
+                ('status', models.ForeignKey(to='mapa.Status', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['order'],
@@ -147,8 +147,8 @@ class Migration(migrations.Migration):
                 ('maxzoom', models.PositiveIntegerField(default=10)),
                 ('line_width', models.FloatField(default=2, verbose_name='\u0161\xed\u0159ka \u010d\xe1ry')),
                 ('line_color', colorful.fields.RGBColorField(default=b'#ffc90e')),
-                ('status', models.ForeignKey(to='mapa.Status')),
-                ('vrstva', models.ForeignKey(to='mapa.Vrstva')),
+                ('status', models.ForeignKey(to='mapa.Status', on_delete=models.CASCADE)),
+                ('vrstva', models.ForeignKey(to='mapa.Vrstva', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['-vrstva__order', 'nazev'],
@@ -159,7 +159,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='poi',
             name='status',
-            field=models.ForeignKey(default=2, to='mapa.Status', help_text=b'Status m\xc3\xadsta; ur\xc4\x8duje, kde v\xc5\xa1ude se m\xc3\xadsto zobraz\xc3\xad.'),
+            field=models.ForeignKey(default=2, to='mapa.Status', help_text=b'Status m\xc3\xadsta; ur\xc4\x8duje, kde v\xc5\xa1ude se m\xc3\xadsto zobraz\xc3\xad.', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='poi',
@@ -169,6 +169,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='poi',
             name='znacka',
-            field=models.ForeignKey(related_name='pois', verbose_name='zna\u010dka', to='mapa.Znacka', help_text=b'Zde vyberte ikonu, kter\xc3\xa1 se zobraz\xc3\xad na map\xc4\x9b.'),
+            field=models.ForeignKey(related_name='pois', verbose_name='zna\u010dka', to='mapa.Znacka', help_text=b'Zde vyberte ikonu, kter\xc3\xa1 se zobraz\xc3\xad na map\xc4\x9b.', on_delete=models.CASCADE),
         ),
     ]
