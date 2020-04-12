@@ -12,17 +12,17 @@ def geturl(url, timeout=None):
     {% geturl object.urlfield 1 %} 
     """
     import socket
-    from urllib2 import urlopen
+    from urllib.request import urlopen
     socket_default_timeout = socket.getdefaulttimeout()
     if timeout is not None:
         try:
             socket_timeout = float(timeout)
         except ValueError:
-            raise template.TemplateSyntaxError, "timeout argument of geturl tag, if provided, must be convertible to a float"
+            raise template.TemplateSyntaxError("timeout argument of geturl tag, if provided, must be convertible to a float")
         try:
             socket.setdefaulttimeout(socket_timeout)
         except ValueError:
-            raise template.TemplateSyntaxError, "timeout argument of geturl tag, if provided, cannot be less than zero"
+            raise template.TemplateSyntaxError("timeout argument of geturl tag, if provided, cannot be less than zero")
     try:
         try: 
             content = urlopen(url).read()

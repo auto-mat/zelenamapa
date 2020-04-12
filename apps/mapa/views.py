@@ -6,8 +6,7 @@ import urllib, re
 
 from django.conf import settings
 from django import forms, http
-from django.shortcuts import render_to_response, get_object_or_404
-from django.template import RequestContext
+from django.shortcuts import render, get_object_or_404
 from django.contrib.gis.geos import Point
 from django.contrib.gis.shortcuts import render_to_kml
 from django.contrib.sites.shortcuts import get_current_site
@@ -82,7 +81,7 @@ def mapa_view(request, poi_id=None):
     # detekce mobilni verze podle url
     mobilni = is_mobilni(request)
 
-    context = RequestContext(request, {
+    context = {
         'vrstvy': vrstvy,
         'vlastnosti' : vlastnosti,
         'select_poi' : select_poi,
@@ -95,8 +94,8 @@ def mapa_view(request, poi_id=None):
         'site': get_current_site(request).domain,
         'select_poi_header' : select_poi_header,
         'select2_pois_header' : select2_pois_header
-    })
-    return render_to_response('mapa.html', context_instance=context)
+    }
+    return render(request, 'mapa.html', context)
 
 @never_cache              # zabranime prohlizeci cachovat si kml
 @cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
@@ -120,7 +119,7 @@ def popup_view(request, poi_id):
     poi = get_object_or_404(Poi, id=poi_id)
 
     return render_to_kml("gis/popup.html",
-        context_instance=RequestContext(request, { 'poi' : poi }))
+        context={ 'poi' : poi })
 
 def search_view(request, query):
     if len(query) < 3:
@@ -143,7 +142,7 @@ def txt_view(request, nazev_vrstvy):
     v = Vrstva.objects.get(slug=nazev_vrstvy)
     # vsechny body co jsou v teto vrstve
     points = Poi.objects.filter(znacka__vrstva=v)
-    return render_to_response('txtlayer.txt', { 'points': points})
+    return render(request, 'txtlayer.txt', {'points': points})
 
 class UpresneniForm(forms.ModelForm):
     class Meta:
@@ -187,27 +186,27 @@ def addpoi_view(request, poi_id=None):
     else:
         form = UpresneniForm() # An unbound form
 
-    return render_to_response('addpoi.html',
-        context_instance=RequestContext(request, { 'poi': poi, 'form': form, 'static_vkladani' : static_vkladani }))
+    return render(request, 'addpoi.html',
+        { 'poi': poi, 'form': form, 'static_vkladani' : static_vkladani })
 
 # View pro podrobny vypis mista
 @cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
 def detail_view(request, poi_id):
     poi = Poi.objects.get(id=poi_id)
-    return render_to_response('misto.html',
-        context_instance=RequestContext(request, {
+    return render(request, 'misto.html',
+        {
             'poi': poi,
             'config'      : config,
             'site': get_current_site(request).domain,
-        }))
+        })
 
 # View pro podrobny vypis seznamu vlastnosti
 @cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
 def vlastnosti_view(request):
     static_filtry = Staticpage.objects.get(slug='filtry')
     vlastnosti = Vlastnost.objects.filter(status__show='True')
-    return render_to_response('vlastnosti.html',
-        context_instance=RequestContext(request, { 'vlastnosti': vlastnosti, 'static_filtry' : static_filtry }))
+    return render(request, 'vlastnosti.html',
+        { 'vlastnosti': vlastnosti, 'static_filtry' : static_filtry })
 
 # View pro podrobny vypis vrstev
 @cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
@@ -215,8 +214,8 @@ def vrstvy_view(request):
     static_vrstvy = Staticpage.objects.get(slug='vrstvy')
     vrstvy = Vrstva.objects.filter(status__show=True)
     # vrstvy = Vrstva.objects.all()
-    return render_to_response('vrstvy.html',
-        context_instance=RequestContext(request, { 'vrstvy': vrstvy, 'static_vrstvy' : static_vrstvy }))
+    return render(request, 'vrstvy.html',
+        { 'vrstvy': vrstvy, 'static_vrstvy' : static_vrstvy })
         
 # View pro podrobny vypis znacek
 @cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
@@ -224,16 +223,16 @@ def znacky_view(request):
     static_znacky = Staticpage.objects.get(slug='znacky')
     vrstvy = Vrstva.objects.filter(status__show=True)
     znacky = Znacka.objects.filter(status__show=True)
-    return render_to_response('znacky.html',
-        context_instance=RequestContext(request, { 'vrstvy': vrstvy, 'znacky': znacky, 'static_znacky' : static_znacky }))
+    return render(request, 'znacky.html',
+        { 'vrstvy': vrstvy, 'znacky': znacky, 'static_znacky' : static_znacky })
         
 # View pro podrobny vypis statickych objektu
 @never_cache
 @cache_page(24 * 60 * 60) # cachujeme view v memcached s platnosti 24h
 def static_view(request, static_slug):
     static = get_object_or_404(Staticpage, slug=static_slug)
-    return render_to_response('static.html',
-        context_instance=RequestContext(request, { 'static': static }))
+    return render(request, 'static.html',
+        { 'static': static })
 
 # View pro vypis ZMJ a jinych festivalu
 @never_cache
@@ -256,20 +255,20 @@ def festival_view(request,akce_slug):
     pois_vlastnost = Poi.viditelne.filter(vlastnosti__slug=vlastnost)
     static_page = Staticpage.objects.get(slug=clanek)
         
-    return render_to_response('festival.html',
-        context_instance=RequestContext(request, { 
+    return render(request, 'festival.html',
+        {
         'pois'         : pois_vlastnost,
         'wordpresscat' : wpcat,
         'wordpresslink': wp_link,
         'static'       : static_page
-         }))
+         })
       
 def m_hledani(request):
     vlastnosti = Vlastnost.objects.filter(status__show=True, filtr=True)
-    return render_to_response('mobil/hledani.html',
-        context_instance=RequestContext(request, {
+    return render(request, 'mobil/hledani.html',
+        {
                 'vlastnosti': vlastnosti,
-                }))
+                })
         
 def m_vypis(request):
     qs = Poi.viditelne.all()
@@ -282,14 +281,14 @@ def m_vypis(request):
     if lon and lat:
         poloha = Point(float(lon), float(lat))
         qs = qs.distance(poloha).order_by('distance')
-    return render_to_response('mobil/vypis.html',
-        context_instance=RequestContext(request, {
+    return render(request, 'mobil/vypis.html',
+        {
                 'pois': qs[0:100]
-                }))
+                })
 
 def m_detail(request, poi_id):
     # najdeme vrstvu podle slugu. pokud neexistuje, vyhodime chybu
     poi = get_object_or_404(Poi, id=poi_id)
 
-    return render_to_response("mobil/detail.html",
-        context_instance=RequestContext(request, { 'poi' : poi }))
+    return render(request, "mobil/detail.html",
+        { 'poi' : poi })
