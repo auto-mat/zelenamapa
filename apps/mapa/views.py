@@ -104,7 +104,7 @@ def kml_view(request, nazev_vrstvy):
     v = get_object_or_404(Vrstva, slug=nazev_vrstvy, status__show=True)
 
     # vsechny body co jsou v teto vrstve a jsou zapnute
-    points = Poi.viditelne.filter(znacka__vrstva=v).kml()
+    points = Poi.viditelne.filter(znacka__vrstva=v).all()
     if is_mobilni(request):
        kml_template="gis/kml/vrstva_mobilni.kml"
     else:
@@ -131,7 +131,7 @@ def search_view(request, query):
     # pak podle popisu, adresy a nazvu znacky, pokud uz nejsou vyse
     extra_qs = Poi.viditelne.filter(Q(desc__icontains=query)|Q(address__icontains=query)|Q(znacka__nazev__icontains=query)).exclude(id__in=nazev_qs)
     # union qs nezachova poradi, tak je prevedeme na listy a spojime
-    points = list(nazev_qs.kml()) + list(extra_qs.kml())
+    points = list(nazev_qs.all()) + list(extra_qs.all())
     return render_to_kml("gis/kml/vrstva.kml", {
         'places' : points,
         'ikona': ikona})

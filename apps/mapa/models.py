@@ -20,7 +20,7 @@ class Status(models.Model):
 
     class Meta:
         verbose_name_plural = "statuty"
-    def __unicode__(self):
+    def __str__(self):
         return self.nazev
 
 class Vrstva(models.Model):
@@ -35,7 +35,7 @@ class Vrstva(models.Model):
     class Meta:
         verbose_name_plural = u"vrstvy"
         ordering = ['order']
-    def __unicode__(self):
+    def __str__(self):
         return self.nazev
 
 class Znacka(models.Model):
@@ -74,7 +74,7 @@ class Znacka(models.Model):
         verbose_name_plural = "značky"
         ordering = ['-vrstva__order', 'nazev']
 
-    def __unicode__(self):
+    def __str__(self):
         return self.nazev
 
 class ViditelneManager(models.Manager):
@@ -136,7 +136,7 @@ class Poi(models.Model):
         ]
         verbose_name = "místo"
         verbose_name_plural = "místa"
-    def __unicode__(self):
+    def __str__(self):
         return self.nazev
     def save_vlastnosti_cache(self):
         self.vlastnosti_cache = u",".join([v.slug for v in self.vlastnosti.filter(status__show=True)])
@@ -195,7 +195,7 @@ class Vlastnost(models.Model):
     class Meta:
         verbose_name_plural = u"vlastnosti"
         ordering = ['poradi']
-    def __unicode__(self):
+    def __str__(self):
         return self.nazev
 
 UPRESNENI_CHOICE = (
@@ -223,7 +223,7 @@ class Upresneni(models.Model):
 
     class Meta:
         verbose_name_plural = u"upřesnění"
-    def __unicode__(self):
+    def __str__(self):
         return u"%s - %s" % (self.misto, self.email)
 
     
@@ -235,5 +235,5 @@ class Staticpage(models.Model):
     short   = models.TextField(verbose_name=u"Zkraceny html obsah (nahled)",null=True)
     content = models.TextField(verbose_name=u"Html obsah",null=True)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.title
