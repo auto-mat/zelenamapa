@@ -13,6 +13,6 @@ django-picklefield
 django-finegrained-permissions
 django-import-export
 django-colorful
--e git+https://github.com/PetrDlouhy/django-comments-moderation.git#egg=django-comments-moderation
+django-comments-moderation
 beautifulsoup4
 gunicorn
