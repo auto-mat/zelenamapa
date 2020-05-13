@@ -236,4 +236,4 @@ class Staticpage(models.Model):
     content = models.TextField(verbose_name=u"Html obsah",null=True)
     
     def __str__(self):
-        return self.title
+        return "%s" % self.title

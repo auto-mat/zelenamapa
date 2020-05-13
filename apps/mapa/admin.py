@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 # admin.py
 
-from django.conf import settings # needed if we use the GOOGLE_MAPS_API_KEY from settings
 
 # Import the admin site reference from django.contrib.admin
+from constance import config
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
-from import_export.admin import ImportExportModelAdmin
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.admin import UserAdmin
 from django.db.models import Q
-from constance import config
-import fgp
 from django.urls import reverse
+from django.utils.html import format_html
+from django.utils.translation import ugettext_lazy as _
+from import_export.admin import ImportExportModelAdmin
+import fgp
 
 # Grab the Admin Manager that automaticall initializes an OpenLayers map
 # for any geometry field using the in Google Mercator projection with OpenStreetMap basedata
@@ -207,7 +208,7 @@ class ZnackaAdmin(admin.ModelAdmin):
 
     def default_icon_image(self, obj):
         if obj.default_icon:
-            return '<img src="%s"/>' % obj.default_icon.url
+            return format_html('<img style="max-width:150px; max-height:150px" src="{}"/>', obj.default_icon.url)
     default_icon_image.short_description = "icon"
     default_icon_image.allow_tags = True
 
@@ -222,7 +223,7 @@ class ZnackaAdmin(admin.ModelAdmin):
 
     def poi_count(self, obj):
         url = reverse('admin:mapa_poi_changelist')
-        return '<a href="{0}?znacka__id__exact={1}&amp;statuty=all">{2}</a>'.format(url, obj.id, obj.pois.count())
+        return format_html('<a href="{0}?znacka__id__exact={1}&amp;statuty=all">{2}</a>', url, obj.id, obj.pois.count())
     poi_count.short_description = "Count"
     poi_count.allow_tags = True
 
@@ -237,6 +238,7 @@ class UpresneniAdmin(admin.ModelAdmin):
 
 class StaticAdmin(admin.ModelAdmin):
     model = Staticpage
+    list_display = ('title', 'slug',)
     
 admin.site.register(Poi   , PoiAdmin   )
 admin.site.register(Vrstva, VrstvaAdmin)
