@@ -1,10 +1,12 @@
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
-from django.conf.urls import url, include
+from django.conf.urls import url
+from django.urls import include, path
 from django.contrib.sitemaps.views import sitemap
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
+import debug_toolbar
 
 from mapa.views import *
 admin.autodiscover()
@@ -31,7 +33,8 @@ urlpatterns = [
     url(r'^comments/', include('fluent_comments.urls')),
     url(r'', include("mapa.urls")),
     # sitemap pro vyhledavace
-    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps})
+    url(r'^sitemap\.xml$', sitemap, {'sitemaps': sitemaps}),
+    path('__debug__/', include(debug_toolbar.urls)),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

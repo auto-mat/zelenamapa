@@ -86,8 +86,16 @@ MIDDLEWARE = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+	 'debug_toolbar.middleware.DebugToolbarMiddleware',
     # 'mapwidget.middleware.crossdomainxhr.XsSharing',
 )
+
+INTERNAL_IPS = [
+    '127.0.0.1',
+	 '89.176.92.181',
+]
+
+SHOW_TOOLBAR_CALLBACK = lambda a: True
 
 ROOT_URLCONF = 'urls'
 
@@ -124,6 +132,7 @@ INSTALLED_APPS = (
     'import_export',
     'comments_moderation',
     'colorful',
+	 'debug_toolbar',
 )
 
 LOGGING = {
